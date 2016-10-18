@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         siete.setOnClickListener(this);
         ocho.setOnClickListener(this);
         nueve.setOnClickListener(this);
-        cero.setOnClickListener(this);texto.setText(texto.getText().toString().concat("7"));
+        cero.setOnClickListener(this);
 
         sumar.setOnClickListener(this);
         restar.setOnClickListener(this);

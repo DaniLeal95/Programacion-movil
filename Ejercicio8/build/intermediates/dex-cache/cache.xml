@@ -2,157 +2,157 @@
 <items version="2" >
 
     <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-24.2.1_9381c560fd27aaa9eafd9ebbe1defe763796b6e7.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-24.2.1_4e617f41cdb71f46bd24d43b0f4b87f7de0a69c9.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="80d67e5a53ea1b0f4995099577414b652baa105a">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_e1237018bebc44073e884994b1e259dee29ef1de.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-24.2.1_9894eec86a8e7fa6c908f207d6c5b668f232e4ec.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_3f9481c5fa7e6ea0b8b47403c2ccc0d71b81b83b.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="867dad63c33388ff8c7644b236579355036d075f">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_f6e9c6f387c06bddbd624d8fe6895b3de1b29b25.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.2.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
         sha1="d5c731fc64c03dfe04d51134955b483551c35849">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-24.2.1_83c515c4c53b97f5bea428af726a70fd58f7a227.jar" />
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-24.2.1_428b98872facd771f44bcfa92e8e22ab07517b13/classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_3fb5854d30573a1cc77ba42ee22feed46fbd2f65.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_d34c7b38566ea0de332aea7b025768f6097692c2.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Dani\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\support-annotations-24.2.1_a9a2d3edd93b94edc05e8be003d2f1b2958f9809.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="7ce6a663fe746a8a70e9ae2f6e0e9a9ef6358618">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\instant-run_8625af2573b019a8e040dd9a720ecb4837bbf83e.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\com.android.support-support-compat-24.2.1_a7711ca5ebd859242ec2667725ea6209b5d96cdd.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.2.1_f5c21fda029482ee863135229c6871316b40f41c.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-24.2.1_3b88b99ade4e1f8616e20a82739c2be8b85dbfd6.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-24.2.1_a7203953d040293832e5ad23290658e0f538741a.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.3"
-        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-24.2.1_a245eef73d49c7f6db758f22846b43090309064c.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
         sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
-        <dex dex="C:\Users\Dani\Documents\GitHub\Programacion-movil\Ejercicio8\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_fd7c2abd50f7969b5d5d020e153fe40e43c5d0eb.jar" />
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_d648814f92e3a55e8a5881d3673c8722e0068a5e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_079abfe2cdcb18d8da3e2bc22734a384f9d6b179/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-24.2.1_3c17c6a4803219fb393ad4d55d9c6bb9d98c9d7e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-24.2.1_24aa286ddad1c3f3a33babb0c3bef3a32d992017/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-24.2.1_b25bd1a845ae6d698ce7fef92d4523c1ac398dc7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/opt/android-sdk/extras/android/m2repository/com/android/support/support-annotations/24.2.1/support-annotations-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-24.2.1_31e1ad69995908adad4eeffc845d1f0cbad3bc5c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_da3e045baa417806c92fd9d693c071d0144b9708/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_ad414e5ff22e0e68d76e3b48af6ca7e900984dfa/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_08b84460d5743be4201408e6ecb1e1f3203a01b0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-24.2.1_670dae999f7fba450f52ed8e349063858b1e0ff5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-24.2.1_cd4eb2e3b6d03f7bb622922500cb3249c14fa140/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="f20d47df04f0dbe97f520060d5f5e1f1ef35bd23">
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_f96c56815d19824e7d7f985d6856870671b44d2f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-24.2.1_5383fc2dede2739eec910685fb9d95a22cf7173a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-24.2.1_429f798d8e72c56f5adfea351b536a5e82070261/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="cb83d9457d136e5d20aaad0a4926d4bfc9df288b">
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_9eb6bd5a901e123e2604fcd073eca3ca4a742819/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="/home/dleal/StudioProjects/Ejercicio8/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-24.2.1_b1fd204f1888e91d4e391b40bcdaf19d24efadd8/classes.dex" />
     </item>
 
 </items>

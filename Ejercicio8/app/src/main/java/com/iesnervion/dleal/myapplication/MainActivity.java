@@ -270,19 +270,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for(int i=0;i<this.calculo.size();i=i+3){
 
             if(i%2==0){
-                switch(this.calculo.elementAt(i+1)){
-                    case "+":
-                        resultado=Integer.parseInt(calculo.elementAt(i))+Integer.parseInt(calculo.elementAt(i+2));
-                        break;
-                    case "-":
-                        resultado=Integer.parseInt(calculo.elementAt(i))-Integer.parseInt(calculo.elementAt(i+2));
-                        break;
-                    case "*":
-                        resultado=Integer.parseInt(calculo.elementAt(i))*Integer.parseInt(calculo.elementAt(i+2));
-                        break;
-                    case "/":
-                        resultado=Integer.parseInt(calculo.elementAt(i))/Integer.parseInt(calculo.elementAt(i+2));
-                        break;
+                if(i==0) {
+                    switch (this.calculo.elementAt(i + 1)) {
+                        case "+":
+                            resultado = Integer.parseInt(calculo.elementAt(i)) + Integer.parseInt(calculo.elementAt(i + 2));
+                            break;
+                        case "-":
+                            resultado = Integer.parseInt(calculo.elementAt(i)) - Integer.parseInt(calculo.elementAt(i + 2));
+                            break;
+                        case "*":
+                            resultado = Integer.parseInt(calculo.elementAt(i)) * Integer.parseInt(calculo.elementAt(i + 2));
+                            break;
+                        case "/":
+                            resultado = Integer.parseInt(calculo.elementAt(i)) / Integer.parseInt(calculo.elementAt(i + 2));
+                            break;
+                    }
+                }
+                else{
+                    switch (this.calculo.elementAt(i - 1)) {
+                        case "+":
+                            resultado = Integer.parseInt(calculo.elementAt(i)) + resultado;
+                            break;
+                        case "-":
+                            resultado = Integer.parseInt(calculo.elementAt(i)) - resultado;
+                            break;
+                        case "*":
+                            resultado = Integer.parseInt(calculo.elementAt(i)) * resultado;
+                            break;
+                        case "/":
+                            resultado = Integer.parseInt(calculo.elementAt(i)) / resultado;
+                            break;
+                    }
                 }
 
             }

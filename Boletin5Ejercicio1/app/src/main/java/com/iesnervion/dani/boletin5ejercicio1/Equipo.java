@@ -23,4 +23,11 @@ public class Equipo {
         return this.logo;
     }
 
+    public void setNombre(String nombre){
+        this.nombre=nombre;
+    }
+
+    public void setLogo(int logo) {
+        this.logo = logo;
+    }
 }

@@ -39,13 +39,28 @@ public class MiArrayAdapter extends ArrayAdapter {
          TextView nombre = (TextView) view.findViewById(R.id.nombre);
 
 
-        /*if(position%2==0) {
-            LayoutParams layoutParams = (LayoutParams) logo2.getLayoutParams();
-            logo.setLayoutParams(layoutParams);
-            LayoutParams layoutParams2 = (LayoutParams) nombre2.getLayoutParams();
-            nombre.setLayoutParams(layoutParams2);
+        if(position%2==0) {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
 
-        }*/
+            logo.setLayoutParams(params);
+
+            //Añadimos reglas a el nombre
+            RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params2.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+            nombre.setLayoutParams(params2);
+        }
+        else{
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+
+            logo.setLayoutParams(params);
+
+            //Añadimos reglas a el nombre
+            RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+            nombre.setLayoutParams(params2);
+        }
             nombre.setText(equipo.getNombre());
             logo.setImageResource(equipo.getLogo());
 

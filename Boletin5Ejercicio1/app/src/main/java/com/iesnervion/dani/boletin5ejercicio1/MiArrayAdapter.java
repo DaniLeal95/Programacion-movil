@@ -51,6 +51,7 @@ public class MiArrayAdapter extends ArrayAdapter {
             nombre.setLayoutParams(params2);
         }
         else{
+
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
 

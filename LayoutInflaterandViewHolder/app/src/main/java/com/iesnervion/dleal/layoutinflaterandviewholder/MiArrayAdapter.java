@@ -26,10 +26,19 @@ public class MiArrayAdapter extends ArrayAdapter {
                         ViewGroup parent) {
 
         View row = convertView;
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (row==null){
-            LayoutInflater inflater=(LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row=inflater.inflate(R.layout.row, parent, false);
+
+
+            if(this.getItemViewType(position)==0) {
+
+                row = inflater.inflate(R.layout.row, parent, false);
+            }
+            else{
+
+                row = inflater.inflate(R.layout.row2, parent, false);
+            }
         }
 
         ViewHolder viewHolder = new ViewHolder(row);
@@ -37,27 +46,44 @@ public class MiArrayAdapter extends ArrayAdapter {
 
         ImageView logo = viewHolder.getLogo();
         TextView nombre = viewHolder.getNombre();
+        TextView inicial = viewHolder.getInicial();
 
 
         Equipo equipo= (Equipo) getItem(position);
-
         logo.setImageResource(equipo.getLogo());
         nombre.setText(equipo.getNombre());
 
+        inicial.setText(""+equipo.getNombre().charAt(0));
+
+
+
         return(row);
+    }
+
+    @Override
+    public int getItemViewType(int position){
+        return (position%2);
+    }
+    @Override
+    public int getViewTypeCount(){
+        return 2;
     }
 
     public class ViewHolder{
         ImageView logo;
         TextView nombre;
+        TextView inicial;
 
         public ViewHolder (View view){
             logo = (ImageView) view.findViewById(R.id.icon);
             nombre = (TextView) view.findViewById(R.id.label);
+            inicial = (TextView) view.findViewById(R.id.labelinicial);
         }
 
         public ImageView getLogo(){return this.logo;}
         public TextView getNombre(){return this.nombre;}
+        public TextView getInicial(){return this.inicial;}
+
     }
 }
 

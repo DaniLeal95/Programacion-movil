@@ -9,6 +9,10 @@ public class Equipo {
     private String nombre;
     private int logo;
 
+    public Equipo(){
+        this.nombre="";
+        this.logo=0;
+    }
     public Equipo(String nombre,int logo){
 
         this.nombre=nombre;

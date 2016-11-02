@@ -2,7 +2,6 @@ package com.iesnervion.dleal.layoutinflaterandviewholder;
 
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 
 import java.util.Vector;
 
@@ -21,18 +20,37 @@ public class MainActivity extends ListActivity {
             R.drawable.jazz,R.drawable.wizards,R.drawable.grizzlies,R.drawable.nuggets,R.drawable.magic
     };
 
+    private Jugador[] jugadores= { new Jugador("Michael","Jordan",R.drawable.jordan,"New York"),
+                                   new Jugador("Kobe","Bryant",R.drawable.bryan,"Philadelphia"),
+                                   new Jugador("Pau","Gasol",R.drawable.gasol,"Barcelona")};
+
+    //private Vector<Jugador> jugadores = new Vector<>(0, 1);
+
+
+
     private Vector<Equipo> equipos = new Vector<>(0, 1);
-    private ArrayAdapter<String> adaptador;
+    private Vector<Estadio> estadios = new Vector<>(0,1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Vector<Object> objetos= new Vector<>(0,1);
 
         for (int i = 0; i < equiposstring.length; i++) {
             equipos.add(new Equipo(equiposstring[i], imagenEquipos[i]));
         }
+        for(int i= 0; i<equipos.size();i++){
+            objetos.add(equipos.elementAt(i));
+        }
 
-        setListAdapter(new MiArrayAdapter(this, R.layout.row, R.id.label, equipos));
+        for(int i =0 ; i< jugadores.length;i++){
+            objetos.add(jugadores[i]);
+        }
+
+        estadios.add(new Estadio("Chicago",22879,R.drawable.bullsstadium,"UNITED CENTER-CHICAGO BULLS"));
+        objetos.add(estadios.elementAt(0));
+
+        setListAdapter(new MiArrayAdapter(this, R.layout.rowequipo, R.id.label, objetos));
     }
 }

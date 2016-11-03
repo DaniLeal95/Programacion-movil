@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:minHeight="120dp">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -11,31 +12,32 @@
         app:srcCompat="@mipmap/ic_launcher"
         android:id="@+id/cara"
         android:layout_alignParentLeft="true"
-        />
-    <TextView
-        android:text="Nombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/nombre"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:layout_toRightOf="@id/cara"
-        android:layout_marginLeft="10dp"
-
         android:layout_centerVertical="true"
         />
 
     <TextView
-        android:text="Nacionalidad"
+        android:text="Nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/nacionalidad"
-        android:textSize="15dp"
+        android:id="@+id/nombrejugador"
+        android:textSize="20dp"
         android:textStyle="bold"
-        android:layout_below="@id/nombre"
         android:layout_toRightOf="@id/cara"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        />
+
+    <TextView
+        android:text="Ciudad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ciudadjugador"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@id/cara"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentBottom="true"
 
         />
 

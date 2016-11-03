@@ -14,12 +14,7 @@ public class Estadio {
 
 
     //Constructores
-    public Estadio(){
-        this.ciudad="";
-        this.capacidad=0;
-        this.imagen=0;
-        this.nombre="";
-    }
+
 
     public Estadio(String ciudad,int capacidad,int imagen,String nombre){
         this.ciudad = ciudad;

@@ -17,8 +17,8 @@ public class ViewHolderEstadio {
     public ViewHolderEstadio(View v) {
         this.imagenEstadio = (ImageView) v.findViewById(R.id.imagenestadio);
         this.nombre = (TextView) v.findViewById(R.id.nameStadium);
-        this.ciudad = (TextView) v.findViewById(R.id.ciudad);
-        this.capacidad = (TextView) v.findViewById(R.id.capacidad);
+        this.ciudad = (TextView) v.findViewById(R.id.estadiociudad);
+        this.capacidad = (TextView) v.findViewById(R.id.estadiocapacidad);
     }
 
     public ImageView getImagenEstadio() {

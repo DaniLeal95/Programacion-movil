@@ -77,8 +77,8 @@ public class MiArrayAdapter extends ArrayAdapter {
                     Estadio estadio = (Estadio) getItem(position);
                     imagenestadio.setImageResource(estadio.getImagen());
                     nombreestadio.setText(estadio.getNombre());
-                    capacidad.setText(estadio.getCapacidad());
-                    ciudad.setText(estadio.getCiudad());
+                    capacidad.setText("La capacidad es: "+estadio.getCapacidad());
+                    ciudad.setText("Ciudad: "+estadio.getCiudad());
 
                     break;
             }
@@ -97,6 +97,7 @@ public class MiArrayAdapter extends ArrayAdapter {
         int fila;
         Equipo equipo=new Equipo();
         Jugador jugador=new Jugador();
+
 
         if(getItem(position).getClass()==equipo.getClass()){
             fila=0;

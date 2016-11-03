@@ -18,9 +18,9 @@ public class ViewHolderJugador {
 
     public ViewHolderJugador (View view){
         cara = (ImageView) view.findViewById(R.id.cara);
-        nombreapellidos= (TextView) view.findViewById(R.id.nombre);
+        nombreapellidos= (TextView) view.findViewById(R.id.nombrejugador);
 
-        nacionalidad= (TextView) view.findViewById(R.id.nacionalidad);
+        nacionalidad= (TextView) view.findViewById(R.id.ciudadjugador);
 
     }
 

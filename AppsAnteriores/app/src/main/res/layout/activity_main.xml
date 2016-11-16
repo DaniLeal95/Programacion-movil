@@ -9,14 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.iesnervion.dleal.appsanteriores.MainActivity"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/selection"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="Elija uno"
-        />
     <GridView
         android:id="@+id/grid"
         android:layout_width="match_parent"

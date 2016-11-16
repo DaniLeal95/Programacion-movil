@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Vector;
@@ -15,7 +17,7 @@ import java.util.Vector;
 
 public class MiArrayAdapter extends ArrayAdapter {
 
-    public MiArrayAdapter(Context context, int rowView, String[] objetos) {
+    public MiArrayAdapter(Context context, int rowView, Vector<App> objetos) {
         super(context, rowView,  objetos);
     }
 
@@ -31,10 +33,16 @@ public class MiArrayAdapter extends ArrayAdapter {
             row = inflater.inflate(R.layout.cell, parent, false);
             ViewHolder viewHolder=new ViewHolder(row);
 
-            TextView nombre = viewHolder.getTitulo();
-            String ti= (String)getItem(position);
+            App aplicacion = (App) getItem(position);
 
-            nombre.setText(""+ti);
+            TextView nombre = viewHolder.getTitulo();
+            String titulo= aplicacion.getTitulo();
+
+            ImageView imagen = viewHolder.getImagen();
+            int img= aplicacion.getImage();
+
+            nombre.setText(""+titulo);
+            imagen.setImageResource(img);
         }
         return row;
     }

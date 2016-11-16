@@ -29,8 +29,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             //Rellenamos el vector;
             App calculadora=new App("com.iesnervion.dleal.myapplication",R.drawable.calculator2,"Calculadora");
-            //App listView = new App("")
+            App listanba=new App("com.iesnervion.dleal.customlistview",R.drawable.nba,"ListView Nba");
+            App twitter = new App ("com.twitter.android",R.drawable.twitter,"Twitter");
+
             apps.add(calculadora);
+            apps.add(listanba);
+            apps.add(twitter);
 
 
 
@@ -44,20 +48,30 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         @Override
         public void onItemClick(AdapterView<?> parent, View v,
                             int position, long id){
-                //App aplicacion=apps.elementAt(position);
-                this.startNewActivity(this,"com.iesnervion.dleal.myapplication");
+                App aplicacion=apps.elementAt(position);
+                this.startNewActivity(this,aplicacion.getUrl());
         }
 
 
     public void startNewActivity(Context context, String packageName) {
-        Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
-        if (intent == null) {
-            // Bring user to the market or let them choose an app?
-            intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("market://details?id=" + packageName));
-        }
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        // SI es una app android
+       if(packageName.contains("com.")) {
+           Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+           //Si el intent es null, es que no a encontrado ninguna app con ese package
+           //entonces la buscara en el market
+           if (intent == null) {
+               // Bring user to the market or let them choose an app?
+               intent = new Intent(Intent.ACTION_VIEW);
+               intent.setData(Uri.parse("market://details?id=" + packageName));
+           }
+           intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+           context.startActivity(intent);
+           //Si es una web
+       }else{
+           Intent i = new Intent(Intent.ACTION_VIEW);
+           i.setData(Uri.parse(packageName));
+           context.startActivity(i);
+       }
     }
 
     }

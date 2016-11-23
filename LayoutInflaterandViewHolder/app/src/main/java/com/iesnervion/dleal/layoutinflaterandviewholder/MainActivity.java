@@ -53,4 +53,5 @@ public class MainActivity extends ListActivity {
 
         setListAdapter(new MiArrayAdapter(this, R.layout.rowequipo, R.id.label, objetos));
     }
+    
 }

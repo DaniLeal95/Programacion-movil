@@ -13,7 +13,7 @@ import android.widget.ListView;
 
 public class ListadoColores extends ListFragment {
     OnListadoColoresSelectedListener mCallback;
-    private String[] colors = {"Rojo","Verde","Azul","Amarillo","Blanco","Negro"};
+    public static String[] colors = {"Rojo","Verde","Azul","Amarillo","Blanco","Negro"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -1,7 +1,8 @@
 package com.iesnervion.dleal.fragmentssimple;
 
+
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class MainActivity extends FragmentActivity implements OnListadoColoresSelectedListener {
@@ -33,6 +34,8 @@ public class MainActivity extends FragmentActivity implements OnListadoColoresSe
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, firstFragment).commit();
 
+        }else{
+
         }
 
     }
@@ -40,6 +43,23 @@ public class MainActivity extends FragmentActivity implements OnListadoColoresSe
     @Override
     public void OnColourSelected(int position){
         // The user selected the headline of an article from the HeadlinesFragment
+        Detail detailfrag= (Detail) getSupportFragmentManager().findFragmentById(R.id.textoDetalle);
+
+        //Si no es nulo quiere decir que estamos en el maestro detalle
+        if (detailfrag!=null){
+
+            detailfrag.actualizaPantallaDetail(position);
+
+        }
+        else{
+            Detail newFragment=Detail.newInstance(position);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            transaction.replace(R.id.master, newFragment);
+            transaction.addToBackStack(null);
+
+            transaction.commit();
+        }
 
         // Capture the article fragment from the activity layout
         /*ArticleFragment articleFrag = (ArticleFragment)
@@ -54,5 +74,13 @@ public class MainActivity extends FragmentActivity implements OnListadoColoresSe
 
 
         }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+
+        //   outState.putInt(STATE_POSITION,position);
+    }
 
 }

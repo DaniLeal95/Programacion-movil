@@ -12,9 +12,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
+import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.etsy.android.grid.StaggeredGridView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +41,7 @@ import java.util.Vector;
 public class MainActivity extends AppCompatActivity {
 
     private Vector<Producto> productos ;
-
+    private RequestQueue queue;
 
 
     @Override
@@ -34,25 +50,47 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        queue = Volley.newRequestQueue(this);
+        Vector<Producto> productos = new Vector<>(0,1);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+
+                String url = "http://webapirestdanileal.azurewebsites.net/api/personas/";
+
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // Display the first 500 characters of the response string.
+                                //Toast.makeText(vista.getContext(),"Response is: "+ response,Toast.LENGTH_LONG);
+                                mostrar(response);
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError vl) {
+                        Toast.makeText(MainActivity.this,"That didn't work!",Toast.LENGTH_LONG);
+                    }
+                });
+
+                queue.add(stringRequest);
+
+
+                
+
             }
         });
 
 
-
+        //queue.
         StaggeredGridView gridView = (StaggeredGridView) findViewById(R.id.grid_view);
-        productos = new Vector<>(0,1);
 
-        productos.add(new Producto(1,R.drawable.beer,"Cerveza","Bebida espiritual",1));
-        productos.add(new Producto(1,R.drawable.coke,"Coca-cola","Bebida No alcoholica",1));
-        productos.add(new Producto(1,R.drawable.beer,"Cerveza 0,0","Bebida espiritual sin alcohol",1));
 
+        //productos.add(p);
         gridView.setAdapter(new MyListAdapter(this,R.layout.celda,productos));
     }
 
@@ -76,5 +114,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    public void mostrar(String jsonObject){
+
+
+                    Toast.makeText(this.getApplicationContext(),jsonObject,Toast.LENGTH_LONG);
+
+
+
+
+
+
+
     }
 }

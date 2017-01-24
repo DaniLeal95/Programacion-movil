@@ -7,16 +7,16 @@ package com.iesnervion.dleal.pruebaapp;
 public class Producto {
 
     //Propiedades
-    private int id,imagen;
-    private String nombre,descripcion;
-    private double precio;
+    private int id,cantidad;
+    private String nombre,tipo;
 
-    public Producto(int id, int imagen, String nombre, String descripcion, double precio) {
+
+    public Producto(int id, String tipo,int cantidad, String nombre) {
         this.id = id;
-        this.imagen = imagen;
+        this.cantidad = cantidad;
         this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
+        this.tipo = tipo;
+
 
     }
 
@@ -34,13 +34,7 @@ public class Producto {
         this.id = id;
     }
 
-    public int getImagen() {
-        return imagen;
-    }
 
-    public void setImagen(int imagen) {
-        this.imagen = imagen;
-    }
 
     public String getNombre() {
         return nombre;
@@ -50,19 +44,20 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+
+    public int getCantidad() {
+        return cantidad;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
-    public double getPrecio() {
-        return precio;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

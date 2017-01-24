@@ -54,7 +54,7 @@ public class MyListAdapter extends ArrayAdapter {
 
 
             titulo.setText(producto.getNombre());
-            imagen.setImageResource(producto.getImagen());
+            imagen.setImageResource(R.drawable.beer);
 
             return row;
         }

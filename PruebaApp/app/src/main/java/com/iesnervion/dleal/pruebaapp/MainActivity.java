@@ -35,14 +35,14 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Vector;
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private Vector<Producto> productos ;
+    private List<Producto> productos ;
     private RequestQueue queue;
-
+    private StaggeredGridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         queue = Volley.newRequestQueue(this);
-        Vector<Producto> productos = new Vector<>(0,1);
+        productos = new ArrayList<>();
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -59,39 +60,49 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                String url = "http://webapirestdanileal.azurewebsites.net/api/personas/";
+                String url = "http://dleal.ciclo.iesnervion.es/index.php/Almacen";
 
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                        new Response.Listener<String>() {
+                JsonArrayRequest arrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONArray>(){
                             @Override
-                            public void onResponse(String response) {
-                                // Display the first 500 characters of the response string.
-                                //Toast.makeText(vista.getContext(),"Response is: "+ response,Toast.LENGTH_LONG);
-                                mostrar(response);
+                            public void onResponse(JSONArray response) {
+
+                                RecibirJson(response);
 
                             }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError vl) {
-                        Toast.makeText(MainActivity.this,"That didn't work!",Toast.LENGTH_LONG);
-                    }
-                });
-
-                queue.add(stringRequest);
 
 
-                
+                        }
 
+
+                        ,new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        });
+
+                    queue.add(arrayRequest);
             }
         });
 
 
         //queue.
-        StaggeredGridView gridView = (StaggeredGridView) findViewById(R.id.grid_view);
+        gridView= (StaggeredGridView) findViewById(R.id.grid_view);
 
 
         //productos.add(p);
         gridView.setAdapter(new MyListAdapter(this,R.layout.celda,productos));
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+
+        gridView.setAdapter(new MyListAdapter(this,R.layout.celda,productos));
+
+
     }
 
     @Override
@@ -118,15 +129,32 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void mostrar(String jsonObject){
+    public void RecibirJson(JSONArray jsonObject){
+
+        for (int i = 0;i<jsonObject.length();i++){
+            try {
+
+                JSONObject o =(JSONObject) jsonObject.get(i);
+
+                if(!o.getString("nombre").equals("null")) {
+                    Producto p = new Producto(o.getInt("idproducto"), o.getString("tipo"), o.getInt("cantidad"), o.getString("nombre"));
 
 
-                    Toast.makeText(this.getApplicationContext(),jsonObject,Toast.LENGTH_LONG);
+                    productos.add(p);
+                }
 
 
 
 
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
+
+
+
+        }
+        onResume();
 
 
     }

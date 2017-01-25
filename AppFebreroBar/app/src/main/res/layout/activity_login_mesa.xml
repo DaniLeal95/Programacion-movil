@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
-    android:id="@+id/activity_inicial"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_login_mesa"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -11,21 +10,28 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/fondo"
-    tools:context="com.iesnervion.dleal.appfebrerobar.Inicial">
+    tools:context="com.iesnervion.dleal.appfebrerobar.LoginMesa">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/logobar"
-        android:id="@+id/logoInicial"
+        android:id="@+id/logologinmesa"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/spinnerLoginMesa" />
 
     <com.shaishavgandhi.loginbuttons.FacebookButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnpedirmesa"
-        android:text="Pedir Mesa"
+        android:id="@+id/btnLoginMesa"
+        android:text="Asignar Mesa"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         app:roundedCorner="true"
@@ -34,14 +40,15 @@
         app:iconSize="0dp"/>
 
     <com.csmpl.androidlib.edittextmod.EditTextMod xmlns:edittextmod="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/txtnombre"
+        android:id="@+id/passwasloginmesa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/logoInicial"
+        android:layout_below="@id/spinnerLoginMesa"
         android:layout_marginTop="30dp"
         style="@style/EditText.Login"
         android:theme="@style/EditText.Login"
         edittextmod:BlockIntermediateSpace="true"
-        android:hint="Nombre..."
-         />
+        android:hint="Clave..."
+        />
+
 </RelativeLayout>

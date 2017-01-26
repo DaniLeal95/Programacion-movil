@@ -37,11 +37,21 @@
         android:id="@+id/txtnombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/logoInicial"
-        android:layout_marginTop="30dp"
+        android:layout_below="@id/lblnombre"
+
         style="@style/EditText.Login"
         android:theme="@style/EditText.Login"
         edittextmod:BlockIntermediateSpace="true"
         android:hint="Nombre..."
          />
+
+    <TextView
+        android:text="Nombre de cuenta"
+        android:id="@+id/lblnombre"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logoInicial"
+        android:textSize="20dp"
+        />
 </RelativeLayout>

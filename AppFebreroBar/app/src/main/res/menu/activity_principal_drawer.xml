@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:checkableBehavior="single" android:title="Carta">
+        <item
+            android:id="@+id/itembebidas"
+            android:icon="@drawable/beer"
+            android:title="Bebidas" />
+        <item
+            android:id="@+id/itemtapasfrias"
+            android:icon="@drawable/shrimp"
+            android:title="Tapas frias" />
+        <item
+            android:id="@+id/itemtapascalientes"
+            android:icon="@drawable/friedchicken"
+            android:title="Tapas Calientes" />
+        <item
+            android:id="@+id/itemfueradecarta"
+            android:icon="@drawable/openmenu"
+            android:title="Fuera de carta" />
+    </item>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+
+</menu>

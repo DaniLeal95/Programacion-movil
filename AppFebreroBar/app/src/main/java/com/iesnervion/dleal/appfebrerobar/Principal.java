@@ -1,10 +1,8 @@
-package com.iesnervion.dleal.pruebaparaproyecto;
+package com.iesnervion.dleal.appfebrerobar;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,13 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,first.OnFragmentInteractionListener,SecondFragment.OnFragmentInteractionListener {
+public class Principal extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_principal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.principal, menu);
         return true;
     }
 
@@ -82,21 +80,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        Fragment f= null;
-        boolean fragmentoSeleccionado = false;
-        if (id == R.id.nav_camera) {
+        if (id == R.id.itembebidas) {
+            // Handle the camera action
+        } else if (id == R.id.itemtapasfrias) {
 
-            f= new first();
-            fragmentoSeleccionado =true;
+        } else if (id == R.id.itemtapascalientes) {
 
-
-        } else if (id == R.id.nav_gallery) {
-
-            f = new SecondFragment();
-            fragmentoSeleccionado=true;
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.itemfueradecarta) {
 
         } else if (id == R.id.nav_share) {
 
@@ -104,16 +94,8 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        if(fragmentoSeleccionado){
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_main,f).commit();
-        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }

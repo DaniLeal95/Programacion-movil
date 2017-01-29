@@ -33,6 +33,15 @@
         app:roundedCornerRadius="75dp"
         app:iconSize="0dp"/>
 
+    <TextView
+        android:text="Nombre de cuenta"
+        android:id="@+id/lblnombre"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logoInicial"
+        android:textSize="20dp"
+        />
     <com.csmpl.androidlib.edittextmod.EditTextMod xmlns:edittextmod="http://schemas.android.com/apk/res-auto"
         android:id="@+id/txtnombre"
         android:layout_width="match_parent"
@@ -45,13 +54,5 @@
         android:hint="Nombre..."
          />
 
-    <TextView
-        android:text="Nombre de cuenta"
-        android:id="@+id/lblnombre"
-        android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/logoInicial"
-        android:textSize="20dp"
-        />
+
 </RelativeLayout>

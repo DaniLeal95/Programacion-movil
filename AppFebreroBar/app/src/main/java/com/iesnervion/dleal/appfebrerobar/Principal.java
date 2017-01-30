@@ -16,12 +16,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.iesnervion.dleal.appfebrerobar.Fragments.BebidasFragment;
+import com.iesnervion.dleal.appfebrerobar.Fragments.Cuenta;
 import com.iesnervion.dleal.appfebrerobar.Fragments.TapasCalientesFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.TapasFriasFragment;
 
 public class Principal extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, BebidasFragment.OnFragmentInteractionListener, TapasCalientesFragment.OnFragmentInteractionListener,TapasFriasFragment.OnFragmentInteractionListener{
-
+        implements NavigationView.OnNavigationItemSelectedListener, BebidasFragment.OnFragmentInteractionListener, TapasCalientesFragment.OnFragmentInteractionListener,TapasFriasFragment.OnFragmentInteractionListener, Cuenta.OnFragmentInteractionListener{
+    private FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +30,7 @@ public class Principal extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,6 +47,10 @@ public class Principal extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Fragment f = new Cuenta();
+        setTitle("Tu cuenta");
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_principal,f).commit();
     }
 
     @Override
@@ -89,9 +94,11 @@ public class Principal extends AppCompatActivity
         Fragment f=null;
         boolean fragmentoseleccionado = false;
 
+
         if (id == R.id.itembebidas) {
             f = new BebidasFragment();
             fragmentoseleccionado = true;
+
 
         } else if (id == R.id.itemtapasfrias) {
 
@@ -104,12 +111,12 @@ public class Principal extends AppCompatActivity
 
         } else if (id == R.id.itemfueradecarta) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
+
+
         if(fragmentoseleccionado){
+            setTitle("Carta");
+            fab.hide();
             getSupportFragmentManager().beginTransaction().replace(R.id.content_principal,f).commit();
         }
 

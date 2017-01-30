@@ -1,4 +1,4 @@
-package com.iesnervion.dleal.appfebrerobar.model;
+package com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder;
 
 import android.widget.TextView;
 

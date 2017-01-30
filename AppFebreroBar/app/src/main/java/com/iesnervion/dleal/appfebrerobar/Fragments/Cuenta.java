@@ -19,12 +19,12 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link TapasFriasFragment.OnFragmentInteractionListener} interface
+ * {@link Cuenta.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TapasFriasFragment#newInstance} factory method to
+ * Use the {@link Cuenta#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TapasFriasFragment extends ListFragment {
+public class Cuenta extends ListFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,10 +33,11 @@ public class TapasFriasFragment extends ListFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private List<Producto> productos;
+
+    private List<Producto> productos = null;
     private OnFragmentInteractionListener mListener;
 
-    public TapasFriasFragment() {
+    public Cuenta() {
         // Required empty public constructor
     }
 
@@ -46,11 +47,11 @@ public class TapasFriasFragment extends ListFragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TapasFriasFragment.
+     * @return A new instance of fragment Cuenta.
      */
     // TODO: Rename and change types and number of parameters
-    public static TapasFriasFragment newInstance(String param1, String param2) {
-        TapasFriasFragment fragment = new TapasFriasFragment();
+    public static Cuenta newInstance(String param1, String param2) {
+        Cuenta fragment = new Cuenta();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,17 +66,6 @@ public class TapasFriasFragment extends ListFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        ListadoProductos lp = new ListadoProductos();
-        productos = lp.getProductos();
-
-        for(int i = 0;i< productos.size();i++){
-            if(productos.get(i).getIdcategoria()!=2){
-                productos.remove(i);
-                i--;
-            }
-
-        }
     }
 
     @Override
@@ -83,8 +73,20 @@ public class TapasFriasFragment extends ListFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        //TODO : Cambiar esto a la cuenta original
+        ListadoProductos lp = new ListadoProductos();
+        productos = lp.getProductos();
+
+      /*  for(int i = 0;i< productos.size();i++){
+            if(i%2==0){
+                productos.remove(i);
+                i--;
+            }
+
+        }*/
+        //Todo: Cambiar esto con arrayAdapter Diferente para la cuenta
         setListAdapter(new MiarrayAdapter(this.getContext(),R.layout.filamenu,productos));
-        return inflater.inflate(R.layout.fragment_tapas_frias, container, false);
+        return inflater.inflate(R.layout.fragment_cuenta, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

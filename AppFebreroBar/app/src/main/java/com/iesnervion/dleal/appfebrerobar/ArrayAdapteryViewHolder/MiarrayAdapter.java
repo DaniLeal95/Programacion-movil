@@ -1,4 +1,4 @@
-package com.iesnervion.dleal.appfebrerobar.model;
+package com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.iesnervion.dleal.appfebrerobar.R;
+import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
 import java.util.List;
 

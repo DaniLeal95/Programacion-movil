@@ -8,11 +8,10 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.iesnervion.dleal.appfebrerobar.R;
 import com.iesnervion.dleal.appfebrerobar.model.ListadoProductos;
-import com.iesnervion.dleal.appfebrerobar.model.MiarrayAdapter;
+import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapter;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class BebidasFragment extends ListFragment {
 
     // TODO: Rename and change types of parameters
     private List<Producto> productos=null;
-    private ListView list;
+
     private String mParam1;
     private String mParam2;
 
@@ -73,13 +72,7 @@ public class BebidasFragment extends ListFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        ListadoProductos lp = new ListadoProductos();
-        productos = lp.getProductos();
 
-        for(int i = 0;i< productos.size();i++){
-            if(productos.get(i).getIdcategoria()!=1)
-                productos.remove(i);
-        }
 
     }
 
@@ -87,7 +80,18 @@ public class BebidasFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        ListadoProductos lp = new ListadoProductos();
 
+        productos = lp.getProductos();
+
+
+
+        for(int i = 0;i< productos.size();i++){
+            if(productos.get(i).getIdcategoria()!=1) {
+                productos.remove(i);
+                i--;
+            }
+        }
         setListAdapter(new MiarrayAdapter(this.getContext(),R.layout.filamenu,productos));
 
         return inflater.inflate(R.layout.fragment_bebidas, container, false);

@@ -4,12 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.iesnervion.dleal.appfebrerobar.R;
 import com.iesnervion.dleal.appfebrerobar.model.ListadoProductos;
+import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapter;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
 import java.util.List;
@@ -22,7 +24,7 @@ import java.util.List;
  * Use the {@link TapasCalientesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TapasCalientesFragment extends Fragment {
+public class TapasCalientesFragment extends ListFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -68,8 +70,11 @@ public class TapasCalientesFragment extends Fragment {
         productos = lp.getProductos();
 
         for(int i = 0;i< productos.size();i++){
-            if(productos.get(i).getIdcategoria()!=1)
+            if(productos.get(i).getIdcategoria()!=3){
                 productos.remove(i);
+                i--;
+            }
+
         }
 
     }
@@ -78,6 +83,9 @@ public class TapasCalientesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        setListAdapter(new MiarrayAdapter(this.getContext(),R.layout.filamenu,productos));
+
+
         return inflater.inflate(R.layout.fragment_tapas_calientes, container, false);
     }
 

@@ -4,11 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.iesnervion.dleal.appfebrerobar.R;
+import com.iesnervion.dleal.appfebrerobar.model.ListadoProductos;
+import com.iesnervion.dleal.appfebrerobar.model.MiarrayAdapter;
+import com.iesnervion.dleal.appfebrerobar.model.Producto;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,20 +25,27 @@ import com.iesnervion.dleal.appfebrerobar.R;
  * Use the {@link BebidasFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BebidasFragment extends Fragment {
+public class BebidasFragment extends ListFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+
     // TODO: Rename and change types of parameters
+    private List<Producto> productos=null;
+    private ListView list;
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
     public BebidasFragment() {
-        // Required empty public constructor
+
+        //TODO: Esto hay que cambiarlo por la api
+
+
+
     }
 
     /**
@@ -59,13 +73,26 @@ public class BebidasFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        ListadoProductos lp = new ListadoProductos();
+        productos = lp.getProductos();
+
+        for(int i = 0;i< productos.size();i++){
+            if(productos.get(i).getIdcategoria()!=1)
+                productos.remove(i);
+        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        setListAdapter(new MiarrayAdapter(this.getContext(),R.layout.filamenu,productos));
+
         return inflater.inflate(R.layout.fragment_bebidas, container, false);
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -61,7 +61,7 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<Producto> {
         double importe = uds.get(position)*p.getPrecio();
 
 
-        Customfont lbluds = viewHolder.getPvp();
+        Customfont lbluds = viewHolder.getUds();
         Customfont lbldescripcion  = viewHolder.getDescripcion();
         Customfont lblpvp  = viewHolder.getPvp();
         Customfont lblimporte = viewHolder.getImporte();

@@ -1,5 +1,6 @@
 package com.iesnervion.dleal.appfebrerobar.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,12 +13,21 @@ public class Cuenta {
     private double preciofinal;
     private List<Producto> productos;
 
-    public Cuenta(int idcuenta, int nummesa, double preciofinal, List<Producto> productos) {
+    //Constructor
+    public Cuenta(int idcuenta, int nummesa,  List<Producto> productos) {
         this.idcuenta = idcuenta;
         this.nummesa = nummesa;
-        this.preciofinal = preciofinal;
+        this.preciofinal = 0.0;
         this.productos = productos;
     }
+    //TODO: Quitar este constructor cuando coga los datos de la api.
+    //Constructor
+    public Cuenta(int idcuenta){
+        this.idcuenta = idcuenta;
+        this.preciofinal = 0.0;
+        productos = new ArrayList<>();
+    }
+
 
     public Cuenta() {
     }
@@ -39,7 +49,12 @@ public class Cuenta {
     }
 
     public double getPreciofinal() {
-        return preciofinal;
+        double precio=0.0;
+
+        for(int i=0;i<this.getProductos().size();i++){
+            precio+=this.getProductos().get(i).getPrecio();
+        }
+        return precio;
     }
 
     public void setPreciofinal(double preciofinal) {

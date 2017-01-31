@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.iesnervion.dleal.appfebrerobar.Fragments.Cuenta">
+    tools:context="com.iesnervion.dleal.appfebrerobar.Fragments.CuentaFragment">
 
 <RelativeLayout
     android:layout_width="match_parent"
@@ -17,10 +17,52 @@
         android:textAlignment="center"
         android:textSize="30dp"/>
 
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblunidades"
+        android:layout_below="@id/lblnumMesa"
+        android:text="Uds"
+        android:textAlignment="textStart"
+        />
+
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lbldescripcion"
+        android:layout_below="@id/lblnumMesa"
+        android:text="Descripcion"
+        android:layout_toRightOf="@id/lblunidades"
+        android:textAlignment="textStart"
+        android:layout_marginLeft="5dp"
+        />
+
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblimporte"
+        android:layout_below="@id/lblnumMesa"
+        android:text="Importe"
+        android:layout_alignParentRight="true"
+        android:textAlignment="textStart"
+        android:layout_marginLeft="5dp"
+        />
+
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblpvp"
+        android:layout_below="@id/lblnumMesa"
+        android:text="PVP"
+        android:layout_toLeftOf="@id/lblimporte"
+        android:textAlignment="textStart"
+        android:layout_marginLeft="5dp"
+        />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lblnumMesa"
+        android:layout_below="@id/lblunidades"
         android:id="@android:id/list"/>
 
     <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
@@ -38,9 +80,7 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/lblTotalCuenta"
         android:layout_marginLeft="10dp"
-
         android:id="@+id/lblprecio"
-
         android:text="999€"
         android:textAlignment="center"
         android:textSize="30dp"/>

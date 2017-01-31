@@ -1,6 +1,7 @@
 package com.iesnervion.dleal.appfebrerobar;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,15 +10,21 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.csmpl.androidlib.edittextmod.EditTextMod;
+import com.iesnervion.dleal.appfebrerobar.datos.Listados;
+import com.iesnervion.dleal.appfebrerobar.model.Mesa;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class LoginMesa extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    Spinner spinnermesas;
-    Button btnasignarmesa;
+    private Spinner spinnermesas;
+    private Button btnasignarmesa;
+    private EditTextMod clave;
+
     private int nummesa = -1;
-    private List<String> mesas=new ArrayList(0);
+    private List<Mesa> mesas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,20 +32,22 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_login_mesa);
 
         btnasignarmesa = (Button) findViewById(R.id.btnLoginMesa);
+        btnasignarmesa.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
+        clave = (EditTextMod) findViewById(R.id.passwloginmesa);
+        clave.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
 
+        mesas = ((Listados)getApplication()).getMesas();
 
-        mesas.add("Mesa 1");
-        mesas.add("Mesa 2");
-        mesas.add("Mesa 3");
-        mesas.add("Mesa 4");
+        //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, mesas);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, mesas);
 
 
         spinnermesas = (Spinner) findViewById(R.id.spinnerLoginMesa);
-        spinnermesas.setAdapter(arrayAdapter);
+
+        //spinnermesas.setAdapter(arrayAdapter);
 
         spinnermesas.setOnItemSelectedListener(this);
+
 
         btnasignarmesa.setOnClickListener(this);
 
@@ -61,12 +70,8 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if(parent.getId()== spinnermesas.getId())
-
-
-
-
-            this.nummesa =Integer.parseInt(String.valueOf(this.mesas.get(position).charAt(mesas.get(position).length()-1))) ;
+        //if(parent.getId()== spinnermesas.getId())
+           // this.nummesa =Integer.parseInt(String.valueOf(this.mesas.get(position).charAt(mesas.get(position).length()-1))) ;
     }
 
     @Override

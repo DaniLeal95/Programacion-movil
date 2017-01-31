@@ -1,8 +1,8 @@
 package com.iesnervion.dleal.appfebrerobar.Fragments;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,13 +10,12 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapterCuenta;
 import com.iesnervion.dleal.appfebrerobar.R;
 import com.iesnervion.dleal.appfebrerobar.customfont.Customfont;
-import com.iesnervion.dleal.appfebrerobar.model.ListadoProductos;
-import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapterMenu;
+import com.iesnervion.dleal.appfebrerobar.datos.Listados;
+import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
 import java.util.ArrayList;
@@ -25,12 +24,12 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Cuenta.OnFragmentInteractionListener} interface
+ * {@link CuentaFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Cuenta#newInstance} factory method to
+ * Use the {@link CuentaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Cuenta extends ListFragment {
+public class CuentaFragment extends ListFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -46,7 +45,7 @@ public class Cuenta extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Cuenta() {
+    public CuentaFragment() {
         // Required empty public constructor
     }
 
@@ -56,11 +55,11 @@ public class Cuenta extends ListFragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Cuenta.
+     * @return A new instance of fragment CuentaFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Cuenta newInstance(String param1, String param2) {
-        Cuenta fragment = new Cuenta();
+    public static CuentaFragment newInstance(String param1, String param2) {
+        CuentaFragment fragment = new CuentaFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -86,27 +85,27 @@ public class Cuenta extends ListFragment {
         View v = inflater.inflate(R.layout.fragment_cuenta, container, false);
 
         lblnumMesa = (Customfont) v.findViewById(R.id.lblnumMesa);
-        lblPrecio = (Customfont) v.findViewById(R.id.lblpreciomenu);
+        lblPrecio = (Customfont) v.findViewById(R.id.lblprecio);
 
 
         //TODO : Cambiar esto a la cuenta original
-        ListadoProductos lp = new ListadoProductos();
-        productos = lp.getProductos();
+
+        Cuenta c = ((Listados) getActivity().getApplication()).getCuenta();
+        productos = c.getProductos();
 
 
 
         List<Producto> productosordenados = new ArrayList<>();
         List<Integer> cantidades = new ArrayList();
 
-        double precio=0.0;
+
         //Droga dura que entiendo yo
         //Ordenamos el list
         for (int i=0;i<productos.size();i++){
             boolean encontrado = false;
             int uds=0;
-            //AQUI ME QUEDO
             //Comprobamos que el producto a insertar no este insertado ya.
-            for(int j=0;j< productosordenados.size();j++) {
+            for(int j=0;j< productosordenados.size()&& !encontrado;j++) {
                 if(productosordenados.get(j).getIdproducto()==productos.get(i).getIdproducto()) {
                     encontrado = true;
                 }
@@ -116,7 +115,7 @@ public class Cuenta extends ListFragment {
             if(!encontrado){
                 productosordenados.add(productos.get(i));
 
-            }
+
 
             //Ahora contamos las uds de cada producto
             for (int j=0;j<productos.size();j++){
@@ -126,22 +125,23 @@ public class Cuenta extends ListFragment {
 
             }
 
-            precio+=uds*productos.get(i).getPrecio();
-            cantidades.add(uds);
 
+            cantidades.add(uds);
+            }
         }
 
 
 
-        lblPrecio.setText(""+precio);
+        lblPrecio.setText(""+c.getPreciofinal()+"€");
         Intent i= getActivity().getIntent();
         Bundle bundle=i.getExtras();
         if(bundle !=null) {
             lblnumMesa.setText(""+lblnumMesa.getText()+" "+bundle.get("nummesa").toString());
+
         }
 
 
-        //Todo: Cambiar esto con arrayAdapter Diferente para la cuenta
+
         setListAdapter(new MiarrayAdapterCuenta(v.getContext(),R.layout.cuenta,productosordenados,cantidades));
         return v;
     }

@@ -25,13 +25,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnpedirmesa"
-        android:text="Pedir Mesa"
+        android:text="Acceder a mesa"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         app:roundedCorner="true"
         app:transparentBackground="true"
         app:roundedCornerRadius="75dp"
-        app:iconSize="0dp"/>
+        app:iconSize="0dp"
+        />
 
     <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
         android:text="Nombre de cuenta"

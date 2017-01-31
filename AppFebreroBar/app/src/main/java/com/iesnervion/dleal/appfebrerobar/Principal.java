@@ -16,12 +16,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.iesnervion.dleal.appfebrerobar.Fragments.BebidasFragment;
-import com.iesnervion.dleal.appfebrerobar.Fragments.Cuenta;
+import com.iesnervion.dleal.appfebrerobar.Fragments.CuentaFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.TapasCalientesFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.TapasFriasFragment;
 
 public class Principal extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, BebidasFragment.OnFragmentInteractionListener, TapasCalientesFragment.OnFragmentInteractionListener,TapasFriasFragment.OnFragmentInteractionListener, Cuenta.OnFragmentInteractionListener{
+        implements NavigationView.OnNavigationItemSelectedListener, BebidasFragment.OnFragmentInteractionListener, TapasCalientesFragment.OnFragmentInteractionListener,TapasFriasFragment.OnFragmentInteractionListener, CuentaFragment.OnFragmentInteractionListener{
     private FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class Principal extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Fragment f = new Cuenta();
+        Fragment f = new CuentaFragment();
         setTitle("Tu cuenta");
         getSupportFragmentManager().beginTransaction().replace(R.id.content_principal,f).commit();
     }
@@ -70,20 +70,6 @@ public class Principal extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -111,6 +97,11 @@ public class Principal extends AppCompatActivity
 
         } else if (id == R.id.itemfueradecarta) {
 
+        }
+        else if(id == R.id.tucuenta){
+            f= new CuentaFragment();
+            fab.show();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_principal,f).commit();
         }
 
 

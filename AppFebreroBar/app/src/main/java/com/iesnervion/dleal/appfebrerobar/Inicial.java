@@ -1,6 +1,7 @@
 package com.iesnervion.dleal.appfebrerobar;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.csmpl.androidlib.edittextmod.EditTextMod;
+import com.iesnervion.dleal.appfebrerobar.datos.Listados;
 
 
 public class Inicial extends AppCompatActivity implements View.OnClickListener {
@@ -20,12 +22,14 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
+        Listados l = new Listados();
 
         setContentView(R.layout.activity_inicial);
 
         pedirmesa = (Button) findViewById(R.id.btnpedirmesa);
         nombre = (EditTextMod) findViewById(R.id.txtnombre);
+        nombre.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
+        pedirmesa.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
 
         pedirmesa.setOnClickListener(this);
     }
@@ -34,7 +38,6 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         if(!nombre.getText().toString().isEmpty()) {
             Intent i = new Intent(this, LoginMesa.class);
-            i.putExtra("nombre", nombre.getText().toString());
             startActivity(i);
         }
         else{

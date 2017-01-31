@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -11,10 +12,13 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginMesa extends AppCompatActivity implements View.OnClickListener {
+public class LoginMesa extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     Spinner spinnermesas;
     Button btnasignarmesa;
+    private int nummesa = -1;
+    private List<String> mesas=new ArrayList(0);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +26,7 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
         btnasignarmesa = (Button) findViewById(R.id.btnLoginMesa);
 
-        List mesas=new ArrayList(0);
+
         mesas.add("Mesa 1");
         mesas.add("Mesa 2");
         mesas.add("Mesa 3");
@@ -32,8 +36,9 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
 
         spinnermesas = (Spinner) findViewById(R.id.spinnerLoginMesa);
-
         spinnermesas.setAdapter(arrayAdapter);
+
+        spinnermesas.setOnItemSelectedListener(this);
 
         btnasignarmesa.setOnClickListener(this);
 
@@ -41,9 +46,32 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        Intent i = new Intent(this, Principal.class);
 
-        startActivity(i);
+        if(nummesa!=-1) {
+            Intent i = new Intent(this, Principal.class);
+            i.putExtra("nummesa", nummesa);
+            startActivity(i);
+        }
+        else{
+
+        }
+    }
+
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if(parent.getId()== spinnermesas.getId())
+
+
+
+
+            this.nummesa =Integer.parseInt(String.valueOf(this.mesas.get(position).charAt(mesas.get(position).length()-1))) ;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     //TODO Para rellenar el spinner hay que hacer un get. a la api para que me diga las mesas libres.

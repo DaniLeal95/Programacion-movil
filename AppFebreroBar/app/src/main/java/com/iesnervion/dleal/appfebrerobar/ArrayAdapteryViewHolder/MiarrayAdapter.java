@@ -32,8 +32,8 @@ public class MiarrayAdapter extends ArrayAdapter<Producto> {
 
             row = inflater.inflate(R.layout.filamenu,parent,false);
 
-            TextView lblnombre  = (TextView) row.findViewById(R.id.lblnombremenu);
-            TextView lblprecio  = (TextView) row.findViewById(R.id.lblpreciomenu);
+            com.iesnervion.dleal.appfebrerobar.customfont.Customfont lblnombre  = (com.iesnervion.dleal.appfebrerobar.customfont.Customfont) row.findViewById(R.id.lblnombremenu);
+            com.iesnervion.dleal.appfebrerobar.customfont.Customfont lblprecio  = (com.iesnervion.dleal.appfebrerobar.customfont.Customfont) row.findViewById(R.id.lblpreciomenu);
 
             viewHolder = new ViewHolderProductos(lblnombre,lblprecio);
             row.setTag(viewHolder);

@@ -8,10 +8,10 @@ import android.widget.TextView;
 
 public class ViewHolderProductos {
 
-    private TextView nombre;
-    private TextView precio;
+    private com.iesnervion.dleal.appfebrerobar.customfont.Customfont nombre;
+    private com.iesnervion.dleal.appfebrerobar.customfont.Customfont precio;
 
-    public ViewHolderProductos(TextView nombre, TextView precio) {
+    public ViewHolderProductos(com.iesnervion.dleal.appfebrerobar.customfont.Customfont nombre, com.iesnervion.dleal.appfebrerobar.customfont.Customfont precio) {
         this.nombre = nombre;
         this.precio = precio;
     }

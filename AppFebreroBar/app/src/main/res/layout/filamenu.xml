@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:minHeight="50dp">
 
-    <TextView
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
         android:text="Nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         android:textSize="20dp"
         />
 
-    <TextView
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
         android:text="Precio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

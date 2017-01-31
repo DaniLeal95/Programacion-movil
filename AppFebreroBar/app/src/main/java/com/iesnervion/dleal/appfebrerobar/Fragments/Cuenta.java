@@ -1,6 +1,8 @@
 package com.iesnervion.dleal.appfebrerobar.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +10,10 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.iesnervion.dleal.appfebrerobar.R;
+import com.iesnervion.dleal.appfebrerobar.customfont.Customfont;
 import com.iesnervion.dleal.appfebrerobar.model.ListadoProductos;
 import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapter;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
@@ -35,6 +39,9 @@ public class Cuenta extends ListFragment {
     private String mParam2;
 
     private List<Producto> productos = null;
+    private Customfont lblnumMesa,lblPrecio;
+
+
     private OnFragmentInteractionListener mListener;
 
     public Cuenta() {
@@ -66,27 +73,33 @@ public class Cuenta extends ListFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_cuenta, container, false);
+
+        lblnumMesa = (Customfont) v.findViewById(R.id.lblnumMesa);
+
 
         //TODO : Cambiar esto a la cuenta original
         ListadoProductos lp = new ListadoProductos();
         productos = lp.getProductos();
 
-      /*  for(int i = 0;i< productos.size();i++){
-            if(i%2==0){
-                productos.remove(i);
-                i--;
-            }
+        Intent i= getActivity().getIntent();
+        Bundle bundle=i.getExtras();
+        if(bundle !=null) {
+            lblnumMesa.setText(""+lblnumMesa.getText()+" "+bundle.get("nummesa").toString());
+        }
 
-        }*/
+
         //Todo: Cambiar esto con arrayAdapter Diferente para la cuenta
-        setListAdapter(new MiarrayAdapter(this.getContext(),R.layout.filamenu,productos));
-        return inflater.inflate(R.layout.fragment_cuenta, container, false);
+        setListAdapter(new MiarrayAdapter(v.getContext(),R.layout.filamenu,productos));
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -33,7 +33,7 @@
         app:roundedCornerRadius="75dp"
         app:iconSize="0dp"/>
 
-    <TextView
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
         android:text="Nombre de cuenta"
         android:id="@+id/lblnombre"
         android:layout_marginTop="30dp"

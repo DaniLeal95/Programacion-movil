@@ -16,8 +16,8 @@ import java.util.List;
  * Created by dleal on 30/01/17.
  */
 
-public class MiarrayAdapter extends ArrayAdapter<Producto> {
-    public MiarrayAdapter(Context context, int resource, List<Producto> objects) {
+public class MiarrayAdapterMenu extends ArrayAdapter<Producto> {
+    public MiarrayAdapterMenu(Context context, int resource, List<Producto> objects) {
         super(context, resource, objects);
     }
 

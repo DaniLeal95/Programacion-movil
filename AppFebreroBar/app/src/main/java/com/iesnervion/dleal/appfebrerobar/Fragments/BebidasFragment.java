@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.iesnervion.dleal.appfebrerobar.R;
 import com.iesnervion.dleal.appfebrerobar.model.ListadoProductos;
-import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapter;
+import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapterMenu;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
 import java.util.List;
@@ -92,7 +92,7 @@ public class BebidasFragment extends ListFragment {
                 i--;
             }
         }
-        setListAdapter(new MiarrayAdapter(this.getContext(),R.layout.filamenu,productos));
+        setListAdapter(new MiarrayAdapterMenu(this.getContext(),R.layout.filamenu,productos));
 
         return inflater.inflate(R.layout.fragment_bebidas, container, false);
 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblcuentaunidades"
+        android:layout_centerVertical="true"
+        android:text="Uds"
+        android:textAlignment="textStart"
+        />
+
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblcuentadescripcion"
+        android:layout_centerVertical="true"
+        android:text="Descripcion"
+        android:layout_toRightOf="@id/lblcuentaunidades"
+        android:textAlignment="textStart"
+        android:layout_marginLeft="5dp"
+        />
+
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblcuentapreciototal"
+        android:layout_centerVertical="true"
+        android:text="Importe"
+        android:layout_alignParentRight="true"
+        android:textAlignment="textStart"
+        android:layout_marginLeft="5dp"
+        />
+
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblcuentapvp"
+        android:layout_centerVertical="true"
+        android:text="PVP"
+        android:layout_toLeftOf="@id/lblcuentapreciototal"
+        android:textAlignment="textStart"
+        android:layout_marginLeft="5dp"
+        />
+
+</RelativeLayout>

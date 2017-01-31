@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:id="@+id/lblTotalCuenta"
-        android:text="Total Cuen ta"
+        android:text="Total Cuenta"
         android:textAlignment="center"
         android:textSize="30dp"/>
 
@@ -41,7 +41,7 @@
 
         android:id="@+id/lblprecio"
 
-        android:text="999 €"
+        android:text="999€"
         android:textAlignment="center"
         android:textSize="30dp"/>
 </RelativeLayout>

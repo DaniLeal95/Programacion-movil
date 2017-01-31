@@ -12,12 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapterCuenta;
 import com.iesnervion.dleal.appfebrerobar.R;
 import com.iesnervion.dleal.appfebrerobar.customfont.Customfont;
 import com.iesnervion.dleal.appfebrerobar.model.ListadoProductos;
-import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapter;
+import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapterMenu;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,12 +86,54 @@ public class Cuenta extends ListFragment {
         View v = inflater.inflate(R.layout.fragment_cuenta, container, false);
 
         lblnumMesa = (Customfont) v.findViewById(R.id.lblnumMesa);
+        lblPrecio = (Customfont) v.findViewById(R.id.lblpreciomenu);
 
 
         //TODO : Cambiar esto a la cuenta original
         ListadoProductos lp = new ListadoProductos();
         productos = lp.getProductos();
 
+
+
+        List<Producto> productosordenados = new ArrayList<>();
+        List<Integer> cantidades = new ArrayList();
+
+        double precio=0.0;
+        //Droga dura que entiendo yo
+        //Ordenamos el list
+        for (int i=0;i<productos.size();i++){
+            boolean encontrado = false;
+            int uds=0;
+            //AQUI ME QUEDO
+            //Comprobamos que el producto a insertar no este insertado ya.
+            for(int j=0;j< productosordenados.size();j++) {
+                if(productosordenados.get(j).getIdproducto()==productos.get(i).getIdproducto()) {
+                    encontrado = true;
+                }
+            }
+
+            //Si no esta lo insertamos en el listOrdenado
+            if(!encontrado){
+                productosordenados.add(productos.get(i));
+
+            }
+
+            //Ahora contamos las uds de cada producto
+            for (int j=0;j<productos.size();j++){
+                if(productos.get(i).getIdproducto()==productos.get(j).getIdproducto()){
+                    uds++;
+                }
+
+            }
+
+            precio+=uds*productos.get(i).getPrecio();
+            cantidades.add(uds);
+
+        }
+
+
+
+        lblPrecio.setText(""+precio);
         Intent i= getActivity().getIntent();
         Bundle bundle=i.getExtras();
         if(bundle !=null) {
@@ -98,7 +142,7 @@ public class Cuenta extends ListFragment {
 
 
         //Todo: Cambiar esto con arrayAdapter Diferente para la cuenta
-        setListAdapter(new MiarrayAdapter(v.getContext(),R.layout.filamenu,productos));
+        setListAdapter(new MiarrayAdapterCuenta(v.getContext(),R.layout.cuenta,productosordenados,cantidades));
         return v;
     }
 

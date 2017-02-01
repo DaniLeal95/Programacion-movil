@@ -16,8 +16,8 @@ import com.iesnervion.dleal.appfebrerobar.datos.Listados;
 
 
 public class Inicial extends AppCompatActivity implements View.OnClickListener {
-    Button pedirmesa;
-    EditTextMod nombre;
+    Button pedirmesa,vercarta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -27,21 +27,19 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_inicial);
 
         pedirmesa = (Button) findViewById(R.id.btnpedirmesa);
-        nombre = (EditTextMod) findViewById(R.id.txtnombre);
-        nombre.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
+        vercarta = (Button) findViewById(R.id.btnverCarta);
+
         pedirmesa.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
+        vercarta.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
 
         pedirmesa.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if(!nombre.getText().toString().isEmpty()) {
+        if(v.getId()==pedirmesa.getId()) {
             Intent i = new Intent(this, LoginMesa.class);
             startActivity(i);
-        }
-        else{
-            Toast.makeText(this,"Introduce un nombre",Toast.LENGTH_SHORT).show();
         }
     }
 }

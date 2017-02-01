@@ -20,12 +20,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/spinnerLoginMesa" />
 
     <com.shaishavgandhi.loginbuttons.FacebookButton
         android:layout_width="match_parent"
@@ -39,16 +33,49 @@
         app:roundedCornerRadius="75dp"
         app:iconSize="0dp"/>
 
+
+
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+        android:text="Nombre de cuenta"
+        android:id="@+id/lblnombre"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logologinmesa"
+        android:textSize="20dp"
+        />
+    <com.csmpl.androidlib.edittextmod.EditTextMod xmlns:edittextmod="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/txtnombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblnombre"
+
+        style="@style/EditText.Login"
+        android:theme="@style/EditText.Login"
+        edittextmod:BlockIntermediateSpace="true"
+        android:hint="Nombre..."
+        />
+
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+        android:text="Clave de la mesa"
+        android:id="@+id/lblintroducepassw"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtnombre"
+        android:textSize="20dp"
+        />
+
     <com.csmpl.androidlib.edittextmod.EditTextMod xmlns:edittextmod="http://schemas.android.com/apk/res-auto"
         android:id="@+id/passwloginmesa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerLoginMesa"
-        android:layout_marginTop="30dp"
+        android:layout_below="@id/lblintroducepassw"
+        android:layout_marginTop="10dp"
         style="@style/EditText.Login"
         android:theme="@style/EditText.Login"
         edittextmod:BlockIntermediateSpace="true"
-        android:hint="Clave..."
+        android:hint="Clave mesa..."
         />
 
 </RelativeLayout>

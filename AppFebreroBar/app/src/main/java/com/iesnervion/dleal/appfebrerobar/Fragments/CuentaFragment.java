@@ -131,12 +131,19 @@ public class CuentaFragment extends ListFragment {
         }
 
 
+        double preciofinal= Math.floor(c.getPreciofinal()*100)/100;
 
-        lblPrecio.setText(""+c.getPreciofinal()+"€");
+
+        lblPrecio.setText(""+preciofinal+"€");
         Intent i= getActivity().getIntent();
         Bundle bundle=i.getExtras();
         if(bundle !=null) {
+
+
             lblnumMesa.setText(""+lblnumMesa.getText()+" "+bundle.get("nummesa").toString());
+            if(bundle.get("nombreCuenta")!=null){
+                lblnumMesa.setText(""+lblnumMesa.getText()+" - "+bundle.get("nombreCuenta").toString());
+            }
 
         }
 

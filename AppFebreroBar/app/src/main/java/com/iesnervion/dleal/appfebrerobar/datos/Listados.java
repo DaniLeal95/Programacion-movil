@@ -22,6 +22,24 @@ public class Listados extends Application {
 
         mesas = new ArrayList<>();
         cuenta = new Cuenta(1);
+
+        List<Producto> productos = new ArrayList<>();
+
+        productos.add(new Producto(1,1,"Cerveza",1.20));
+        productos.add(new Producto(1,1,"Cerveza",1.20));
+        productos.add(new Producto(1,1,"Cerveza",1.20));
+        productos.add(new Producto(2,1,"CocaCola",1.50));
+        productos.add(new Producto(2,1,"CocaCola",1.50));
+        productos.add(new Producto(3,2,"Ensaladilla",3.00));
+        productos.add(new Producto(1,1,"Cerveza",1.20));
+        productos.add(new Producto(4,3,"Alitas de pollo",2.50));
+
+        this.cuenta.setProductos(productos);
+
+        Mesa m = new Mesa(1,"11111");
+        Mesa m2 = new Mesa(2,"22222");
+        this.addMesa(m);
+        this.addMesa(m2);
     }
 
     public List<Mesa> getMesas() {

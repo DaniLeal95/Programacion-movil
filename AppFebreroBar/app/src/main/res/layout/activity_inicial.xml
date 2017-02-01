@@ -34,26 +34,21 @@
         app:iconSize="0dp"
         />
 
-    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
-        android:text="Nombre de cuenta"
-        android:id="@+id/lblnombre"
-        android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/logoInicial"
-        android:textSize="20dp"
-        />
-    <com.csmpl.androidlib.edittextmod.EditTextMod xmlns:edittextmod="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/txtnombre"
+    <com.shaishavgandhi.loginbuttons.FacebookButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lblnombre"
+        android:id="@+id/btnverCarta"
+        android:text="Ver Carta"
+        android:layout_above="@id/btnpedirmesa"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentStart="true"
+        app:roundedCorner="true"
+        app:transparentBackground="true"
+        app:roundedCornerRadius="75dp"
+        app:iconSize="0dp"
+        />
 
-        style="@style/EditText.Login"
-        android:theme="@style/EditText.Login"
-        edittextmod:BlockIntermediateSpace="true"
-        android:hint="Nombre..."
-         />
+
 
 
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.csmpl.androidlib.edittextmod.EditTextMod;
 import com.iesnervion.dleal.appfebrerobar.datos.Listados;
@@ -79,7 +80,13 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
                 startActivity(i);
             }
+            else{
+                Toast.makeText(this,"Este codigo no corresponde a ninguna mesa",Toast.LENGTH_SHORT).show();
+            }
 
+        }
+        else{
+            Toast.makeText(this,"Por favor, inserta el codigo para poder registrarte en la mesa",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -87,6 +94,5 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
 
 
-    //TODO Para rellenar el spinner hay que hacer un get. a la api para que me diga las mesas libres.
-    //TODO Y Hacer para el boton cuando clickee una llamada al verbo para comprobar la contraseña
+
 }

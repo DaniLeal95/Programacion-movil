@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_nueva_comanda"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +9,106 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.iesnervion.dleal.appfebrerobar.NuevaComanda">
 
 
-</RelativeLayout>
+
+
+    <ExpandableListView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/expandableListnuevaComanda"
+       />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        >
+        <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblunidadesnuevacomanda"
+
+            android:text="Uds"
+            android:textAlignment="textStart"
+            />
+
+        <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lbldescripcionnuevacomanda"
+
+            android:text="Descripcion"
+            android:layout_toRightOf="@id/lblunidadesnuevacomanda"
+            android:textAlignment="textStart"
+            android:layout_marginLeft="5dp"
+            />
+
+        <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblimportenuevacomanda"
+
+            android:text="Importe"
+            android:layout_alignParentRight="true"
+            android:textAlignment="textStart"
+            android:layout_marginLeft="5dp"
+            />
+
+        <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblpvpnuevacomanda"
+
+            android:text="PVP"
+            android:layout_toLeftOf="@id/lblimportenuevacomanda"
+            android:textAlignment="textStart"
+            android:layout_marginLeft="5dp"
+            />
+        <com.shaishavgandhi.loginbuttons.FacebookButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnnuevacomanda"
+            android:text="Hacer Pedido"
+            android:layout_alignParentBottom="true"
+
+            android:layout_alignParentStart="true"
+            app:roundedCorner="true"
+            app:transparentBackground="true"
+            app:roundedCornerRadius="75dp"
+            app:iconSize="0dp"
+            />
+
+        <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btnnuevacomanda"
+            android:id="@+id/lblTotalCuentanuevacomanda"
+            android:text="Total Comanda"
+            android:textAlignment="center"
+            android:textSize="30dp"/>
+
+        <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/lblTotalCuentanuevacomanda"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/lblprecionuevacomanda"
+            android:text="999€"
+            android:textAlignment="center"
+            android:layout_above="@id/btnnuevacomanda"
+            android:textSize="30dp"/>
+
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@android:id/list"
+            android:layout_below="@+id/lblunidadesnuevacomanda"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/lblTotalCuentanuevacomanda" />
+    </RelativeLayout>
+</LinearLayout>

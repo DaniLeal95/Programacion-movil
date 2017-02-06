@@ -37,4 +37,35 @@ public class ListadoProductos {
     public void setProductos(List<Producto> productos) {
         this.productos = productos;
     }
+
+    public List<Producto> getBebidas(){
+        List<Producto> bebidas = new ArrayList<>();
+            for(int i=0;i<this.productos.size();i++){
+                if(productos.get(i).getIdcategoria()==1)bebidas.add(productos.get(i));
+            }
+        return bebidas;
+    }
+    public List<Producto> getTapasFrias(){
+        List<Producto> tapasfrias = new ArrayList<>();
+        for(int i=0;i<this.productos.size();i++){
+            if(productos.get(i).getIdcategoria()==2)tapasfrias.add(productos.get(i));
+        }
+        return tapasfrias;
+    }
+    public List<Producto> getTapasCalientes(){
+        List<Producto> TapasCalientes = new ArrayList<>();
+        for(int i=0;i<this.productos.size();i++){
+            if(productos.get(i).getIdcategoria()==3)TapasCalientes.add(productos.get(i));
+        }
+        return TapasCalientes;
+    }
+
+    public List<Producto> getFueradeCarta(){
+        List<Producto> fueradecarta = new ArrayList<>();
+        for(int i=0;i<this.productos.size();i++){
+            if(productos.get(i).getIdcategoria()==0)fueradecarta.add(productos.get(i));
+        }
+        return fueradecarta;
+    }
+
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.csmpl.androidlib.edittextmod.EditTextMod;
@@ -33,13 +34,21 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
         vercarta.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
 
         pedirmesa.setOnClickListener(this);
+        vercarta.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==pedirmesa.getId()) {
-            Intent i = new Intent(this, LoginMesa.class);
-            startActivity(i);
+        Intent i=null;
+        switch(v.getId()) {
+            case R.id.btnpedirmesa:
+                 i= new Intent(this, LoginMesa.class);
+
+                break;
+            case R.id.btnverCarta:
+                 i = new Intent(this,Carta.class);
         }
+
+        startActivity(i);
     }
 }

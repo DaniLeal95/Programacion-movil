@@ -28,6 +28,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private List<String> tipos;
     private Map<String,List<Producto>> hashmap;
 
+
     public CustomExpandableListAdapter(Context context, List<String> tipos, Map<String, List<Producto>> hashmap) {
         this.context = context;
         this.tipos = tipos;

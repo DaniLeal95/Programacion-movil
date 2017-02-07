@@ -1,12 +1,18 @@
 package com.iesnervion.dleal.appfebrerobar;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.CustomExpandableListAdapter;
@@ -20,7 +26,7 @@ import java.util.Set;
 
 
 
-public class Carta extends AppCompatActivity {
+public class Carta extends AppCompatActivity implements View.OnClickListener {
 
     ExpandableListView explistview;
 
@@ -30,12 +36,24 @@ public class Carta extends AppCompatActivity {
     private List<Producto> tapasfrias;
     private List<Producto> tapascalientes;
     private HashMap <String,List<Producto>> hashMap;
+    private ImageView anadiralacesta;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carta);
+
+        anadiralacesta = (ImageView) findViewById(R.id.anadiralacesta);
+        anadiralacesta.setVisibility(View.INVISIBLE);
+
+        boolean cartaSeleccionable=false;
+        Intent i= getIntent();
+        Bundle bundle=i.getExtras();
+        if(bundle !=null){
+            cartaSeleccionable = bundle.getBoolean("cartaSeleccionable");
+            anadiralacesta.setVisibility(View.VISIBLE);
+        }
 
         Toolbar toolbar =(Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
@@ -51,6 +69,9 @@ public class Carta extends AppCompatActivity {
 
         explistview.setAdapter(explistAdapter);
 
+        if(cartaSeleccionable) {
+            explistview.setOnClickListener(this);
+        }
 
 
     }
@@ -96,5 +117,11 @@ public class Carta extends AppCompatActivity {
     {
         onBackPressed();
         return true;
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(this,"HOLA",Toast.LENGTH_SHORT).show();
     }
 }

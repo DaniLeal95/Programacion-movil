@@ -1,11 +1,14 @@
 package com.iesnervion.dleal.appfebrerobar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +18,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.iesnervion.dleal.appfebrerobar.Fragments.BebidasFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.CuentaFragment;
@@ -35,7 +40,8 @@ public class Principal extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(),NuevaComanda.class);
+                Intent i = new Intent(view.getContext(),Carta.class);
+                i.putExtra("cartaSeleccionable",true);
                 startActivity(i);
             }
         });
@@ -60,7 +66,10 @@ public class Principal extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+
+
+            this.dialog();
+
         }
     }
 
@@ -121,4 +130,35 @@ public class Principal extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
+    public void dialog() {
+        final AlertDialog.Builder alert;
+        alert = new AlertDialog.Builder(this);
+        LayoutInflater inflater = Principal.this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.popupcerrarapp, null);
+
+
+        alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                Principal.super.onDestroy();
+                moveTaskToBack(true);
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(1);
+            }
+        });
+
+        alert.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        alert.setView(dialogView);
+        alert.show();
+
+    }
+
 }

@@ -4,6 +4,7 @@ package com.iesnervion.dleal.appfebrerobar;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 
@@ -28,7 +29,7 @@ import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class LoginMesa extends AppCompatActivity implements View.OnClickListener, ZXingScannerView.ResultHandler {
+public class LoginMesa extends AppCompatActivity implements View.OnClickListener {
 
 
     private Button btnasignarmesa;
@@ -109,47 +110,25 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
                  Toast.makeText(this, "Por favor, inserta el codigo para poder registrarte en la mesa", Toast.LENGTH_SHORT).show();
                 }
                 break;
+
+
             case R.id.btnscan:
+
 
                 IntentIntegrator integrator = new IntentIntegrator(activity);
 
                 integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-                integrator.setPrompt("Scan");
+                integrator.setPrompt("Escanea el codigo que te ha dado el camarero");
                 integrator.setCameraId(0);
-
-                integrator.setOrientationLocked(true);
-                integrator.setBeepEnabled(false);
+                integrator.setOrientationLocked(false);
+                integrator.setBeepEnabled(true);
                 integrator.setBarcodeImageEnabled(false);
                 integrator.initiateScan();
-                /*
-                    scanner = new ZXingScannerView(this);
-
-
-                    setContentView(scanner);
-                    scanner.setResultHandler(this);
-                    scanner.startCamera();*/
                 break;
         }
 
     }
 
-
-   @Override
-    protected void onResume() {
-        super.onResume();
-
-       btnasignarmesa.setOnClickListener(this);
-       btnscan.setOnClickListener(this);
-
-    }
-
-    @Override
-    public void handleResult(Result result) {
-        codigomesa = result.getText();
-        Toast.makeText(this,"Codigo Escaneado , "+result.getText(),Toast.LENGTH_SHORT).show();
-        scanner.stopCamera();
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){

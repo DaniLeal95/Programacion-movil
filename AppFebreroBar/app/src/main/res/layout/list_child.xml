@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minHeight="20dp">
+    android:minHeight="40dp">
 
     <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
         android:text="TextView"
@@ -11,7 +11,10 @@
         android:id="@+id/lblnombrelistchild"
         android:textSize="20dp"
         android:layout_weight="1"
-        android:layout_marginLeft="90dp"/>
+
+        android:layout_marginLeft="90dp"
+
+        />
 
     <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
         android:text="TextView"

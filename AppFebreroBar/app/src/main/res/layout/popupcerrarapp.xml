@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tapas Bar"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:id="@+id/titlepopup"
+        android:layout_margin="25dp"
+        />
+
+    <View
+        android:id="@+id/SplitLine_hor1"
+        android:layout_width="match_parent"
+        android:layout_height= "1dp"
+        android:background="#000"
+        android:layout_below="@id/titlepopup"
+        />
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+        android:text="Seguro que quieres salir?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:layout_margin="20dp"
+        android:layout_below="@id/SplitLine_hor1"
+        android:id="@+id/textView" />
+
+  <!--  <com.shaishavgandhi.loginbuttons.GooglePlusButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btncancelarprincipal"
+        android:text="Cancelar"
+        app:roundedCorner="true"
+        app:roundedCornerRadius="75dp"
+        app:iconSize="0dp"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/textView" />
+
+    <com.shaishavgandhi.loginbuttons.FacebookButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnaceptarprincipal"
+        android:text="Aceptar"
+        app:roundedCorner="true"
+        app:roundedCornerRadius="75dp"
+        app:iconSize="0dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/btncancelarprincipal"
+        android:layout_marginStart="31dp" />-->
+
+
+</RelativeLayout>

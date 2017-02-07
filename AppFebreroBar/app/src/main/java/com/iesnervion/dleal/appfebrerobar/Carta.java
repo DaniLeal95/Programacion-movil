@@ -30,7 +30,7 @@ public class Carta extends AppCompatActivity {
     private List<Producto> tapasfrias;
     private List<Producto> tapascalientes;
     private HashMap <String,List<Producto>> hashMap;
-    private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

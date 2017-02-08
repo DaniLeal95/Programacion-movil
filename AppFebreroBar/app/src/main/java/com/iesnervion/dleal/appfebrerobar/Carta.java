@@ -34,7 +34,7 @@ import java.util.Set;
 
 
 
-public class Carta extends AppCompatActivity implements View.OnClickListener, ExpandableListView.OnChildClickListener {
+public class Carta extends AppCompatActivity implements View.OnClickListener {
 
     ExpandableListView explistview;
 
@@ -57,12 +57,16 @@ public class Carta extends AppCompatActivity implements View.OnClickListener, Ex
         anadiralacesta = (ImageView) findViewById(R.id.anadiralacesta);
         anadiralacesta.setVisibility(View.INVISIBLE);
 
+
         boolean cartaSeleccionable=false;
         Intent i= getIntent();
         Bundle bundle=i.getExtras();
         if(bundle !=null){
-            cartaSeleccionable = bundle.getBoolean("cartaSeleccionable");
-            anadiralacesta.setVisibility(View.VISIBLE);
+            if(cartaSeleccionable = bundle.getBoolean("cartaSeleccionable")) {
+                Utilidades u = new Utilidades(this);
+                if(u.getCuenta().size()>0)
+                    anadiralacesta.setVisibility(View.VISIBLE);
+            }
         }
 
         Toolbar toolbar =(Toolbar) findViewById(R.id.toolbar2);
@@ -71,7 +75,10 @@ public class Carta extends AppCompatActivity implements View.OnClickListener, Ex
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Carta");
 
+
         ExpandableListAdapter explistAdapter;
+
+
         getData();
 
         explistAdapter= new CustomExpandableListAdapter(this,tipos,hashMap,new View.OnClickListener() {
@@ -84,7 +91,10 @@ public class Carta extends AppCompatActivity implements View.OnClickListener, Ex
 
                 Producto p = u.getProductoxid(id);
 
-                Toast.makeText(v.getContext(),p.toString(),Toast.LENGTH_SHORT).show();
+                u.anadirNuevoProductoaComanda(p,1);
+
+                Intent i = new Intent(v.getContext(),NuevaComanda.class);
+                startActivity(i);
 
             }
 
@@ -93,7 +103,7 @@ public class Carta extends AppCompatActivity implements View.OnClickListener, Ex
 
         explistview.setAdapter(explistAdapter);
 
-
+        anadiralacesta.setOnClickListener(this);
 
 
 
@@ -108,7 +118,7 @@ public class Carta extends AppCompatActivity implements View.OnClickListener, Ex
         tipos.add("Tapas Calientes");
         tipos.add("Fuera de Carta");
 
-
+        //TODO ESTO CAMBIARLO POR UNA LLAMADA A LA BBDD
         bebidas = lp.getBebidas();
         tapasfrias = lp.getTapasFrias();
         tapascalientes = lp.getTapasCalientes();
@@ -145,13 +155,21 @@ public class Carta extends AppCompatActivity implements View.OnClickListener, Ex
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this,"HOLA",Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this,NuevaComanda.class);
+        startActivity(i);
     }
 
     @Override
-    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-        Toast.makeText(this,"HOLAA",Toast.LENGTH_SHORT).show();
+    public void onBackPressed() {
+        Utilidades u = new Utilidades(this);
+        if(u.getCuenta().size()>0){
+            Intent i = new Intent(this,NuevaComanda.class);
+            startActivity(i);
+        }else{
+            Intent i = new Intent(this,Principal.class);
+            startActivity(i);
+        }
 
-        return false;
     }
+
 }

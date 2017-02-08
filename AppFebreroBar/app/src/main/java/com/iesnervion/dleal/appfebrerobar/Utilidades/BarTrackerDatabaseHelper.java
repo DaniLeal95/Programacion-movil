@@ -50,11 +50,11 @@ public class BarTrackerDatabaseHelper extends SQLiteOpenHelper {
                 + " , FOREIGN KEY ("+Productos.PRODUCTO_IDCATEGORIA+") REFERENCES "+Categoria.CATEGORIA_TABLE_NAME+"("+Categoria._ID+")"
                 + ");");
 
-        db.execSQL("CREATE TABLE " + Cuenta.CUENTA_TABLE_NAME + " ("
-                + Cuenta._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + Cuenta.CUENTA_IDPRODUCTO + " INTEGER,"
-                + Cuenta.CUENTA_CANTIDAD + " INTEGER"
-                + " , FOREIGN KEY ("+Cuenta.CUENTA_IDPRODUCTO+") REFERENCES "+Productos.PRODUCTOS_TABLE_NAME+"("+Productos._ID+")"
+        db.execSQL("CREATE TABLE " + Cuentas.CUENTA_TABLE_NAME + " ("
+                + Cuentas._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + Cuentas.CUENTA_IDPRODUCTO + " INTEGER,"
+                + Cuentas.CUENTA_CANTIDAD + " INTEGER"
+                + " , FOREIGN KEY ("+ Cuentas.CUENTA_IDPRODUCTO+") REFERENCES "+Productos.PRODUCTOS_TABLE_NAME+"("+Productos._ID+")"
                 + ");");
 
 
@@ -66,7 +66,7 @@ public class BarTrackerDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion,
                           int newVersion){
         android.util.Log.w("Constants", "Upgrading database, which will destroy allold data");
-        db.execSQL("DROP TABLE IF EXISTS " + Cuenta.CUENTA_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + Cuentas.CUENTA_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + Productos.PRODUCTOS_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + Categoria.CATEGORIA_TABLE_NAME);
         onCreate(db);
@@ -81,6 +81,7 @@ public class BarTrackerDatabaseHelper extends SQLiteOpenHelper {
     public void insertCarta(List<Producto> productos){
         ContentValues valores = new ContentValues();
         SQLiteDatabase db = getWritableDatabase();
+
 
         //Insertamos las Categorias
         valores.put(Categoria._ID,1);

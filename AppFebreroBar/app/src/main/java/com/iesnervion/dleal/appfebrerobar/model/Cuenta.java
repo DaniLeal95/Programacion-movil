@@ -11,21 +11,21 @@ public class Cuenta {
 
     private int idcuenta,nummesa;
     private double preciofinal;
-    private List<Producto> productos;
+    private List<DetallesCuenta> detallesCuentas;
 
     //Constructor
-    public Cuenta(int idcuenta, int nummesa,  List<Producto> productos) {
+    public Cuenta(int idcuenta, int nummesa,List<DetallesCuenta> detallesCuentas) {
         this.idcuenta = idcuenta;
         this.nummesa = nummesa;
         this.preciofinal = 0.0;
-        this.productos = productos;
+        this.detallesCuentas = detallesCuentas;
     }
     //TODO: Quitar este constructor cuando coga los datos de la api.
     //Constructor
     public Cuenta(int idcuenta){
         this.idcuenta = idcuenta;
         this.preciofinal = 0.0;
-        productos = new ArrayList<>();
+        detallesCuentas = new ArrayList<>();
     }
 
 
@@ -51,8 +51,8 @@ public class Cuenta {
     public double getPreciofinal() {
         double precio=0.0;
 
-        for(int i=0;i<this.getProductos().size();i++){
-            precio+=this.getProductos().get(i).getPrecio();
+        for(int i=0;i<this.getDetallesCuentas().size();i++){
+            precio+=(this.detallesCuentas.get(i).getProducto().getPrecio()*this.detallesCuentas.get(i).getCantidad());
         }
         return precio;
     }
@@ -61,11 +61,11 @@ public class Cuenta {
         this.preciofinal = preciofinal;
     }
 
-    public List<Producto> getProductos() {
-        return productos;
+    public List<DetallesCuenta> getDetallesCuentas() {
+        return detallesCuentas;
     }
 
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
+    public void setDetallesCuentas(List<DetallesCuenta> detallesCuentas) {
+        this.detallesCuentas = detallesCuentas;
     }
 }

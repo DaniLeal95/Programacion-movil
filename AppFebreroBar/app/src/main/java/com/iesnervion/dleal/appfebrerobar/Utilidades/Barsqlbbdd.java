@@ -23,8 +23,8 @@ public final class Barsqlbbdd {
         public static final String CATEGORIA_NOMBRE="categoria_nombre";
     }
 
-    public static final class Cuenta implements BaseColumns{
-        private Cuenta(){}
+    public static final class Cuentas implements BaseColumns{
+        private Cuentas(){}
         public static final String CUENTA_TABLE_NAME="table_cuenta";
         public static final String CUENTA_IDPRODUCTO="producto_id";
         public static final String CUENTA_CANTIDAD="cantidad";

@@ -88,53 +88,14 @@ public class CuentaFragment extends ListFragment {
         lblPrecio = (Customfont) v.findViewById(R.id.lblprecio);
 
 
-        //TODO : Cambiar esto a la cuenta original
+        //TODO : Cambiar esto a la cuenta original que me de la api
 
         Cuenta c = ((Listados) getActivity().getApplication()).getCuenta();
-        productos = c.getProductos();
-
-
-
-        List<Producto> productosordenados = new ArrayList<>();
-        List<Integer> cantidades = new ArrayList();
-
-
-        //Droga dura que entiendo yo
-        //Ordenamos el list
-        for (int i=0;i<productos.size();i++){
-            boolean encontrado = false;
-            int uds=0;
-            //Comprobamos que el producto a insertar no este insertado ya.
-            for(int j=0;j< productosordenados.size()&& !encontrado;j++) {
-                if(productosordenados.get(j).getIdproducto()==productos.get(i).getIdproducto()) {
-                    encontrado = true;
-                }
-            }
-
-            //Si no esta lo insertamos en el listOrdenado
-            if(!encontrado){
-                productosordenados.add(productos.get(i));
-
-
-
-            //Ahora contamos las uds de cada producto
-            for (int j=0;j<productos.size();j++){
-                if(productos.get(i).getIdproducto()==productos.get(j).getIdproducto()){
-                    uds++;
-                }
-
-            }
-
-
-            cantidades.add(uds);
-            }
-        }
 
 
         double preciofinal= Math.floor(c.getPreciofinal()*100)/100;
-
-
         lblPrecio.setText(""+preciofinal+"€");
+
         Intent i= getActivity().getIntent();
         Bundle bundle=i.getExtras();
         if(bundle !=null) {
@@ -149,7 +110,7 @@ public class CuentaFragment extends ListFragment {
 
 
 
-        setListAdapter(new MiarrayAdapterCuenta(v.getContext(),R.layout.cuenta,productosordenados,cantidades));
+        setListAdapter(new MiarrayAdapterCuenta(v.getContext(),R.layout.cuenta,c.getDetallesCuentas()));
         return v;
     }
 
@@ -192,3 +153,39 @@ public class CuentaFragment extends ListFragment {
         void onFragmentInteraction(Uri uri);
     }
 }
+
+
+
+//Esto ya no es necesario, PERO POR SI ACASO
+/*
+        //Droga dura que entiendo yo
+        //Ordenamos el list
+        for (int i=0;i<productos.size();i++){
+            boolean encontrado = false;
+            int uds=0;
+            //Comprobamos que el producto a insertar no este insertado ya.
+            for(int j=0;j< productosordenados.size()&& !encontrado;j++) {
+                if(productosordenados.get(j).getIdproducto()==productos.get(i).getIdproducto()) {
+                    encontrado = true;
+                }
+            }
+
+            //Si no esta lo insertamos en el listOrdenado
+            if(!encontrado){
+                productosordenados.add(productos.get(i));
+
+
+
+            //Ahora contamos las uds de cada producto
+            for (int j=0;j<productos.size();j++){
+                if(productos.get(i).getIdproducto()==productos.get(j).getIdproducto()){
+                    uds++;
+                }
+
+            }
+
+
+            cantidades.add(uds);
+            }
+        }
+*/

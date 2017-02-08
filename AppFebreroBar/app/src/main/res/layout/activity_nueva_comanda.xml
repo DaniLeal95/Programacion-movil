@@ -13,21 +13,11 @@
     tools:context="com.iesnervion.dleal.appfebrerobar.NuevaComanda">
 
 
-
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:theme="?attr/actionBarTheme"
-        android:minHeight="?attr/actionBarSize"
-        app:backgroundTint="@android:color/transparent"
-        android:id="@+id/toolbarNuevaComanda" />
-
     <com.shaishavgandhi.loginbuttons.FacebookButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnrealizarPedido"
-        android:text="RealizarPedido"
+        android:text="Realizar Pedido"
         android:layout_alignParentBottom="true"
         app:roundedCorner="true"
         app:transparentBackground="true"
@@ -40,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/btnrealizarPedido"
+        android:layout_marginBottom="20dp"
         android:id="@+id/btnseguircomprando"
         android:text="Seguir Comprando"
         app:roundedCorner="true"
@@ -52,7 +43,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rllista"
-        android:layout_below="@id/toolbarNuevaComanda"
         android:layout_above="@id/btnseguircomprando"
         android:layout_marginBottom="20dp"
         >
@@ -61,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/lblnumMesanewComanda"
-            android:text="Mesa"
+            android:text="Nueva Cuenta"
             android:textAlignment="center"
             android:textSize="30dp"/>
 
@@ -118,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:id="@+id/lblTotalCuentaprecionewComanda"
-            android:text="Total Cuenta"
+            android:text="Total Pedido"
             android:textAlignment="center"
             android:textSize="30dp"/>
 

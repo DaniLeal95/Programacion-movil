@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.iesnervion.dleal.appfebrerobar.R;
 import com.iesnervion.dleal.appfebrerobar.customfont.Customfont;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
+import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
 
@@ -19,13 +20,10 @@ import java.util.List;
  * Created by dleal on 31/01/17.
  */
 
-public class MiarrayAdapterCuenta extends ArrayAdapter<Producto> {
-    private List<Producto> productos;
-    private List<Integer> uds;
-    public MiarrayAdapterCuenta(Context context, int resource, List<Producto> productos, List<Integer> uds) {
+public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
+
+    public MiarrayAdapterCuenta(Context context, int resource, List<DetallesCuenta> productos) {
         super(context, resource, productos);
-        this.productos = productos;
-        this.uds = uds;
     }
 
     @Override
@@ -55,10 +53,8 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<Producto> {
 
 
 
-        Producto p = productos.get(position);
-
-
-        double importe = uds.get(position)*p.getPrecio();
+        DetallesCuenta dc = getItem(position);
+        double importe = dc.getProducto().getPrecio()*dc.getCantidad();
 
 
         Customfont lbluds = viewHolder.getUds();
@@ -66,10 +62,10 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<Producto> {
         Customfont lblpvp  = viewHolder.getPvp();
         Customfont lblimporte = viewHolder.getImporte();
 
-        lbluds.setText(""+uds.get(position));
-        lbldescripcion.setText(p.getNombre());
-        lblpvp.setText(""+p.getPrecio());
-        lblimporte.setText(""+importe);
+        lbluds.setText(String.valueOf(dc.getCantidad()));
+        lbldescripcion.setText(dc.getProducto().getNombre());
+        lblpvp.setText(String.valueOf(dc.getProducto().getPrecio())+"€");
+        lblimporte.setText(String.valueOf(importe)+"€");
 
         return row;
     }

@@ -3,6 +3,7 @@ package com.iesnervion.dleal.appfebrerobar.datos;
 import android.app.Application;
 
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
+import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
 import com.iesnervion.dleal.appfebrerobar.model.Mesa;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
@@ -23,9 +24,6 @@ public class Listados extends Application {
         mesas = new ArrayList<>();
         cuenta = new Cuenta(1);
 
-        List<Producto> productos = new ArrayList<>();
-
-        this.cuenta.setProductos(productos);
 
         Mesa m = new Mesa(1,"11111");
         Mesa m2 = new Mesa(2,"22222");
@@ -45,8 +43,8 @@ public class Listados extends Application {
         this.mesas.add(mesa);
     }
 
-    public void addProductoCuenta(Producto producto){
-        this.cuenta.getProductos().add(producto);
+    public void addProductoCuenta(DetallesCuenta detallesCuenta){
+        this.cuenta.getDetallesCuentas().add(detallesCuenta);
     }
 
     public Cuenta getCuenta() {

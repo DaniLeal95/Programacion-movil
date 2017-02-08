@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:minHeight="40dp">
 
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:id="@+id/idProductoCarta" />
+
     <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
         android:text="TextView"
         android:layout_width="wrap_content"

@@ -25,15 +25,6 @@ public class Listados extends Application {
 
         List<Producto> productos = new ArrayList<>();
 
-        productos.add(new Producto(1,1,"Cerveza",1.20));
-        productos.add(new Producto(1,1,"Cerveza",1.20));
-        productos.add(new Producto(1,1,"Cerveza",1.20));
-        productos.add(new Producto(2,1,"CocaCola",1.50));
-        productos.add(new Producto(2,1,"CocaCola",1.50));
-        productos.add(new Producto(3,2,"Ensaladilla",3.00));
-        productos.add(new Producto(1,1,"Cerveza",1.20));
-        productos.add(new Producto(4,3,"Alitas de pollo",2.50));
-
         this.cuenta.setProductos(productos);
 
         Mesa m = new Mesa(1,"11111");
@@ -54,7 +45,7 @@ public class Listados extends Application {
         this.mesas.add(mesa);
     }
 
-    public void addProducttoCuenta(Producto producto){
+    public void addProductoCuenta(Producto producto){
         this.cuenta.getProductos().add(producto);
     }
 

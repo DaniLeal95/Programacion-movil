@@ -27,12 +27,16 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> tipos;
     private Map<String,List<Producto>> hashmap;
+    private View.OnClickListener listener;
+    private boolean cartaSeleccionable;
 
-
-    public CustomExpandableListAdapter(Context context, List<String> tipos, Map<String, List<Producto>> hashmap) {
+    public CustomExpandableListAdapter(Context context, List<String> tipos, Map<String, List<Producto>> hashmap, View.OnClickListener listener,boolean cartaSeleccionable) {
         this.context = context;
         this.tipos = tipos;
         this.hashmap = hashmap;
+        this.listener = listener;
+        this.cartaSeleccionable=cartaSeleccionable;
+
     }
 
     @Override
@@ -96,6 +100,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         String nombreProducto = p.getNombre();
         String precio = String.valueOf(p.getPrecio());
+        String id = String.valueOf(p.getIdproducto());
 
         if(convertView == null){
             LayoutInflater inflate = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
@@ -105,9 +110,14 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView lblNombreProducto = (TextView) convertView.findViewById(R.id.lblnombrelistchild);
         TextView lblprecio = (TextView) convertView.findViewById(R.id.lblpreciolistchild);
+        TextView lblid= (TextView) convertView.findViewById(R.id.idProductoCarta);
 
         lblNombreProducto.setText(nombreProducto);
         lblprecio.setText(precio+ " €");
+        lblid.setText(id);
+
+        if(cartaSeleccionable)
+            convertView.setOnClickListener(listener);
         return convertView;
     }
 

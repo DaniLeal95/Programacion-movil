@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 
 import android.os.Build;
@@ -21,6 +23,7 @@ import com.csmpl.androidlib.edittextmod.EditTextMod;
 import com.google.zxing.Result;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.iesnervion.dleal.appfebrerobar.Utilidades.BarTrackerDatabaseHelper;
 import com.iesnervion.dleal.appfebrerobar.datos.Listados;
 import com.iesnervion.dleal.appfebrerobar.model.Mesa;
 
@@ -94,6 +97,14 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
 
                 if (clavevalida) {
+
+                    BarTrackerDatabaseHelper miBarHelper = new BarTrackerDatabaseHelper(v.getContext());
+                    SQLiteDatabase db = miBarHelper.getReadableDatabase();
+
+
+
+
+
                     Intent i = new Intent(this, Principal.class);
                     i.putExtra("nummesa", m.getNummesa());
 

@@ -1,10 +1,13 @@
 package com.iesnervion.dleal.appfebrerobar.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Dani on 29/01/2017.
  */
 
-public class Producto {
+public class Producto implements Parcelable {
 
     private int idproducto,idcategoria;
     private String nombre;
@@ -13,7 +16,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int idproducto, int idcategoria, String nombre, double precio) {
+    public Producto(int idproducto, String nombre, double precio, int idcategoria) {
         this.idproducto = idproducto;
         this.idcategoria = idcategoria;
         this.nombre = nombre;
@@ -61,4 +64,36 @@ public class Producto {
                 ", precio=" + precio +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idproducto);
+        dest.writeString(nombre);
+        dest.writeDouble(precio);
+        dest.writeInt(idcategoria);
+    }
+
+    protected Producto(Parcel in) {
+        idproducto = in.readInt();
+        nombre = in.readString();
+        precio = in.readDouble();
+        idcategoria = in.readInt();
+    }
+
+    public static final Creator<Producto> CREATOR = new Creator<Producto>() {
+        @Override
+        public Producto createFromParcel(Parcel in) {
+            return new Producto(in);
+        }
+
+        @Override
+        public Producto[] newArray(int size) {
+            return new Producto[size];
+        }
+    };
 }

@@ -24,16 +24,28 @@ public class Utilidades {
         db = bbdd.getReadableDatabase();
     }
 
+    public List<Producto> getProductosxCategoria(int idcategoria){
+        List<Producto> bebidas = new ArrayList<>();
+        Producto p= null;
+        Cursor result = db.rawQuery("SELECT "+ Productos._ID+","+ Productos.PRODUCTO_NOMBRE+","+Productos.PRODUCTO_PRECIO+","+Productos.PRODUCTO_IDCATEGORIA+" FROM "+Productos.PRODUCTOS_TABLE_NAME+" WHERE "+Productos.PRODUCTO_IDCATEGORIA+" = "+idcategoria,null);
+
+        if(result.moveToFirst()){
+
+            p = new Producto(result.getInt(0),  result.getString(1), result.getDouble(2),result.getInt(3));
+        }
+        return bebidas;
+    }
+
+
     public Producto getProductoxid(int id){
 
         Producto p = null;
 
         Cursor result= db.rawQuery("SELECT "+ Productos._ID+","+ Productos.PRODUCTO_NOMBRE+","+Productos.PRODUCTO_PRECIO+","+Productos.PRODUCTO_IDCATEGORIA+" FROM "+Productos.PRODUCTOS_TABLE_NAME+" WHERE "+Productos._ID+" = "+id,null);
         if(result.moveToFirst()){
-
-            p = new Producto(result.getInt(0), result.getInt(3), result.getString(1), result.getDouble(2));
-         //numerofilas= result.getInt(0);
-
+            do {
+                p = new Producto(result.getInt(0),  result.getString(1), result.getDouble(2),result.getInt(3));
+            }while(result.moveToNext());
         }
 
         result.close();
@@ -100,7 +112,7 @@ public class Utilidades {
         Cursor result= db.rawQuery(select,null);
         if(result.moveToFirst()){
             do {
-                Producto p = new Producto(result.getInt(0), result.getInt(1), result.getString(2), result.getDouble(3));
+                Producto p = new Producto(result.getInt(0), result.getString(2), result.getDouble(3), result.getInt(1));
                 DetallesCuenta dc = new DetallesCuenta(p, result.getInt(4));
                 c.add(dc);
             }while(result.moveToNext());

@@ -12,7 +12,7 @@ public class ListadoProductos {
     private List<Producto> productos;
 
     public ListadoProductos(){
-        Producto p= new Producto(1,1,"Cerveza",1.20);
+       /* Producto p= new Producto(1,1,"Cerveza",1.20);
         Producto p2= new Producto(2,1,"Tinto de Verano",1.00);
         Producto p3= new Producto(3,1,"Cocacola",1.50);
         Producto p4= new Producto(4,2,"Ensaladilla",2.00);
@@ -27,7 +27,7 @@ public class ListadoProductos {
         productos.add(p4);
         productos.add(p5);
         productos.add(p6);
-        productos.add(p7);
+        productos.add(p7);*/
     }
 
     public List<Producto> getProductos() {

@@ -111,7 +111,7 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
 
     public void getData(){
 
-        ListadoProductos lp = new ListadoProductos();
+        Utilidades u = new Utilidades(this);
         tipos = new ArrayList<>();
         tipos.add("Bebidas");
         tipos.add("Tapas Frias");
@@ -119,10 +119,10 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
         tipos.add("Fuera de Carta");
 
         //TODO ESTO CAMBIARLO POR UNA LLAMADA A LA BBDD
-        bebidas = lp.getBebidas();
-        tapasfrias = lp.getTapasFrias();
-        tapascalientes = lp.getTapasCalientes();
-        fueradecarta = lp.getFueradeCarta();
+        bebidas = u.getProductosxCategoria(1);
+        tapasfrias = u.getProductosxCategoria(2);
+        tapascalientes = u.getProductosxCategoria(3);
+        //fueradecarta = lp.getFueradeCarta();
 
         hashMap = new HashMap<>();
 

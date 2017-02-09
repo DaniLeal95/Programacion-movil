@@ -143,6 +143,7 @@ public class Principal extends AppCompatActivity
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 Principal.super.onDestroy();
+
                 moveTaskToBack(true);
                 android.os.Process.killProcess(android.os.Process.myPid());
                 System.exit(1);

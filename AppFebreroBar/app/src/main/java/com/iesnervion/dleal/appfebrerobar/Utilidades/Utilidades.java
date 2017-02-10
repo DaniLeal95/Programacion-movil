@@ -25,15 +25,18 @@ public class Utilidades {
     }
 
     public List<Producto> getProductosxCategoria(int idcategoria){
-        List<Producto> bebidas = new ArrayList<>();
+        List<Producto> productos = new ArrayList<>();
         Producto p= null;
         Cursor result = db.rawQuery("SELECT "+ Productos._ID+","+ Productos.PRODUCTO_NOMBRE+","+Productos.PRODUCTO_PRECIO+","+Productos.PRODUCTO_IDCATEGORIA+" FROM "+Productos.PRODUCTOS_TABLE_NAME+" WHERE "+Productos.PRODUCTO_IDCATEGORIA+" = "+idcategoria,null);
 
         if(result.moveToFirst()){
 
-            p = new Producto(result.getInt(0),  result.getString(1), result.getDouble(2),result.getInt(3));
+            do {
+                p = new Producto(result.getInt(0), result.getString(1), result.getDouble(2), result.getInt(3));
+                productos.add(p);
+            }while(result.moveToNext());
         }
-        return bebidas;
+        return productos;
     }
 
 

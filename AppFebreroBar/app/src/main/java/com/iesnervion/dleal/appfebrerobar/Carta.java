@@ -122,7 +122,7 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
         bebidas = u.getProductosxCategoria(1);
         tapasfrias = u.getProductosxCategoria(2);
         tapascalientes = u.getProductosxCategoria(3);
-        //fueradecarta = lp.getFueradeCarta();
+        fueradecarta = u.getProductosxCategoria(0);
 
         hashMap = new HashMap<>();
 

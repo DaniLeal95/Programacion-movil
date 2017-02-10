@@ -15,8 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.ProductosCallback;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IProductos;
 import com.iesnervion.dleal.appfebrerobar.Permisos.Permisos;
@@ -30,16 +28,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class Inicial extends AppCompatActivity implements View.OnClickListener {
@@ -66,7 +56,7 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
         //TODO: CAMBIAR ESTO POR LA LLAMADA A LA API
 
 
-
+        getAdminRest();
 
 
 
@@ -102,10 +92,25 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
 
     public String codifica64() {
 
-        String credentials = "user:user";
-        //String auth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-        String auth ="Basic dXNlcjp1c2Vy";
+        String credentials = "pepe:pepe";
+        String auth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+        //String auth ="Basic dXNlcjp1c2Vy";
         return auth;
+    }
+
+    public void getAdminRest(){
+        Retrofit retrofit;
+
+        ProductosCallback adminCallback = new ProductosCallback(this);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://dleal.ciclo.iesnervion.es/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IProductos adminInter = retrofit.create(IProductos.class);
+        String base64 = codifica64();
+        adminInter.getProductos(base64).enqueue(adminCallback);
     }
 
 

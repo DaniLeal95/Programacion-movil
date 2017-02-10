@@ -10,6 +10,12 @@ import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 //import retrofit2.Call;
 //import retrofit2.Callback;
@@ -23,9 +29,9 @@ import java.util.List;
  * Created by dleal on 9/02/17.
  */
 
-public class ProductosCallback /*implements Callback<List<Producto>> */{
+public class ProductosCallback implements Callback<List<Producto>> {
 
-/*
+
     private Inicial main;
 
     public ProductosCallback(Inicial main) {
@@ -43,23 +49,11 @@ public class ProductosCallback /*implements Callback<List<Producto>> */{
     @Override
     public void onFailure(Call<List<Producto>> call, Throwable t) {
 
-        if(t.toString().contains("java.io.EOFException")){
-            Retrofit retrofit;
 
-            ProductosCallback productoCallback = new ProductosCallback(main);
 
-            retrofit = new Retrofit.Builder()
-                    .baseUrl("http://dleal.ciclo.iesnervion.es/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-            IProductos productosInter = retrofit.create(IProductos.class);
-            String base64 = "Basic dXNlcjp1c2Vy";
-            productosInter.getProductos(base64).enqueue(productoCallback);
-        }else{
             Toast.makeText(main,t.toString(),Toast.LENGTH_SHORT).show();
-        }
 
-    }*/
+
+    }
 
 }

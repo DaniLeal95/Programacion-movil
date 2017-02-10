@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,9 +34,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -60,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                String url = "http://dleal.ciclo.iesnervion.es/index.php/Almacen";
+                String url = "http://dleal.ciclo.iesnervion.es/Producto";
 
                 JsonArrayRequest arrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                         new Response.Listener<JSONArray>(){
@@ -79,9 +83,18 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onErrorResponse(VolleyError error) {
 
+                                Toast.makeText(MainActivity.super.getApplicationContext(),"ERROR",Toast.LENGTH_SHORT);
                             }
-                        });
+                        })
+                {@Override
+                public Map< String, String > getHeaders() throws AuthFailureError {
+                    HashMap< String, String > headers = new HashMap < String, String > ();
+                    String encodedCredentials = Base64.encodeToString("passwordandlogin".getBytes(), Base64.NO_WRAP);
+                    headers.put("Authorization", "Basic dXNlcjp1c2Vy");
 
+                    return headers;
+                }
+                };
                     queue.add(arrayRequest);
             }
         });

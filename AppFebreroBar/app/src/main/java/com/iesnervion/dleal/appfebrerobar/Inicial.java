@@ -15,29 +15,31 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.ProductosCallback;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IProductos;
 import com.iesnervion.dleal.appfebrerobar.Permisos.Permisos;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.BarTrackerDatabaseHelper;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-import com.squareup.okhttp.ResponseBody;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
 
-import retrofit2.converter.gson.GsonConverterFactory;
-
-//import okhttp3.ResponseBody;
-//import retrofit2.Converter;
-//import retrofit2.Retrofit;
-//import retrofit2.converter.gson.GsonConverterFactory;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 
 public class Inicial extends AppCompatActivity implements View.OnClickListener {
@@ -45,6 +47,7 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
 
     private Inicial inicial ;
     private SQLiteDatabase db;
+    private List<Producto> productos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,32 +65,9 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
 
         //TODO: CAMBIAR ESTO POR LA LLAMADA A LA API
 
-        this.get("http://dleal.ciclo.iesnervion.es/Producto", new Callback() {
 
-                    @Override
-                    public void onFailure(Request request, IOException e) {
-                        int i =0;
-                        i++;
-                    }
 
-                    @Override
-                    public void onResponse(Response response) throws IOException {
-                        if (response.isSuccessful()) {
-                            // = response.body();
-                            //Log.v("Response",responseStr);
 
-                            //Object object = GsonConverterFactory.create().responseBodyConverter(Producto.class, null, null)
-                            //        .convert(ResponseBody.create(MediaType.parse("text"), "null"));
-                            List<Producto> productos = (List<Producto>) response.body();
-
-                            BarTrackerDatabaseHelper bbdd = new BarTrackerDatabaseHelper(inicial);
-                            bbdd.insertCarta(productos);
-
-                        } else {
-
-                        }
-                    }
-        });
 
 
         setContentView(R.layout.activity_inicial);
@@ -128,62 +108,8 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
         return auth;
     }
 
-    //public void getProductosRest() {
 
 
-
-    public static final MediaType JSON
-            = MediaType.parse("application/json; charset=utf-8");
-
-    OkHttpClient client = new OkHttpClient();
-
-    Call get(String url, Callback callback) {
-
-        Request request = new Request.Builder()
-                .addHeader("Authorization","Basic dXNlcjp1c2Vy")
-                .addHeader("Content-Type","application/json")
-                .url(url)
-                .build();
-        Call call = client.newCall(request);
-        call.enqueue(callback);
-        return call;
-    }
-
-/*
-            // code request code here
-           public String doGetRequest(String url) throws IOException {
-                OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder()
-                        .addHeader("Authorization","Basic dXNlcjp1c2Vy")
-                        .addHeader("Content-Type","application/json")
-                        .url(url)
-                        .build();
-
-                Response response = client.newCall(request).execute();
-                return response.body().string();
-            }
-
-            // post request code here
-
-
-*/
-
-
-
-
-//        Retrofit retrofit;
-//
-//        ProductosCallback productoCallback = new ProductosCallback(this);
-//
-//        retrofit = new Retrofit.Builder()
-//                .baseUrl("http://dleal.ciclo.iesnervion.es/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        IProductos productosInter = retrofit.create(IProductos.class);
-//        String base64 = codifica64();
-//        productosInter.getProductos(base64).enqueue(productoCallback);
-    //}
 
 
 

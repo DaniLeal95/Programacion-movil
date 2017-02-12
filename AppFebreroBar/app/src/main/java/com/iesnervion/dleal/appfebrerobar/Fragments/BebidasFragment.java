@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.iesnervion.dleal.appfebrerobar.R;
+import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 import com.iesnervion.dleal.appfebrerobar.model.ListadoProductos;
 import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapterMenu;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
@@ -80,18 +81,10 @@ public class BebidasFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ListadoProductos lp = new ListadoProductos();
+        Utilidades u = new Utilidades(container.getContext());
 
-        productos = lp.getProductos();
+        productos = u.getProductosxCategoria(1);
 
-
-
-        for(int i = 0;i< productos.size();i++){
-            if(productos.get(i).getIdcategoria()!=1) {
-                productos.remove(i);
-                i--;
-            }
-        }
         setListAdapter(new MiarrayAdapterMenu(this.getContext(),R.layout.filamenu,productos));
 
         return inflater.inflate(R.layout.fragment_bebidas, container, false);

@@ -13,6 +13,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 
 import android.widget.Button;
@@ -23,6 +24,9 @@ import com.csmpl.androidlib.edittextmod.EditTextMod;
 import com.google.zxing.Result;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.iesnervion.dleal.appfebrerobar.Callbacks.MesasCallback;
+import com.iesnervion.dleal.appfebrerobar.Callbacks.ProductosCallback;
+import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.BarTrackerDatabaseHelper;
 import com.iesnervion.dleal.appfebrerobar.datos.Listados;
 import com.iesnervion.dleal.appfebrerobar.model.Mesa;
@@ -31,6 +35,8 @@ import com.iesnervion.dleal.appfebrerobar.model.Mesa;
 import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginMesa extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,7 +50,7 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
     private ZXingScannerView scanner;
     private List<Mesa> mesas;
 
-    private final Activity activity=this;
+    private LoginMesa activity=this;
 
 
     @Override
@@ -53,7 +59,8 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_login_mesa);
 
 
-
+        //Obtenemos las mesas de la api
+        getMesas();
 
 
         btnasignarmesa = (Button) findViewById(R.id.btnLoginMesa);
@@ -65,10 +72,6 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
         //clave = (EditTextMod) findViewById(R.id.passwloginmesa);
         //clave.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
-
-        mesas = ((Listados)getApplication()).getMesas();
-
-
 
         nombre = (EditTextMod) findViewById(R.id.txtnombre);
         nombre.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
@@ -88,21 +91,15 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
             case R.id.btnLoginMesa:
                 if (!this.codigomesa.equals("")) {
 
-                for (int i = 0; i < mesas.size() && !clavevalida; i++) {
-                    if (mesas.get(i).getCodigo().equals(codigomesa.toString())) {
-                        m = mesas.get(i);
-                        clavevalida = true;
-                    }
-                }
 
+                    for(int i = 0 ; i<mesas.size() || !clavevalida;i++){
+                        if(this.codigomesa.equals(mesas.get(i).getCodigo())){
+                            clavevalida=true;
+                            m=mesas.get(i);
+                        }
+                    }
 
                 if (clavevalida) {
-
-                    BarTrackerDatabaseHelper miBarHelper = new BarTrackerDatabaseHelper(v.getContext());
-                    SQLiteDatabase db = miBarHelper.getReadableDatabase();
-
-
-
 
 
                     Intent i = new Intent(this, Principal.class);
@@ -159,11 +156,32 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    public String codifica64() {
+
+        String credentials = "user:user";
+        String auth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+        //String auth ="Basic dXNlcjp1c2Vy";
+        return auth;
+    }
+
+    public void getMesas(){
+        Retrofit retrofit;
+
+        MesasCallback adminCallback = new MesasCallback(this.activity);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://dleal.ciclo.iesnervion.es/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IBar adminInter = retrofit.create(IBar.class);
+        String base64 = codifica64();
+        adminInter.getMesas(base64).enqueue(adminCallback);
+    }
+
+    public void obtieneMesas(List<Mesa> mesas){
+        this.mesas=mesas;
+    }
+
+
 }
-
-
-
-
-
-
-

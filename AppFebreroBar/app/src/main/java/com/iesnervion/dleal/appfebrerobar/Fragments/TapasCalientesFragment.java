@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.iesnervion.dleal.appfebrerobar.R;
+import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 import com.iesnervion.dleal.appfebrerobar.model.ListadoProductos;
 import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapterMenu;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
@@ -66,16 +67,8 @@ public class TapasCalientesFragment extends ListFragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        ListadoProductos lp = new ListadoProductos();
-        productos = lp.getProductos();
 
-        for(int i = 0;i< productos.size();i++){
-            if(productos.get(i).getIdcategoria()!=3){
-                productos.remove(i);
-                i--;
-            }
 
-        }
 
     }
 
@@ -83,6 +76,9 @@ public class TapasCalientesFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Utilidades u = new Utilidades(container.getContext());
+        productos = u.getProductosxCategoria(3);
+
         setListAdapter(new MiarrayAdapterMenu(this.getContext(),R.layout.filamenu,productos));
 
 

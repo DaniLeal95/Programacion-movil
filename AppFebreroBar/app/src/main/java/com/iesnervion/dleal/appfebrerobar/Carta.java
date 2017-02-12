@@ -46,6 +46,7 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
     private HashMap <String,List<Producto>> hashMap;
     private ImageView anadiralacesta;
 
+    private boolean cartaseleccionable=false;
 
 
 
@@ -58,11 +59,11 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
         anadiralacesta.setVisibility(View.INVISIBLE);
 
 
-        boolean cartaSeleccionable=false;
+
         Intent i= getIntent();
         Bundle bundle=i.getExtras();
         if(bundle !=null){
-            if(cartaSeleccionable = bundle.getBoolean("cartaSeleccionable")) {
+            if(cartaseleccionable = bundle.getBoolean("cartaSeleccionable")) {
                 Utilidades u = new Utilidades(this);
                 if(u.getCuenta().size()>0)
                     anadiralacesta.setVisibility(View.VISIBLE);
@@ -98,7 +99,7 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
 
             }
 
-        },cartaSeleccionable);
+        },cartaseleccionable);
         explistview = (ExpandableListView) findViewById(R.id.expandableList);
 
         explistview.setAdapter(explistAdapter);
@@ -155,18 +156,30 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Intent i = new Intent(this,NuevaComanda.class);
-        startActivity(i);
+        if(cartaseleccionable) {
+            Intent i = new Intent(this, NuevaComanda.class);
+            startActivity(i);
+        }else{
+            Intent i = new Intent(this, Inicial.class);
+            startActivity(i);
+        }
     }
 
     @Override
     public void onBackPressed() {
-        Utilidades u = new Utilidades(this);
-        if(u.getCuenta().size()>0){
-            Intent i = new Intent(this,NuevaComanda.class);
-            startActivity(i);
-        }else{
-            Intent i = new Intent(this,Principal.class);
+
+        if(cartaseleccionable) {
+            Utilidades u = new Utilidades(this);
+            if (u.getCuenta().size() > 0) {
+                Intent i = new Intent(this, NuevaComanda.class);
+                startActivity(i);
+            } else {
+                Intent i = new Intent(this, Principal.class);
+                startActivity(i);
+            }
+        }
+        else{
+            Intent i = new Intent(this, Inicial.class);
             startActivity(i);
         }
 

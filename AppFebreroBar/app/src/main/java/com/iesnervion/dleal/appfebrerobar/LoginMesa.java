@@ -21,17 +21,24 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.csmpl.androidlib.edittextmod.EditTextMod;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.zxing.Result;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.iesnervion.dleal.appfebrerobar.Callbacks.CuentaCallback;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.MesasCallback;
+import com.iesnervion.dleal.appfebrerobar.Callbacks.PostCuentaCallback;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.ProductosCallback;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.BarTrackerDatabaseHelper;
 import com.iesnervion.dleal.appfebrerobar.datos.Listados;
+import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
+import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
 import com.iesnervion.dleal.appfebrerobar.model.Mesa;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -109,7 +116,10 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
                         i.putExtra("nombreCuenta", nombre.getText().toString());
                     }
 
+                    this.PostCuenta(m.getNummesa());
                     startActivity(i);
+
+
                 } else {
                     Toast.makeText(this, "Este codigo no corresponde a ninguna mesa", Toast.LENGTH_SHORT).show();
                 }
@@ -169,6 +179,7 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
         MesasCallback adminCallback = new MesasCallback(this.activity);
 
+
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://dleal.ciclo.iesnervion.es/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -182,6 +193,31 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
     public void obtieneMesas(List<Mesa> mesas){
         this.mesas=mesas;
     }
+
+    public void PostCuenta(int nummesa){
+        Retrofit retrofit;
+
+        PostCuentaCallback cuentaCallback = new PostCuentaCallback(this.activity);
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://dleal.ciclo.iesnervion.es/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        List<Cuenta> lista = new ArrayList<>();
+        Cuenta c = new Cuenta(0,nummesa,new ArrayList<DetallesCuenta>());
+        lista.add(c);
+
+        IBar adminInter = retrofit.create(IBar.class);
+        String base64 = codifica64();
+        adminInter.postCuenta(base64,lista).enqueue(cuentaCallback);
+    }
+
 
 
 }

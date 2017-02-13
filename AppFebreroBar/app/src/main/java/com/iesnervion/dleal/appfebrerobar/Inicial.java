@@ -12,6 +12,8 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.ProductosCallback;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
@@ -28,6 +30,8 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
     private Inicial inicial ;
     private SQLiteDatabase db;
     private List<Producto> productos;
+
+    private Inicial activity=this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +95,9 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
     public void getProductos(){
         Retrofit retrofit;
 
-        ProductosCallback adminCallback = new ProductosCallback(this);
+        ProductosCallback adminCallback = new ProductosCallback(this.activity);
+
+
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://dleal.ciclo.iesnervion.es/")

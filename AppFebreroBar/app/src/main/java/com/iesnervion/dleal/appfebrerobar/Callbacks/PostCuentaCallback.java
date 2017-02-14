@@ -35,10 +35,12 @@ public class PostCuentaCallback implements Callback<Object> {
             JSONObject jsonObj = new JSONObject(response.body().toString());
 
             id=jsonObj.getInt("idcuenta");
+            main.obtieneIDnuevo(id);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Toast.makeText(main.getApplicationContext(),""+id,Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

@@ -7,11 +7,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapterCuenta;
+import com.iesnervion.dleal.appfebrerobar.Callbacks.PrincipalCallBack;
+import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
 import com.iesnervion.dleal.appfebrerobar.R;
 import com.iesnervion.dleal.appfebrerobar.customfont.Customfont;
 import com.iesnervion.dleal.appfebrerobar.datos.Listados;
@@ -20,6 +23,9 @@ import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,7 +47,9 @@ public class CuentaFragment extends ListFragment {
 
     private List<Producto> productos = null;
     private Customfont lblnumMesa,lblPrecio;
-
+    private CuentaFragment main=this;
+    private Cuenta cuenta;
+    private int idcuenta;
 
     private OnFragmentInteractionListener mListener;
 
@@ -88,29 +96,33 @@ public class CuentaFragment extends ListFragment {
         lblPrecio = (Customfont) v.findViewById(R.id.lblprecio);
 
 
+
         //TODO : Cambiar esto a la cuenta original que me de la api
 
-        Cuenta c = ((Listados) getActivity().getApplication()).getCuenta();
+        //Cuenta c = ((Listados) getActivity().getApplication()).getCuenta();
 
 
-        double preciofinal= Math.floor(c.getPreciofinal()*100)/100;
-        lblPrecio.setText(""+preciofinal+"€");
+        //double preciofinal= Math.floor(c.getPreciofinal()*100)/100;
+        //lblPrecio.setText(""+c.ge+"€");
 
         Intent i= getActivity().getIntent();
         Bundle bundle=i.getExtras();
         if(bundle !=null) {
 
 
+
             lblnumMesa.setText(""+lblnumMesa.getText()+" "+bundle.get("nummesa").toString());
             if(bundle.get("nombreCuenta")!=null){
                 lblnumMesa.setText(""+lblnumMesa.getText()+" - "+bundle.get("nombreCuenta").toString());
             }
+             idcuenta= (Integer)bundle.get("idCuenta");
 
         }
 
+        //Llamada a la api.
+        getCuenta(idcuenta);
 
-
-        setListAdapter(new MiarrayAdapterCuenta(v.getContext(),R.layout.cuenta,c.getDetallesCuentas()));
+        setListAdapter(new MiarrayAdapterCuenta(v.getContext(),R.layout.cuenta,cuenta.getDetallesCuentas()));
         return v;
     }
 
@@ -151,6 +163,38 @@ public class CuentaFragment extends ListFragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+
+    //LLAMADA API
+
+
+    public String codifica64() {
+
+        String credentials = "user:user";
+        String auth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+        //String auth ="Basic dXNlcjp1c2Vy";
+        return auth;
+    }
+
+    public void getCuenta(int idcuenta){
+        Retrofit retrofit;
+
+        PrincipalCallBack adminCallback = new PrincipalCallBack(this.main);
+
+
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://dleal.ciclo.iesnervion.es/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IBar adminInter = retrofit.create(IBar.class);
+        String base64 = codifica64();
+        adminInter.getCuenta(idcuenta,base64).enqueue(adminCallback);
+    }
+    public void obtieneCuenta(Cuenta c){
+        this.cuenta=c;
     }
 }
 

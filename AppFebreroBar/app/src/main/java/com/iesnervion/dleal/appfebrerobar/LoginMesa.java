@@ -57,9 +57,13 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
     private ZXingScannerView scanner;
     private List<Mesa> mesas;
 
+    private Mesa m;
     private LoginMesa activity=this;
 
+    private Cuenta cuenta;
+    private int idgenerado;
 
+    private boolean valido = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,8 +94,8 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        boolean clavevalida = false;
-        Mesa m = null;
+
+
 
         switch (v.getId()) {
 
@@ -99,26 +103,30 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
                 if (!this.codigomesa.equals("")) {
 
 
-                    for(int i = 0 ; i<mesas.size() || !clavevalida;i++){
-                        if(this.codigomesa.equals(mesas.get(i).getCodigo())){
-                            clavevalida=true;
-                            m=mesas.get(i);
-                        }
-                    }
-
-                if (clavevalida) {
 
 
+                if (valido) {
+
+                    //Si la clave de la mesa es correcta
                     Intent i = new Intent(this, Principal.class);
-                    i.putExtra("nummesa", m.getNummesa());
+                    i.putExtra("nummesa", this.m.getNummesa());
 
                     if (!nombre.getText().toString().equals("")) {
                         i.putExtra("nombreCuenta", nombre.getText().toString());
                     }
 
-                    this.PostCuenta(m.getNummesa());
-                    startActivity(i);
 
+
+                    if(this.cuenta!=null){
+
+                        i.putExtra("idCuenta",this.cuenta.getIdcuenta());
+                    }
+                    else {
+
+                        this.PostCuenta(m.getNummesa());
+
+                    }
+                    startActivity(i);
 
                 } else {
                     Toast.makeText(this, "Este codigo no corresponde a ninguna mesa", Toast.LENGTH_SHORT).show();
@@ -157,8 +165,27 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
             }
             else{
 
+
+                int idmesa=-1;
                 codigomesa = result.getContents();
-                Toast.makeText(this,"Codigo Escaneado",Toast.LENGTH_SHORT).show();
+
+
+                for(int i = 0 ; i<mesas.size() || !valido;i++){
+                    if(this.codigomesa.equals(mesas.get(i).getCodigo())){
+                        valido=true;
+                        idmesa=mesas.get(i).getNummesa();
+                        this.m=mesas.get(i);
+                    }
+                }
+
+                if(valido) {
+                    this.getCuentaxmesa(idmesa);
+
+                    Toast.makeText(this, "Codigo Escaneado", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(this, "Codigo ERRONEO", Toast.LENGTH_SHORT).show();
+                }
             }
         }else {
 
@@ -190,6 +217,9 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
         adminInter.getMesas(base64).enqueue(adminCallback);
     }
 
+
+    //METODOS DE LLAMADAS A LA API
+
     public void obtieneMesas(List<Mesa> mesas){
         this.mesas=mesas;
     }
@@ -216,6 +246,31 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
         IBar adminInter = retrofit.create(IBar.class);
         String base64 = codifica64();
         adminInter.postCuenta(base64,lista).enqueue(cuentaCallback);
+    }
+
+    public void getCuentaxmesa(int nummesa){
+        Retrofit retrofit;
+
+        CuentaCallback adminCallback = new CuentaCallback(this.activity);
+
+
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://dleal.ciclo.iesnervion.es/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IBar adminInter = retrofit.create(IBar.class);
+        String base64 = codifica64();
+        adminInter.getCuentaxmesa(nummesa,base64).enqueue(adminCallback);
+    }
+
+    public void obtieneIDnuevo(int idcuenta){
+        this.idgenerado=idcuenta;
+    }
+
+    public void obtenerCuenta(Cuenta c){
+        this.cuenta=c;
     }
 
 

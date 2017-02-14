@@ -47,9 +47,9 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
             }
         }
 
-        //TODO: CAMBIAR ESTO POR LA LLAMADA A LA API
 
 
+        //Llamada a la api
         getProductos();
 
 

@@ -1,24 +1,37 @@
 package com.iesnervion.dleal.appfebrerobar.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Dani on 30/01/2017.
  */
 
-public class Cuenta {
+public class Cuenta{
 
-    private int idcuenta,nummesa;
+    private int idcuenta,nummesa,finalizada;
     private double preciofinal;
     private List<DetallesCuenta> detallesCuentas;
+    private String fecha;
+
 
     //Constructor
-    public Cuenta(int idcuenta, int nummesa,List<DetallesCuenta> detallesCuentas) {
+    public Cuenta(int idcuenta, int nummesa,List<DetallesCuenta> detallesCuentas,String fecha,double preciofinal,int finalizada) {
         this.idcuenta = idcuenta;
         this.nummesa = nummesa;
-        this.preciofinal = 0.0;
-        this.detallesCuentas = detallesCuentas;
+        this.preciofinal = preciofinal;
+
+        if(detallesCuentas!=null)
+            this.detallesCuentas = detallesCuentas;
+        else this.detallesCuentas = new ArrayList<>();
+
+        this.fecha=fecha;
+        this.finalizada=finalizada;
+
     }
     //TODO: Quitar este constructor cuando coga los datos de la api.
     //Constructor
@@ -49,12 +62,7 @@ public class Cuenta {
     }
 
     public double getPreciofinal() {
-        double precio=0.0;
-
-        for(int i=0;i<this.getDetallesCuentas().size();i++){
-            precio+=(this.detallesCuentas.get(i).getProducto().getPrecio()*this.detallesCuentas.get(i).getCantidad());
-        }
-        return precio;
+        return this.preciofinal;
     }
 
     public void setPreciofinal(double preciofinal) {
@@ -68,4 +76,22 @@ public class Cuenta {
     public void setDetallesCuentas(List<DetallesCuenta> detallesCuentas) {
         this.detallesCuentas = detallesCuentas;
     }
+
+    public int getFinalizada() {
+        return finalizada;
+    }
+
+    public void setFinalizada(int finalizada) {
+        this.finalizada = finalizada;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+
 }

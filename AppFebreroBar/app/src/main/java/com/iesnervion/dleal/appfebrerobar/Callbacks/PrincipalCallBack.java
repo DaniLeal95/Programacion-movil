@@ -19,9 +19,9 @@ import retrofit2.Response;
 
 public class PrincipalCallBack implements Callback<List<Cuenta>> {
 
-    private CuentaFragment main;
+    private Principal main;
 
-    public PrincipalCallBack(CuentaFragment main) {
+    public PrincipalCallBack(Principal main) {
         this.main = main;
     }
     @Override
@@ -35,6 +35,6 @@ public class PrincipalCallBack implements Callback<List<Cuenta>> {
     @Override
     public void onFailure(Call<List<Cuenta>> call, Throwable t) {
 
-        Toast.makeText(main.getContext(),t.toString(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(main,t.toString(),Toast.LENGTH_SHORT).show();
     }
 }

@@ -32,6 +32,7 @@ import com.iesnervion.dleal.appfebrerobar.Callbacks.PostCuentaCallback;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.ProductosCallback;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.BarTrackerDatabaseHelper;
+import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 import com.iesnervion.dleal.appfebrerobar.datos.Listados;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
 import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
@@ -39,6 +40,7 @@ import com.iesnervion.dleal.appfebrerobar.model.Mesa;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -95,7 +97,7 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
 
-
+        Utilidades utilidades = new Utilidades(v.getContext());
 
         switch (v.getId()) {
 
@@ -119,7 +121,9 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
                     if(this.cuenta!=null){
 
-                        i.putExtra("idCuenta",this.cuenta.getIdcuenta());
+                        //ESCRIBIR EN MYSQLITE
+                        utilidades.insertCuenta(cuenta);
+
                     }
                     else {
 
@@ -170,7 +174,7 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
                 codigomesa = result.getContents();
 
 
-                for(int i = 0 ; i<mesas.size() || !valido;i++){
+                for(int i = 0 ; i<mesas.size() && !valido;i++){
                     if(this.codigomesa.equals(mesas.get(i).getCodigo())){
                         valido=true;
                         idmesa=mesas.get(i).getNummesa();
@@ -240,7 +244,7 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
                 .build();
 
         List<Cuenta> lista = new ArrayList<>();
-        Cuenta c = new Cuenta(0,nummesa,new ArrayList<DetallesCuenta>());
+        Cuenta c = new Cuenta(0,nummesa,new ArrayList<DetallesCuenta>(), "",0.0,0);
         lista.add(c);
 
         IBar adminInter = retrofit.create(IBar.class);
@@ -269,9 +273,7 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
         this.idgenerado=idcuenta;
     }
 
-    public void obtenerCuenta(Cuenta c){
-        this.cuenta=c;
-    }
+
 
 
 

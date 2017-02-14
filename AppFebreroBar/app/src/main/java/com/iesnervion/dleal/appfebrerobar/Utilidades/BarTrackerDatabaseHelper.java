@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Barsqlbbdd.*;
+import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
 import java.util.List;
@@ -46,18 +47,25 @@ public class BarTrackerDatabaseHelper extends SQLiteOpenHelper {
                 + Productos._ID + " INTEGER PRIMARY KEY ,"
                 + Productos.PRODUCTO_NOMBRE + " TEXT,"
                 + Productos.PRODUCTO_PRECIO + " DOUBLE,"
-                + Productos.PRODUCTO_IDCATEGORIA + " INTEGERresult"
+                + Productos.PRODUCTO_IDCATEGORIA + " INTEGER"
                 + " , FOREIGN KEY ("+Productos.PRODUCTO_IDCATEGORIA+") REFERENCES "+Categoria.CATEGORIA_TABLE_NAME+"("+Categoria._ID+")"
                 + ");");
 
         db.execSQL("CREATE TABLE " + Cuentas.CUENTA_TABLE_NAME + " ("
-                + Cuentas._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + Cuentas.CUENTA_IDPRODUCTO + " INTEGER,"
-                + Cuentas.CUENTA_CANTIDAD + " INTEGER"
-                + " , FOREIGN KEY ("+ Cuentas.CUENTA_IDPRODUCTO+") REFERENCES "+Productos.PRODUCTOS_TABLE_NAME+"("+Productos._ID+")"
+                + Cuentas._ID + " INTEGER PRIMARY KEY,"
+                + Cuentas.CUENTA_NUMMESA + " INTEGER,"
+                + Cuentas.CUENTA_PRECIOFINAL + " INTEGER,"
+                + Cuentas.CUENTA_FECHA+ " SMALLDATETIME,"
+                + Cuentas.CUENTA_FINALIZADA+ " INTEGER);");
+
+        db.execSQL("CREATE TABLE " + DetallesCuentas.DETALLES_CUENTA_TABLE_NAME + " ("
+                + DetallesCuentas._ID + " INTEGER PRIMARY KEY  AUTOINCREMENT ,"
+                + DetallesCuentas.DETALLES_CUENTA_IDCUENTA + " INTEGER,"
+                + DetallesCuentas.DETALLES_CUENTA_IDPRODUCTO + " INTEGER,"
+                + DetallesCuentas.DETALLES_CUENTA_CANTIDAD + " INTEGER,"
+                + "FOREIGN KEY ("+ DetallesCuentas.DETALLES_CUENTA_IDCUENTA+") REFERENCES "+Cuentas.CUENTA_TABLE_NAME+"("+Cuentas._ID+"),"
+                + "FOREIGN KEY ("+ DetallesCuentas.DETALLES_CUENTA_IDPRODUCTO+") REFERENCES "+Productos.PRODUCTOS_TABLE_NAME+"("+Productos._ID+"),"
                 + ");");
-
-
     }
 
 

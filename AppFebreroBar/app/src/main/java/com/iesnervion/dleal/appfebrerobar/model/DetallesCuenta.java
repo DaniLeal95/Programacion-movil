@@ -1,10 +1,13 @@
 package com.iesnervion.dleal.appfebrerobar.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Dani on 08/02/2017.
  */
 
-public class DetallesCuenta {
+public class DetallesCuenta implements Parcelable {
 
     private Producto producto;
     private int cantidad;
@@ -29,4 +32,32 @@ public class DetallesCuenta {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.producto,flags);
+        dest.writeInt(this.cantidad);
+    }
+
+    protected DetallesCuenta(Parcel in) {
+        this.producto = in.readParcelable(Producto.class.getClassLoader());
+        this.cantidad = in.readInt();
+    }
+
+    public static final Creator<DetallesCuenta> CREATOR = new Creator<DetallesCuenta>() {
+        @Override
+        public DetallesCuenta createFromParcel(Parcel source) {
+            return new DetallesCuenta(source);
+        }
+
+        @Override
+        public DetallesCuenta[] newArray(int size) {
+            return new DetallesCuenta[size];
+        }
+    };
 }

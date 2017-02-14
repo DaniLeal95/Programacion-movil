@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class NuevaComanda extends ListActivity implements View.OnClickListener {
-    private List<DetallesCuenta> detallesCuenta = null;
+
     private Cuenta c = null;
     private Customfont lblprecio;
     private Button realizarPedido,seguirComprando;
@@ -53,12 +53,12 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener {
         seguirComprando.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
 
         Utilidades u = new Utilidades(this);
-        detallesCuenta=u.getCuenta();
-        c = new Cuenta(-1,-1,detallesCuenta);
+        c =u.getCuenta();
+       // c = new Cuenta(-1,-1,detallesCuenta);
 
         double preciofinal= Math.floor(c.getPreciofinal()*100)/100;
         lblprecio.setText(""+preciofinal+"€");
-        setListAdapter(new MiarrayAdapterCuenta(this,R.layout.cuenta,detallesCuenta));
+        setListAdapter(new MiarrayAdapterCuenta(this,R.layout.cuenta,c.getDetallesCuentas()));
 
         realizarPedido.setOnClickListener(this);
         seguirComprando.setOnClickListener(this);

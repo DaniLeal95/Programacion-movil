@@ -16,6 +16,7 @@ import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapter
 import com.iesnervion.dleal.appfebrerobar.Callbacks.PrincipalCallBack;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
 import com.iesnervion.dleal.appfebrerobar.R;
+import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 import com.iesnervion.dleal.appfebrerobar.customfont.Customfont;
 import com.iesnervion.dleal.appfebrerobar.datos.Listados;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
@@ -50,6 +51,8 @@ public class CuentaFragment extends ListFragment {
     private CuentaFragment main=this;
     private Cuenta cuenta;
     private int idcuenta;
+    private int nummesa;
+    private String nombremesa;
 
     private OnFragmentInteractionListener mListener;
 
@@ -92,6 +95,17 @@ public class CuentaFragment extends ListFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_cuenta, container, false);
 
+        Utilidades utilidades = new Utilidades(v.getContext());
+
+        Intent i= getActivity().getIntent();
+        Bundle bundle=i.getExtras();
+
+
+
+        nummesa=(Integer) bundle.get("nummesa");
+
+        this.cuenta=utilidades.getCuenta();
+
         lblnumMesa = (Customfont) v.findViewById(R.id.lblnumMesa);
         lblPrecio = (Customfont) v.findViewById(R.id.lblprecio);
 
@@ -105,22 +119,14 @@ public class CuentaFragment extends ListFragment {
         //double preciofinal= Math.floor(c.getPreciofinal()*100)/100;
         //lblPrecio.setText(""+c.ge+"€");
 
-        Intent i= getActivity().getIntent();
-        Bundle bundle=i.getExtras();
-        if(bundle !=null) {
 
 
-
-            lblnumMesa.setText(""+lblnumMesa.getText()+" "+bundle.get("nummesa").toString());
-            if(bundle.get("nombreCuenta")!=null){
-                lblnumMesa.setText(""+lblnumMesa.getText()+" - "+bundle.get("nombreCuenta").toString());
-            }
-             idcuenta= (Integer)bundle.get("idCuenta");
-
+        lblnumMesa.setText(""+lblnumMesa.getText()+" "+String.valueOf(nummesa));
+        if(bundle.get("nombreCuenta")!=null){
+            nombremesa=(String) bundle.get("nombreCuenta");
+            lblnumMesa.setText(""+lblnumMesa.getText()+" - "+nombremesa);
         }
 
-        //Llamada a la api.
-        getCuenta(idcuenta);
 
         setListAdapter(new MiarrayAdapterCuenta(v.getContext(),R.layout.cuenta,cuenta.getDetallesCuentas()));
         return v;
@@ -165,39 +171,7 @@ public class CuentaFragment extends ListFragment {
         void onFragmentInteraction(Uri uri);
     }
 
-
-    //LLAMADA API
-
-
-    public String codifica64() {
-
-        String credentials = "user:user";
-        String auth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-        //String auth ="Basic dXNlcjp1c2Vy";
-        return auth;
-    }
-
-    public void getCuenta(int idcuenta){
-        Retrofit retrofit;
-
-        PrincipalCallBack adminCallback = new PrincipalCallBack(this.main);
-
-
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://dleal.ciclo.iesnervion.es/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        IBar adminInter = retrofit.create(IBar.class);
-        String base64 = codifica64();
-        adminInter.getCuenta(idcuenta,base64).enqueue(adminCallback);
-    }
-    public void obtieneCuenta(Cuenta c){
-        this.cuenta=c;
-    }
 }
-
 
 
 //Esto ya no es necesario, PERO POR SI ACASO

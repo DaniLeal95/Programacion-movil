@@ -3,8 +3,11 @@ package com.iesnervion.dleal.appfebrerobar.Callbacks;
 import android.widget.Toast;
 
 import com.iesnervion.dleal.appfebrerobar.LoginMesa;
+import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
+import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,9 +29,17 @@ public class CuentaCallback implements Callback <List<Cuenta>> {
     @Override
     public void onResponse(Call <List<Cuenta>> call, Response<List<Cuenta>> response) {
 
-        Cuenta c = response.body().get(0);
+        Cuenta c = null;
+        if(response.body()!=null){
 
-        main.obtenerCuenta(c);
+           c = response.body().get(0);
+            if(c.getDetallesCuentas()==null){
+                c.setDetallesCuentas(new ArrayList<DetallesCuenta>());
+            }
+        }
+
+        Utilidades u = new Utilidades(main);
+        u.insertCuenta(c);
     }
 
     @Override

@@ -65,8 +65,8 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
         if(bundle !=null){
             if(cartaseleccionable = bundle.getBoolean("cartaSeleccionable")) {
                 Utilidades u = new Utilidades(this);
-                if(u.getCuenta().size()>0)
-                    anadiralacesta.setVisibility(View.VISIBLE);
+                //if(u.getCuenta().size()>0)
+                //    anadiralacesta.setVisibility(View.VISIBLE);
             }
         }
 
@@ -92,7 +92,7 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
 
                 Producto p = u.getProductoxid(id);
 
-                u.anadirNuevoProductoaComanda(p,1);
+            //TODO    u.anadirNuevoProductoaComanda(p,1);
 
                 Intent i = new Intent(v.getContext(),NuevaComanda.class);
                 startActivity(i);
@@ -168,7 +168,7 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onBackPressed() {
 
-        if(cartaseleccionable) {
+        /*TODO if(cartaseleccionable) {
             Utilidades u = new Utilidades(this);
             if (u.getCuenta().size() > 0) {
                 Intent i = new Intent(this, NuevaComanda.class);
@@ -181,7 +181,7 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
         else{
             Intent i = new Intent(this, Inicial.class);
             startActivity(i);
-        }
+        }*/
 
     }
 

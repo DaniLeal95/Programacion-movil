@@ -41,7 +41,7 @@ public class Principal extends AppCompatActivity
     private Principal main = this;
     private int idcuenta;
 
-
+    private Cuenta cuenta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +50,9 @@ public class Principal extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
         Intent i= getIntent();
         Bundle bundle=i.getExtras();
 
-        idcuenta=(Integer)bundle.get("idCuenta");
 
 
 
@@ -78,6 +75,8 @@ public class Principal extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Bundle paquete = new Bundle();
 
         Fragment f = new CuentaFragment();
         setTitle("Tu cuenta");
@@ -188,4 +187,36 @@ public class Principal extends AppCompatActivity
 
 
 
+    //LLAMADA API
+
+
+    public String codifica64() {
+
+        String credentials = "user:user";
+        String auth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+        //String auth ="Basic dXNlcjp1c2Vy";
+        return auth;
+    }
+
+    public void getCuenta(int idcuenta){
+        Retrofit retrofit;
+
+        PrincipalCallBack adminCallback = new PrincipalCallBack(this.main);
+
+
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://dleal.ciclo.iesnervion.es/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IBar adminInter = retrofit.create(IBar.class);
+        String base64 = codifica64();
+        adminInter.getCuenta(idcuenta,base64).enqueue(adminCallback);
+    }
+    public void obtieneCuenta(Cuenta c){
+        this.cuenta=c;
+    }
 }
+
+

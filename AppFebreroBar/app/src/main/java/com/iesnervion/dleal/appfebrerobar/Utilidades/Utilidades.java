@@ -11,6 +11,7 @@ import com.iesnervion.dleal.appfebrerobar.model.Producto;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Barsqlbbdd.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,77 +57,74 @@ public class Utilidades {
         return p;
     }
 
-    /*
-    * Metodo que comprueba que un producto esta metido en una cuenta
-    *
-    * */
-    public int comprobarProductoEnCuenta(int id){
 
-
-        int cantidad=0;
-        Cursor result= db.rawQuery("SELECT "+Cuentas.CUENTA_CANTIDAD+" FROM "+ Cuentas.CUENTA_TABLE_NAME+" WHERE "+ Cuentas.CUENTA_IDPRODUCTO+" = "+id,null);
-        if(result.moveToFirst()){
-            cantidad = result.getInt(0);
-        }
-        result.close();
-        return cantidad;
-    }
-
-    /*
-    *   Añadimos un nuevo producto o le añadimos cantidad si ese producto ya lo habia pedido
-    */
-    public void anadirNuevoProductoaComanda(Producto p,int cantidad){
-
-        //Si el producto ya fue insertado en la cuenta anteriormente
-        //le actualizamos su cantidad
-        int cantidadenbbdd=0;
-
-        cantidadenbbdd= comprobarProductoEnCuenta(p.getIdproducto());
-
-        if(comprobarProductoEnCuenta(p.getIdproducto())>0){
-            ContentValues valores=new ContentValues();
-            valores.put(Cuentas.CUENTA_CANTIDAD,cantidadenbbdd+cantidad);
-            String where = Cuentas.CUENTA_IDPRODUCTO+" ="+p.getIdproducto();
-            db.update(Cuentas.CUENTA_TABLE_NAME,valores,where,null);
-
-
-        }
-
-        else{
-            ContentValues valores=new ContentValues();
-            valores.put(Cuentas.CUENTA_IDPRODUCTO,p.getIdproducto());
-            valores.put(Cuentas.CUENTA_CANTIDAD,cantidad);
-            db.insert(Cuentas.CUENTA_TABLE_NAME,null,valores);
-        }
-    }
 
     /*
     * Recogemos la Cuenta entera
     * */
 
-    public List<DetallesCuenta> getCuenta(){
-        List<DetallesCuenta> c = new ArrayList<>();
+    public Cuenta getCuenta(){
+        Cuenta c = null;
 
-        String select = "SELECT "+ Cuentas.CUENTA_IDPRODUCTO+","+Productos.PRODUCTO_IDCATEGORIA+","+Productos.PRODUCTO_NOMBRE+","+Productos.PRODUCTO_IDCATEGORIA+","+ Cuentas.CUENTA_CANTIDAD
-                        +" FROM "+Cuentas.CUENTA_TABLE_NAME+" as C"+
-                            " INNER JOIN "+Productos.PRODUCTOS_TABLE_NAME+" as P" +
-                                " ON C."+Cuentas.CUENTA_IDPRODUCTO+"= P."+Productos._ID;
+        String select = "SELECT "+ Cuentas._ID+","+Cuentas.CUENTA_NUMMESA+","+Cuentas.CUENTA_PRECIOFINAL+","+Cuentas.CUENTA_FECHA+","+ Cuentas.CUENTA_FINALIZADA
+                        +" FROM "+Cuentas.CUENTA_TABLE_NAME;
+
 
         Cursor result= db.rawQuery(select,null);
         if(result.moveToFirst()){
             do {
-                Producto p = new Producto(result.getInt(0), result.getString(2), result.getDouble(3), result.getInt(1));
-                DetallesCuenta dc = new DetallesCuenta(p, result.getInt(4));
-                c.add(dc);
+                c = new Cuenta(result.getInt(0),result.getInt(1),new ArrayList<DetallesCuenta>(),result.getString(3),result.getDouble(2),result.getInt(4));
             }while(result.moveToNext());
         }
 
+
+
+        //Producto p = new Producto(result.getInt(0), result.getString(2), result.getDouble(3), result.getInt(1));
         result.close();
 
+        select = "SELECT "+Productos._ID+","+Productos.PRODUCTO_NOMBRE+","+Productos.PRODUCTO_PRECIO+","+Productos.PRODUCTO_IDCATEGORIA+","+ DetallesCuentas.DETALLES_CUENTA_CANTIDAD
+                +" FROM "+DetallesCuentas.DETALLES_CUENTA_TABLE_NAME+" as C"+
+                " INNER JOIN "+Productos.PRODUCTOS_TABLE_NAME+" as P" +
+                " ON C."+DetallesCuentas.DETALLES_CUENTA_IDPRODUCTO+"= P."+Productos._ID;
+
+
+        Cursor result2= db.rawQuery(select,null);
+        List<DetallesCuenta> detalles=new ArrayList<>();
+        if(result2.moveToFirst()){
+            do {
+                Producto p = new Producto(result.getInt(0), result.getString(1), result.getDouble(3), result.getInt(3));
+                DetallesCuenta dc = new DetallesCuenta(p, result.getInt(4));
+                detalles.add(dc);
+            }while(result2.moveToNext());
+        }
+
+        c.setDetallesCuentas(detalles);
+
+        result2.close();
         return c;
     }
 
 
+    public void insertCuenta(Cuenta cuenta){
+        ContentValues valores=new ContentValues();
+        valores.put(Cuentas._ID,cuenta.getIdcuenta());
+        valores.put(Cuentas.CUENTA_NUMMESA,cuenta.getNummesa());
+        valores.put(Cuentas.CUENTA_PRECIOFINAL,cuenta.getPreciofinal());
+        valores.put(Cuentas.CUENTA_FECHA,cuenta.getFecha());
+        valores.put(Cuentas.CUENTA_FINALIZADA,cuenta.getFinalizada());
+        db.insert(Cuentas.CUENTA_TABLE_NAME,null,valores);
+
+
+        valores = new ContentValues();
+
+        for(int i = 0;i<cuenta.getDetallesCuentas().size();i++){
+            valores.put(DetallesCuentas.DETALLES_CUENTA_IDCUENTA,cuenta.getIdcuenta());
+            valores.put(DetallesCuentas.DETALLES_CUENTA_IDPRODUCTO,cuenta.getDetallesCuentas().get(i).getProducto().getIdproducto());
+            valores.put(DetallesCuentas.DETALLES_CUENTA_CANTIDAD,cuenta.getDetallesCuentas().get(i).getCantidad());
+            db.insert(DetallesCuentas.DETALLES_CUENTA_TABLE_NAME,null,valores);
+
+        }
+    }
 
     //Lo borra TO DO de la tabla Cuenta
     public void finalizarPedido(){

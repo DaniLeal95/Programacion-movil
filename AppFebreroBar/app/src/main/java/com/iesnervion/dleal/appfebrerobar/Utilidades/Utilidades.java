@@ -183,9 +183,9 @@ public class Utilidades {
 
     //Lo borra TO DO de la tabla Cuenta
     public void borrarCuenta(){
-        boolean borradoexitoso=false;
 
-        //TODO : Aqui tendria primero que hacer una llamada a la api para ingresarle la comanda a la cuenta
+
+
         db.delete(DetallesCuentas.DETALLES_CUENTA_TABLE_NAME,null,null);
         db.delete(Cuentas.CUENTA_TABLE_NAME,null,null);
 
@@ -195,10 +195,12 @@ public class Utilidades {
 
 
 
-    //Lo borra TO DO de la tabla Cuenta
-    public void cancelarPedido(){
 
-        db.delete(Cuentas.CUENTA_TABLE_NAME,null,null);
+    public void BorrarComandaPedido(){
+
+        db.delete(DetallesCuentasNuevaComanda.DETALLES_CUENTA_TABLE_NAME,null,null);
 
     }
+
 }
+

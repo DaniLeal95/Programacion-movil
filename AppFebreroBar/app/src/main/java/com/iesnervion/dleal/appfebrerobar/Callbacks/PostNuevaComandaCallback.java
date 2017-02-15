@@ -19,7 +19,7 @@ public class PostNuevaComandaCallback implements Callback<Object> {
     @Override
     public void onResponse(Call<Object> call, Response<Object> response) {
 
-        main.recogerCuentaApi();
+        Toast.makeText(main.getApplicationContext(),"Pedido realizado",Toast.LENGTH_SHORT).show();
     }
 
     @Override

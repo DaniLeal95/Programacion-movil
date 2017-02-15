@@ -56,6 +56,7 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
         DetallesCuenta dc = getItem(position);
         double importe = dc.getProducto().getPrecio()*dc.getCantidad();
 
+        importe= Math.floor(importe*100)/100;
 
         Customfont lbluds = viewHolder.getUds();
         Customfont lbldescripcion  = viewHolder.getDescripcion();

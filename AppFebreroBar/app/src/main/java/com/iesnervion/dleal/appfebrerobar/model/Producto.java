@@ -3,15 +3,27 @@ package com.iesnervion.dleal.appfebrerobar.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Dani on 29/01/2017.
  */
 
 public class Producto implements Parcelable {
 
-    private int idproducto,idcategoria;
+    @SerializedName("idproducto")
+    @Expose
+    private Integer idproducto;
+    @SerializedName("nombre")
+    @Expose
     private String nombre;
-    private double precio;
+    @SerializedName("precio")
+    @Expose
+    private Double precio;
+    @SerializedName("idcategoria")
+    @Expose
+    private Integer idcategoria;
 
     public Producto() {
     }

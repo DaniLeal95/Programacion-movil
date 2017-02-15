@@ -53,6 +53,6 @@ public interface IBar {
 
     @Headers("Content-Type: application/json")
     @POST("Cuenta/{id}/Detalles")
-    Call<Object> postDetallesCuenta(@Header("Authorization")String base64, @Body JSONObject detallesCuentas);
+    Call<Object> postDetallesCuenta(@Header("Authorization")String base64,@Path("id") Integer id, @Body Cuenta detallesCuentas);
 
 }

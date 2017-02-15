@@ -3,6 +3,9 @@ package com.iesnervion.dleal.appfebrerobar.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,9 +16,23 @@ import java.util.List;
 
 public class Cuenta{
 
-    private int idcuenta,nummesa,finalizada;
+    @SerializedName("idcuenta")
+    @Expose
+    private int idcuenta;
+    @SerializedName("nummesa")
+    @Expose
+    private int nummesa;
+    @SerializedName("finalizada")
+    @Expose
+    private int finalizada;
+    @SerializedName("preciofinal")
+    @Expose
     private double preciofinal;
+    @SerializedName("listdetallecuenta")
+    @Expose
     private List<DetallesCuenta> listdetallecuenta;
+    @SerializedName("fecha")
+    @Expose
     private String fecha;
 
 

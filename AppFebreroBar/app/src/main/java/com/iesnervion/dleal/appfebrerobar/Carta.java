@@ -46,7 +46,7 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
     private List<Producto> tapascalientes;
     private HashMap <String,List<Producto>> hashMap;
     private ImageView anadiralacesta;
-
+    private int nummesa;
     private boolean cartaseleccionable=false;
 
 
@@ -68,6 +68,10 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
                 Utilidades u = new Utilidades(this);
                 //if(u.getCuenta().size()>0)
                 //    anadiralacesta.setVisibility(View.VISIBLE);
+            }
+
+            if(bundle.getInt("nummesa")!=0){
+                nummesa=bundle.getInt("nummesa");
             }
         }
 
@@ -97,6 +101,7 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
                 u.InsertarnuevoPedidoenComanda(dc);
 
                 Intent i = new Intent(v.getContext(),NuevaComanda.class);
+                i.putExtra("nummesa",nummesa);
                 startActivity(i);
 
             }
@@ -160,6 +165,7 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         if(cartaseleccionable) {
             Intent i = new Intent(this, NuevaComanda.class);
+            i.putExtra("nummesa",nummesa);
             startActivity(i);
         }else{
             Intent i = new Intent(this, Inicial.class);
@@ -174,9 +180,11 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
             Utilidades u = new Utilidades(this);
             if (u.getDetallesNuevaComanda().size()> 0) {
                 Intent i = new Intent(this, NuevaComanda.class);
+                i.putExtra("nummesa",nummesa);
                 startActivity(i);
             } else {
                 Intent i = new Intent(this, Principal.class);
+                i.putExtra("nummesa",nummesa);
                 startActivity(i);
             }
         }

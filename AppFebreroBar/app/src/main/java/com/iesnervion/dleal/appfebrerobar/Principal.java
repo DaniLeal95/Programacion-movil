@@ -23,13 +23,16 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.iesnervion.dleal.appfebrerobar.Callbacks.CuentaCallback;
+import com.iesnervion.dleal.appfebrerobar.Callbacks.ObtenerCuentaCallback;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.PrincipalCallBack;
 import com.iesnervion.dleal.appfebrerobar.Fragments.BebidasFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.CuentaFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.TapasCalientesFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.TapasFriasFragment;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
+import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
+import com.journeyapps.barcodescanner.Util;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -39,8 +42,8 @@ public class Principal extends AppCompatActivity
 
     private FloatingActionButton fab;
     private Principal main = this;
-    private int idcuenta;
 
+    private int nummesa;
     private Cuenta cuenta;
 
     @Override
@@ -54,8 +57,8 @@ public class Principal extends AppCompatActivity
 
         Bundle bundle=i.getExtras();
 
-
-
+        this.nummesa= bundle.getInt("nummesa");
+        this.getCuenta(nummesa);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +66,7 @@ public class Principal extends AppCompatActivity
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(),Carta.class);
                 i.putExtra("cartaSeleccionable",true);
-                i.putExtra("idcuenta",idcuenta);
+                i.putExtra("nummesa",nummesa);
                 startActivity(i);
             }
         });
@@ -78,10 +81,8 @@ public class Principal extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
-        Fragment f = new CuentaFragment();
         setTitle("Tu cuenta");
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_principal,f).commit();
+
     }
 
     @Override
@@ -190,7 +191,20 @@ public class Principal extends AppCompatActivity
 
     //LLAMADA API
 
+    public void getCuenta(int nummesa){
+        Retrofit retrofit;
 
+        ObtenerCuentaCallback adminCallback = new ObtenerCuentaCallback(main);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://dleal.ciclo.iesnervion.es/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IBar adminInter = retrofit.create(IBar.class);
+        String base64 = codifica64();
+        adminInter.getCuentaxmesa(nummesa,base64).enqueue(adminCallback);
+    }
     public String codifica64() {
 
         String credentials = "user:user";
@@ -199,9 +213,15 @@ public class Principal extends AppCompatActivity
         return auth;
     }
 
+    public void rellenaLista(Cuenta c){
+        Utilidades u = new Utilidades(main);
 
-    public void obtieneCuenta(Cuenta c){
-        this.cuenta=c;
+        u.borrarCuenta();
+        u.insertCuenta(c);
+
+
+        Fragment f = new CuentaFragment();
+        this.getSupportFragmentManager().beginTransaction().replace(R.id.content_principal,f).commit();
     }
 }
 

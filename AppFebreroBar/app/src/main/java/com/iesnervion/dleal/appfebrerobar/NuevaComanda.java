@@ -53,7 +53,7 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener {
     private Customfont lblprecio;
     private Button realizarPedido,seguirComprando;
     private NuevaComanda main = this;
-
+    private int nummesa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +67,19 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener {
         seguirComprando = (Button) findViewById(R.id.btnseguircomprando);
         seguirComprando.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
 
+        Intent intent= getIntent();
+
+        Bundle bundle=intent.getExtras();
+
+        this.nummesa= bundle.getInt("nummesa");
+
+
+
         Utilidades u = new Utilidades(this);
         List<DetallesCuenta> detalles=u.getDetallesNuevaComanda();
 
         double preciofinal=0.0;
+
         for(int i =0 ;i<detalles.size();i++){
             preciofinal+=(detalles.get(i).getProducto().getPrecio()*detalles.get(i).getCantidad());
         }
@@ -94,6 +103,7 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener {
             case R.id.btnseguircomprando:
                 Intent i = new Intent(v.getContext(),Carta.class);
                 i.putExtra("cartaSeleccionable",true);
+                i.putExtra("nummesa",nummesa);
                 startActivity(i);
 
                 break;
@@ -113,7 +123,9 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener {
             public void onClick(DialogInterface arg0, int arg1) {
                 Utilidades u = new Utilidades(dialogView.getContext());
                 main.PostCuenta(u.obtenerIDCuenta());
+                u.BorrarComandaPedido();
                 Intent i  =new Intent(dialogView.getContext(),Principal.class);
+                i.putExtra("nummesa",nummesa);
                 startActivity(i);
             }
         });
@@ -146,8 +158,9 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 Utilidades u = new Utilidades(dialogView.getContext());
-                u.cancelarPedido();
+                u.BorrarComandaPedido();
                 Intent i  =new Intent(dialogView.getContext(),Principal.class);
+                i.putExtra("nummesa",nummesa);
                 startActivity(i);
             }
         });
@@ -169,42 +182,24 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener {
 
         PostNuevaComandaCallback cuentaCallback = new PostNuevaComandaCallback(this.main);
 
-        Gson gson = new GsonBuilder()
+        /*Gson gson = new GsonBuilder()
                 .setLenient()
-                .create();
+                .create();*/
 
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://dleal.ciclo.iesnervion.es/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         Utilidades u = new Utilidades(this.main);
         List<DetallesCuenta> dc = u.getDetallesNuevaComanda();
 
-        try {
 
-
-            JSONArray parent = new JSONArray();
-            JSONObject last = new JSONObject();
-
-            for (int i= 0;i<dc.size();i++){
-
-                last.put("producto",dc.get(i).getProducto());
-                last.put("cantidad",dc.get(i).getCantidad());
-               //TODO  first.put()
-            }
-
-            //parent.put("listdetallecuenta",first);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        //Cuenta c = new Cuenta(-1,-1,dc,"",0.0,0);
+        Cuenta c = new Cuenta(-1,-1,dc,"",0.0,0);
         IBar adminInter = retrofit.create(IBar.class);
         String base64 = codifica64();
-        //adminInter.postDetallesCuenta(base64,c).enqueue(cuentaCallback);
+        adminInter.postDetallesCuenta(base64,u.obtenerIDCuenta(),c).enqueue(cuentaCallback);
     }
     public String codifica64() {
 
@@ -214,25 +209,5 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener {
         return auth;
     }
 
-    public void recogerCuentaApi(){
-       Utilidades u = new Utilidades(this);
-        getCuenta(u.obtenerIDCuenta());
-    }
 
-    public void getCuenta(int idcuenta){
-        Retrofit retrofit;
-
-        PrincipalCallBack adminCallback = new PrincipalCallBack(this.main);
-
-
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://dleal.ciclo.iesnervion.es/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        IBar adminInter = retrofit.create(IBar.class);
-        String base64 = codifica64();
-        adminInter.getCuenta(idcuenta,base64).enqueue(adminCallback);
-    }
 }

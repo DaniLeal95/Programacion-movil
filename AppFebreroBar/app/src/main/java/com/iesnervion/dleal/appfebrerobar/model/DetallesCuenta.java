@@ -3,13 +3,19 @@ package com.iesnervion.dleal.appfebrerobar.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Dani on 08/02/2017.
  */
 
 public class DetallesCuenta implements Parcelable {
-
+    @SerializedName("producto")
+    @Expose
     private Producto producto;
+    @SerializedName("cantidad")
+    @Expose
     private int cantidad;
 
     public DetallesCuenta(Producto producto, int cantidad) {

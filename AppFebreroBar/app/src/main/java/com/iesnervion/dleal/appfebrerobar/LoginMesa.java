@@ -83,9 +83,6 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
         btnscan.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
 
 
-        //clave = (EditTextMod) findViewById(R.id.passwloginmesa);
-        //clave.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
-
         nombre = (EditTextMod) findViewById(R.id.txtnombre);
         nombre.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
         btnasignarmesa.setOnClickListener(this);
@@ -165,21 +162,18 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
             else{
 
 
-                int idmesa=-1;
+
                 codigomesa = result.getContents();
 
 
                 for(int i = 0 ; i<mesas.size() && !valido;i++){
                     if(this.codigomesa.equals(mesas.get(i).getCodigo())){
                         valido=true;
-                        idmesa=mesas.get(i).getNummesa();
                         this.m=mesas.get(i);
                     }
                 }
 
                 if(valido) {
-                    this.getCuentaxmesa(idmesa);
-
                     Toast.makeText(this, "Codigo Escaneado", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -228,14 +222,11 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
         PostCuentaCallback cuentaCallback = new PostCuentaCallback(this.activity);
 
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
 
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://dleal.ciclo.iesnervion.es/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         List<Cuenta> lista = new ArrayList<>();
@@ -247,22 +238,6 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
         adminInter.postCuenta(base64,lista).enqueue(cuentaCallback);
     }
 
-    public void getCuentaxmesa(int nummesa){
-        Retrofit retrofit;
-
-        CuentaCallback adminCallback = new CuentaCallback(this.activity);
-
-
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://dleal.ciclo.iesnervion.es/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        IBar adminInter = retrofit.create(IBar.class);
-        String base64 = codifica64();
-        adminInter.getCuentaxmesa(nummesa,base64).enqueue(adminCallback);
-    }
 
     public void obtieneIDnuevo(int idcuenta){
         this.idgenerado=idcuenta;

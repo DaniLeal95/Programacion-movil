@@ -24,6 +24,7 @@ import com.iesnervion.dleal.appfebrerobar.Utilidades.BarTrackerDatabaseHelper;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 import com.iesnervion.dleal.appfebrerobar.datos.Listados;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
+import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
 import com.iesnervion.dleal.appfebrerobar.model.ListadoProductos;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
@@ -92,7 +93,8 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
 
                 Producto p = u.getProductoxid(id);
 
-            //TODO    u.anadirNuevoProductoaComanda(p,1);
+                DetallesCuenta dc = new DetallesCuenta(p,1);
+                u.InsertarnuevoPedidoenComanda(dc);
 
                 Intent i = new Intent(v.getContext(),NuevaComanda.class);
                 startActivity(i);
@@ -119,7 +121,7 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
         tipos.add("Tapas Calientes");
         tipos.add("Fuera de Carta");
 
-        //TODO ESTO CAMBIARLO POR UNA LLAMADA A LA BBDD
+
         bebidas = u.getProductosxCategoria(1);
         tapasfrias = u.getProductosxCategoria(2);
         tapascalientes = u.getProductosxCategoria(3);
@@ -168,9 +170,9 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onBackPressed() {
 
-        /*TODO if(cartaseleccionable) {
+         if(cartaseleccionable) {
             Utilidades u = new Utilidades(this);
-            if (u.getCuenta().size() > 0) {
+            if (u.getDetallesNuevaComanda().size()> 0) {
                 Intent i = new Intent(this, NuevaComanda.class);
                 startActivity(i);
             } else {
@@ -181,7 +183,7 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
         else{
             Intent i = new Intent(this, Inicial.class);
             startActivity(i);
-        }*/
+        }
 
     }
 

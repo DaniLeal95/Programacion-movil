@@ -64,7 +64,7 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
 
         lbluds.setText(String.valueOf(dc.getCantidad()));
         lbldescripcion.setText(dc.getProducto().getNombre());
-        lblpvp.setText(String.valueOf(dc.getProducto().getPrecio())+"€");
+        lblpvp.setText(dc.getProducto().getPrecio()+"€");
         lblimporte.setText(String.valueOf(importe)+"€");
 
         return row;

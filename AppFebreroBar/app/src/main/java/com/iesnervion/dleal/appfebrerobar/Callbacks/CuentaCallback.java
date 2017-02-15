@@ -36,10 +36,14 @@ public class CuentaCallback implements Callback <List<Cuenta>> {
             if(c.getDetallesCuentas()==null){
                 c.setDetallesCuentas(new ArrayList<DetallesCuenta>());
             }
+
+
+            Utilidades u = new Utilidades(main);
+            u.borrarCuenta();
+            u.insertCuenta(c);
         }
 
-        Utilidades u = new Utilidades(main);
-        u.insertCuenta(c);
+
     }
 
     @Override

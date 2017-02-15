@@ -42,4 +42,12 @@ public final class Barsqlbbdd {
         public static final String CUENTA_FINALIZADA="finalizada";
     }
 
+    public static final class DetallesCuentasNuevaComanda implements BaseColumns{
+        private DetallesCuentasNuevaComanda(){}
+        public static final String DETALLES_CUENTA_TABLE_NAME="table_nuevaComanda_detalles_cuenta";
+        public static final String DETALLES_CUENTA_IDPRODUCTO="producto_id";
+        public static final String DETALLES_CUENTA_CANTIDAD="cantidad";
+    }
+
+
 }

@@ -3,6 +3,7 @@ package com.iesnervion.dleal.appfebrerobar.Utilidades;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorJoiner;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
@@ -82,25 +83,26 @@ public class Utilidades {
         //Producto p = new Producto(result.getInt(0), result.getString(2), result.getDouble(3), result.getInt(1));
         result.close();
 
-        select = "SELECT "+Productos._ID+","+Productos.PRODUCTO_NOMBRE+","+Productos.PRODUCTO_PRECIO+","+Productos.PRODUCTO_IDCATEGORIA+","+ DetallesCuentas.DETALLES_CUENTA_CANTIDAD
+        select = "SELECT P."+Productos._ID+","+Productos.PRODUCTO_NOMBRE+","+Productos.PRODUCTO_PRECIO+","+Productos.PRODUCTO_IDCATEGORIA+","+ DetallesCuentas.DETALLES_CUENTA_CANTIDAD
                 +" FROM "+DetallesCuentas.DETALLES_CUENTA_TABLE_NAME+" as C"+
                 " INNER JOIN "+Productos.PRODUCTOS_TABLE_NAME+" as P" +
                 " ON C."+DetallesCuentas.DETALLES_CUENTA_IDPRODUCTO+"= P."+Productos._ID;
 
 
-        Cursor result2= db.rawQuery(select,null);
         List<DetallesCuenta> detalles=new ArrayList<>();
-        if(result2.moveToFirst()){
+        result= db.rawQuery(select,null);
+
+        if(result.moveToFirst()){
             do {
-                Producto p = new Producto(result.getInt(0), result.getString(1), result.getDouble(3), result.getInt(3));
+                Producto p = new Producto(result.getInt(0), result.getString(1), result.getDouble(2), result.getInt(3));
                 DetallesCuenta dc = new DetallesCuenta(p, result.getInt(4));
                 detalles.add(dc);
-            }while(result2.moveToNext());
+            }while(result.moveToNext());
         }
 
         c.setDetallesCuentas(detalles);
 
-        result2.close();
+        result.close();
         return c;
     }
 
@@ -126,15 +128,72 @@ public class Utilidades {
         }
     }
 
+    public void InsertarnuevoPedidoenComanda(DetallesCuenta dc){
+
+            ContentValues valores = new ContentValues();
+
+            valores.put(DetallesCuentasNuevaComanda.DETALLES_CUENTA_IDPRODUCTO,dc.getProducto().getIdproducto());
+            valores.put(DetallesCuentasNuevaComanda.DETALLES_CUENTA_CANTIDAD,dc.getCantidad());
+
+            db.insert(DetallesCuentasNuevaComanda.DETALLES_CUENTA_TABLE_NAME,null,valores);
+
+    }
+
+    public List<DetallesCuenta> getDetallesNuevaComanda(){
+        List<DetallesCuenta> detalles= new ArrayList<>();
+
+
+
+        String select = "SELECT P."+Productos._ID+","+Productos.PRODUCTO_NOMBRE+","+Productos.PRODUCTO_PRECIO+","+Productos.PRODUCTO_IDCATEGORIA+",sum("+ DetallesCuentasNuevaComanda.DETALLES_CUENTA_CANTIDAD
+                +") FROM "+DetallesCuentasNuevaComanda.DETALLES_CUENTA_TABLE_NAME+" as C"+
+                " INNER JOIN "+Productos.PRODUCTOS_TABLE_NAME+" as P" +
+                " ON C."+DetallesCuentasNuevaComanda.DETALLES_CUENTA_IDPRODUCTO+"= P."+Productos._ID
+                +" GROUP BY P."+ Productos._ID ;
+
+
+
+        Cursor result= db.rawQuery(select,null);
+
+        if(result.moveToFirst()){
+            do {
+                Producto p = new Producto(result.getInt(0), result.getString(1), result.getDouble(2), result.getInt(3));
+                DetallesCuenta dc = new DetallesCuenta(p, result.getInt(4));
+                detalles.add(dc);
+            }while(result.moveToNext());
+        }
+
+
+        return detalles;
+
+    }
+
+    public int obtenerIDCuenta(){
+        int idCuenta=-1;
+
+        String select = " SELECT "+ Cuentas._ID+ " FROM "+ Cuentas.CUENTA_TABLE_NAME;
+        Cursor result= db.rawQuery(select,null);
+
+        if(result.moveToFirst()) {
+            idCuenta = result.getInt(0);
+        }
+
+        return idCuenta;
+
+    }
+
     //Lo borra TO DO de la tabla Cuenta
-    public void finalizarPedido(){
+    public void borrarCuenta(){
         boolean borradoexitoso=false;
 
         //TODO : Aqui tendria primero que hacer una llamada a la api para ingresarle la comanda a la cuenta
+        db.delete(DetallesCuentas.DETALLES_CUENTA_TABLE_NAME,null,null);
         db.delete(Cuentas.CUENTA_TABLE_NAME,null,null);
 
 
     }
+
+
+
 
     //Lo borra TO DO de la tabla Cuenta
     public void cancelarPedido(){

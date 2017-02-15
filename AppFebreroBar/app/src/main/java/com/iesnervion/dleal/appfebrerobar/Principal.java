@@ -51,6 +51,7 @@ public class Principal extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         Intent i= getIntent();
+
         Bundle bundle=i.getExtras();
 
 
@@ -76,7 +77,7 @@ public class Principal extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Bundle paquete = new Bundle();
+
 
         Fragment f = new CuentaFragment();
         setTitle("Tu cuenta");
@@ -198,22 +199,7 @@ public class Principal extends AppCompatActivity
         return auth;
     }
 
-    public void getCuenta(int idcuenta){
-        Retrofit retrofit;
 
-        PrincipalCallBack adminCallback = new PrincipalCallBack(this.main);
-
-
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://dleal.ciclo.iesnervion.es/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        IBar adminInter = retrofit.create(IBar.class);
-        String base64 = codifica64();
-        adminInter.getCuenta(idcuenta,base64).enqueue(adminCallback);
-    }
     public void obtieneCuenta(Cuenta c){
         this.cuenta=c;
     }

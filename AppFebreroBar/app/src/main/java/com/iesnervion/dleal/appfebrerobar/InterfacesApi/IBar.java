@@ -7,6 +7,8 @@ import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
 import com.iesnervion.dleal.appfebrerobar.model.Mesa;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -51,6 +53,6 @@ public interface IBar {
 
     @Headers("Content-Type: application/json")
     @POST("Cuenta/{id}/Detalles")
-    void putDetallesCuenta(@Header("Authorization")String base64, @Body List<DetallesCuenta> detallesCuentas);
+    Call<Object> postDetallesCuenta(@Header("Authorization")String base64, @Body JSONObject detallesCuentas);
 
 }

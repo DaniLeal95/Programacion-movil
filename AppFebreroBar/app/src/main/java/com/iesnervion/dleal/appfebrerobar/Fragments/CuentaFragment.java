@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapterCuenta;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.PrincipalCallBack;
@@ -102,33 +103,27 @@ public class CuentaFragment extends ListFragment {
 
 
 
-        nummesa=(Integer) bundle.get("nummesa");
+        //if(bundle.get("nummesa")!=null)
+            //nummesa=(Integer) bundle.get("nummesa");
 
         this.cuenta=utilidades.getCuenta();
+
+        ArrayAdapter arrayAdapter=new MiarrayAdapterCuenta(v.getContext(),R.layout.cuenta,this.cuenta.getDetallesCuentas());
 
         lblnumMesa = (Customfont) v.findViewById(R.id.lblnumMesa);
         lblPrecio = (Customfont) v.findViewById(R.id.lblprecio);
 
 
-
-        //TODO : Cambiar esto a la cuenta original que me de la api
-
-        //Cuenta c = ((Listados) getActivity().getApplication()).getCuenta();
-
-
-        //double preciofinal= Math.floor(c.getPreciofinal()*100)/100;
-        //lblPrecio.setText(""+c.ge+"€");
-
-
+        lblPrecio.setText(cuenta.getPreciofinal()+"€");
 
         lblnumMesa.setText(""+lblnumMesa.getText()+" "+String.valueOf(nummesa));
-        if(bundle.get("nombreCuenta")!=null){
+/*        if(bundle.get("nombreCuenta")!=null){
             nombremesa=(String) bundle.get("nombreCuenta");
             lblnumMesa.setText(""+lblnumMesa.getText()+" - "+nombremesa);
-        }
+        }*/
 
 
-        setListAdapter(new MiarrayAdapterCuenta(v.getContext(),R.layout.cuenta,cuenta.getDetallesCuentas()));
+        setListAdapter(arrayAdapter);
         return v;
     }
 

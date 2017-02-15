@@ -64,7 +64,14 @@ public class BarTrackerDatabaseHelper extends SQLiteOpenHelper {
                 + DetallesCuentas.DETALLES_CUENTA_IDPRODUCTO + " INTEGER,"
                 + DetallesCuentas.DETALLES_CUENTA_CANTIDAD + " INTEGER,"
                 + "FOREIGN KEY ("+ DetallesCuentas.DETALLES_CUENTA_IDCUENTA+") REFERENCES "+Cuentas.CUENTA_TABLE_NAME+"("+Cuentas._ID+"),"
-                + "FOREIGN KEY ("+ DetallesCuentas.DETALLES_CUENTA_IDPRODUCTO+") REFERENCES "+Productos.PRODUCTOS_TABLE_NAME+"("+Productos._ID+"),"
+                + "FOREIGN KEY ("+ DetallesCuentas.DETALLES_CUENTA_IDPRODUCTO+") REFERENCES "+Productos.PRODUCTOS_TABLE_NAME+"("+Productos._ID+")"
+                + ");");
+
+        db.execSQL("CREATE TABLE " + DetallesCuentasNuevaComanda.DETALLES_CUENTA_TABLE_NAME + " ("
+                + DetallesCuentas._ID + " INTEGER PRIMARY KEY  AUTOINCREMENT ,"
+                + DetallesCuentas.DETALLES_CUENTA_IDPRODUCTO + " INTEGER,"
+                + DetallesCuentas.DETALLES_CUENTA_CANTIDAD + " INTEGER,"
+                + "FOREIGN KEY ("+ DetallesCuentasNuevaComanda.DETALLES_CUENTA_IDPRODUCTO+") REFERENCES "+Productos.PRODUCTOS_TABLE_NAME+"("+Productos._ID+")"
                 + ");");
     }
 

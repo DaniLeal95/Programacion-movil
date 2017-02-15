@@ -118,14 +118,9 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
                     }
 
 
+                    this.cuenta=utilidades.getCuenta();
 
-                    if(this.cuenta!=null){
-
-                        //ESCRIBIR EN MYSQLITE
-                        utilidades.insertCuenta(cuenta);
-
-                    }
-                    else {
+                    if(this.cuenta==null){
 
                         this.PostCuenta(m.getNummesa());
 

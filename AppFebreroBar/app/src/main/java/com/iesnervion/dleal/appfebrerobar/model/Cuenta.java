@@ -15,19 +15,19 @@ public class Cuenta{
 
     private int idcuenta,nummesa,finalizada;
     private double preciofinal;
-    private List<DetallesCuenta> detallesCuentas;
+    private List<DetallesCuenta> listdetallecuenta;
     private String fecha;
 
 
     //Constructor
-    public Cuenta(int idcuenta, int nummesa,List<DetallesCuenta> detallesCuentas,String fecha,double preciofinal,int finalizada) {
+    public Cuenta(int idcuenta, int nummesa,List<DetallesCuenta> listdetallecuenta,String fecha,double preciofinal,int finalizada) {
         this.idcuenta = idcuenta;
         this.nummesa = nummesa;
         this.preciofinal = preciofinal;
 
-        if(detallesCuentas!=null)
-            this.detallesCuentas = detallesCuentas;
-        else this.detallesCuentas = new ArrayList<>();
+        if(listdetallecuenta!=null)
+            this.listdetallecuenta = listdetallecuenta;
+        else this.listdetallecuenta = new ArrayList<>();
 
         this.fecha=fecha;
         this.finalizada=finalizada;
@@ -38,7 +38,7 @@ public class Cuenta{
     public Cuenta(int idcuenta){
         this.idcuenta = idcuenta;
         this.preciofinal = 0.0;
-        detallesCuentas = new ArrayList<>();
+        listdetallecuenta = new ArrayList<>();
     }
 
 
@@ -70,11 +70,11 @@ public class Cuenta{
     }
 
     public List<DetallesCuenta> getDetallesCuentas() {
-        return detallesCuentas;
+        return listdetallecuenta;
     }
 
     public void setDetallesCuentas(List<DetallesCuenta> detallesCuentas) {
-        this.detallesCuentas = detallesCuentas;
+        this.listdetallecuenta = detallesCuentas;
     }
 
     public int getFinalizada() {

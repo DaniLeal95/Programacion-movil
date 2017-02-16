@@ -7,11 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapterCuenta;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.CuentaCallback;
@@ -56,6 +58,8 @@ public class CuentaFragment extends ListFragment {
     private int idcuenta;
     private int nummesa;
     private String nombremesa;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -97,6 +101,17 @@ public class CuentaFragment extends ListFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_cuenta, container, false);
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.activity_main_swipe_refresh_layout);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //refreshContent();
+                Toast.makeText(main.getContext(),"Refresh dona",Toast.LENGTH_SHORT).show();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         Utilidades utilidades = new Utilidades(v.getContext());
 

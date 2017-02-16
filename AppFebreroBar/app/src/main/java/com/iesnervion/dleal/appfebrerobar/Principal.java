@@ -82,8 +82,9 @@ public class Principal extends AppCompatActivity
 
         setTitle("Tu cuenta");
         this.nummesa= bundle.getInt("nummesa");
-        this.getCuenta(nummesa);
 
+        Fragment f = new CuentaFragment();
+        this.getSupportFragmentManager().beginTransaction().replace(R.id.content_principal, f).commit();
 
 
     }
@@ -192,55 +193,14 @@ public class Principal extends AppCompatActivity
 
 
 
-    //LLAMADA API
-
-    public void getCuenta(int nummesa){
-        Retrofit retrofit;
-
-        ObtenerCuentaCallback adminCallback = new ObtenerCuentaCallback(main);
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://dleal.ciclo.iesnervion.es/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        IBar adminInter = retrofit.create(IBar.class);
-        String base64 = codifica64();
-        adminInter.getCuentaxmesa(nummesa,base64).enqueue(adminCallback);
-    }
-    public String codifica64() {
-
-        String credentials = "user:user";
-        String auth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-        //String auth ="Basic dXNlcjp1c2Vy";
-        return auth;
-    }
-
-    public void rellenaLista(){
-
-        Fragment f = new CuentaFragment();
-        this.getSupportFragmentManager().beginTransaction().replace(R.id.content_principal, f).commit();
-
-    }
-
-    public void leelista(){
-
-        synchronized (this) {
-
-            try {
-                while(!getRecibido) {
-                    this.wait();
-                }
 
 
 
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
 
-    }
+
+
+
 
 
 }

@@ -1,6 +1,7 @@
 package com.iesnervion.dleal.appfebrerobar.Callbacks;
 
 import com.iesnervion.dleal.appfebrerobar.Fragments.CuentaFragment;
+import com.iesnervion.dleal.appfebrerobar.LoginMesa;
 import com.iesnervion.dleal.appfebrerobar.Principal;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
@@ -16,9 +17,9 @@ import retrofit2.Response;
  */
 
 public class ObtenerCuentaCallback implements Callback<List<Cuenta>>{
-    private Principal main;
+    private LoginMesa main;
 
-    public ObtenerCuentaCallback(Principal main) {
+    public ObtenerCuentaCallback(LoginMesa main) {
         this.main = main;
     }
 
@@ -34,7 +35,7 @@ public class ObtenerCuentaCallback implements Callback<List<Cuenta>>{
         u.insertCuenta(c);
 
 
-        main.rellenaLista();
+        main.esperaCuenta();
 
 
        // main.getActivity().rellenaLista

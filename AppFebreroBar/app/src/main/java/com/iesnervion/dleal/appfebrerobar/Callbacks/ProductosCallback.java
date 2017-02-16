@@ -4,6 +4,7 @@ import android.widget.Toast;
 
 import com.iesnervion.dleal.appfebrerobar.Inicial;
 import com.iesnervion.dleal.appfebrerobar.LoginMesa;
+import com.iesnervion.dleal.appfebrerobar.SplashActivity;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.BarTrackerDatabaseHelper;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
@@ -30,9 +31,9 @@ import retrofit2.Response;
 public class ProductosCallback implements Callback<List<Producto>> {
 
 
-    private Inicial main;
+    private SplashActivity main;
 
-    public ProductosCallback(Inicial main) {
+    public ProductosCallback(SplashActivity main) {
         this.main = main;
     }
 
@@ -42,6 +43,7 @@ public class ProductosCallback implements Callback<List<Producto>> {
 
         BarTrackerDatabaseHelper bbdd = new BarTrackerDatabaseHelper(main);
         bbdd.insertCarta(response.body());
+        main.esperaProductos();
     }
 
     @Override

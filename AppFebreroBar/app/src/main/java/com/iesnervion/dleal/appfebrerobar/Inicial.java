@@ -49,8 +49,7 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
 
 
 
-        //Llamada a la api
-        getProductos();
+
 
 
 
@@ -84,30 +83,7 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    public String codifica64() {
 
-        String credentials = "user:user";
-        String auth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-        //String auth ="Basic dXNlcjp1c2Vy";
-        return auth;
-    }
-
-    public void getProductos(){
-        Retrofit retrofit;
-
-        ProductosCallback adminCallback = new ProductosCallback(this.activity);
-
-
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://dleal.ciclo.iesnervion.es/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        IBar adminInter = retrofit.create(IBar.class);
-        String base64 = codifica64();
-        adminInter.getProductos(base64).enqueue(adminCallback);
-    }
 
 
 

@@ -28,6 +28,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.CuentaCallback;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.MesasCallback;
+import com.iesnervion.dleal.appfebrerobar.Callbacks.ObtenerCuentaCallback;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.PostCuentaCallback;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.ProductosCallback;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
@@ -107,22 +108,19 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
                 if (valido) {
 
                     //Si la clave de la mesa es correcta
-                    Intent i = new Intent(this, Principal.class);
-                    i.putExtra("nummesa", this.m.getNummesa());
-
-                    if (!nombre.getText().toString().equals("")) {
-                        i.putExtra("nombreCuenta", nombre.getText().toString());
-                    }
 
 
-                    this.cuenta=utilidades.getCuenta();
 
-                    if(this.cuenta==null){
+                    //this.cuenta=utilidades.getCuenta();
 
-                        this.PostCuenta(m.getNummesa());
+                    //Aqui falta hacer la llamada a la api para coger la ultima cuenta
 
-                    }
-                    startActivity(i);
+
+
+                    getCuenta(this.m.getNummesa());
+
+
+
 
                 } else {
                     Toast.makeText(this, "Este codigo no corresponde a ninguna mesa", Toast.LENGTH_SHORT).show();
@@ -241,6 +239,35 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
     public void obtieneIDnuevo(int idcuenta){
         this.idgenerado=idcuenta;
+    }
+
+
+
+    //LLAMADA API
+
+    public void getCuenta(int nummesa){
+        Retrofit retrofit;
+
+        //ObtenerCuentaCallback adminCallback = new ObtenerCuentaCallback(main);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://dleal.ciclo.iesnervion.es/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IBar adminInter = retrofit.create(IBar.class);
+        String base64 = codifica64();
+       // adminInter.getCuentaxmesa(nummesa,base64).enqueue(adminCallback);
+    }
+
+    public void esperaCuenta() {
+        Intent i = new Intent(this, Principal.class);
+        i.putExtra("nummesa", this.m.getNummesa());
+
+        if (!nombre.getText().toString().equals("")) {
+            i.putExtra("nombreCuenta", nombre.getText().toString());
+        }
+        startActivity(i);
     }
 
 

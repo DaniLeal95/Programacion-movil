@@ -50,13 +50,7 @@ public class Cuenta{
         this.finalizada=finalizada;
 
     }
-    //TODO: Quitar este constructor cuando coga los datos de la api.
-    //Constructor
-    public Cuenta(int idcuenta){
-        this.idcuenta = idcuenta;
-        this.preciofinal = 0.0;
-        listdetallecuenta = new ArrayList<>();
-    }
+
 
 
     public Cuenta() {

@@ -29,18 +29,7 @@ public class PostCuentaCallback implements Callback<Object> {
 
     @Override
     public void onResponse(Call<Object> call, Response<Object> response) {
-        int id=0 ;
-
-        try {
-            JSONObject jsonObj = new JSONObject(response.body().toString());
-
-            id=jsonObj.getInt("idcuenta");
-            main.obtieneIDnuevo(id);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        main.esperaCuenta();
     }
 
     @Override

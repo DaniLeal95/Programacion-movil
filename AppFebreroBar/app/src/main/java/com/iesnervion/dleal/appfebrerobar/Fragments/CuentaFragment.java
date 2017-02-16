@@ -1,13 +1,14 @@
 package com.iesnervion.dleal.appfebrerobar.Fragments;
 
-import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,18 +17,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapterCuenta;
-import com.iesnervion.dleal.appfebrerobar.Callbacks.CuentaCallback;
-import com.iesnervion.dleal.appfebrerobar.Callbacks.ObtenerCuentaCallback;
-import com.iesnervion.dleal.appfebrerobar.Callbacks.PrincipalCallBack;
+import com.iesnervion.dleal.appfebrerobar.Callbacks.ObtenerCuentaFragmentCallback;
+import com.iesnervion.dleal.appfebrerobar.Callbacks.ObtenerCuentaLoginCallback;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
 import com.iesnervion.dleal.appfebrerobar.R;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 import com.iesnervion.dleal.appfebrerobar.customfont.Customfont;
-import com.iesnervion.dleal.appfebrerobar.datos.Listados;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Retrofit;
@@ -41,7 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Use the {@link CuentaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CuentaFragment extends ListFragment {
+public class CuentaFragment extends ListFragment implements DialogInterface.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -51,11 +49,12 @@ public class CuentaFragment extends ListFragment {
     private String mParam1;
     private String mParam2;
 
+    private AlertDialog dialog;
+    private boolean hayconexion;
+
     private List<Producto> productos = null;
     private Customfont lblnumMesa,lblPrecio;
     private CuentaFragment main=this;
-    private Cuenta cuenta;
-    private int idcuenta;
     private int nummesa;
     private String nombremesa;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -102,46 +101,55 @@ public class CuentaFragment extends ListFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_cuenta, container, false);
 
+        Utilidades utilidades = new Utilidades(v.getContext());
+
+        Intent i= getActivity().getIntent();
+        Bundle bundle=i.getExtras();
+        if(bundle.get("nummesa")!=null)
+            nummesa=(Integer) bundle.get("nummesa");
+
+
+        //this.cuenta=utilidades.getCuenta();
+
+
         mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.activity_main_swipe_refresh_layout);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 //refreshContent();
-                Toast.makeText(main.getContext(),"Refresh dona",Toast.LENGTH_SHORT).show();
+                main.getCuenta(main.nummesa);
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-
-        Utilidades utilidades = new Utilidades(v.getContext());
-
-        Intent i= getActivity().getIntent();
-        Bundle bundle=i.getExtras();
-
-
-
-        if(bundle.get("nummesa")!=null)
-            nummesa=(Integer) bundle.get("nummesa");
-
-        this.cuenta=utilidades.getCuenta();
-
-
 
         lblnumMesa = (Customfont) v.findViewById(R.id.lblnumMesa);
         lblPrecio = (Customfont) v.findViewById(R.id.lblprecio);
 
 
 
-        double preciofinal =Math.floor(cuenta.getPreciofinal()*100)/100;
-        lblPrecio.setText(preciofinal+"€");
+
 
         lblnumMesa.setText(""+lblnumMesa.getText()+" "+String.valueOf(nummesa));
         if(bundle.get("nombreCuenta")!=null){
             nombremesa=(String) bundle.get("nombreCuenta");
             lblnumMesa.setText(""+lblnumMesa.getText()+" - "+nombremesa);
         }
-        ArrayAdapter arrayAdapter=new MiarrayAdapterCuenta(this.getContext(),R.layout.cuenta,this.cuenta.getDetallesCuentas());
-        this.setListAdapter(arrayAdapter);
+
+
+        hayconexion= utilidades.hasActiveInternetConnection();
+        //Llamada a la api
+
+        if(hayconexion)this.getCuenta(this.nummesa);
+        else {
+            dialog = new AlertDialog.Builder(main.getContext())
+                    .setTitle("Conexion fallida")
+                    .setMessage("Por favor, revisa tu conexion.")
+                    .setPositiveButton("Reintentar", this)
+                    .create();
+            dialog.show();
+        }
+
 
         return v;
     }
@@ -186,39 +194,61 @@ public class CuentaFragment extends ListFragment {
     }
 
 
+    //LLAMADA API
+
+    public void getCuenta(int nummesa){
+        Retrofit retrofit;
+
+        ObtenerCuentaFragmentCallback adminCallback = new ObtenerCuentaFragmentCallback(main);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://dleal.ciclo.iesnervion.es/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IBar adminInter = retrofit.create(IBar.class);
+        String base64 = codifica64();
+        adminInter.getCuentaxmesa(nummesa,base64).enqueue(adminCallback);
+    }
+    public String codifica64() {
+
+        String credentials = "user:user";
+        String auth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+        //String auth ="Basic dXNlcjp1c2Vy";
+        return auth;
+    }
+    public void esperaCuenta(Cuenta cuenta){
+
+        double preciofinal =Math.floor(cuenta.getPreciofinal()*100)/100;
+        lblPrecio.setText(preciofinal+"€");
+
+        ArrayAdapter arrayAdapter=new MiarrayAdapterCuenta(this.getContext(),R.layout.cuenta,cuenta.getDetallesCuentas());
+        this.setListAdapter(arrayAdapter);
+    }
+
+
+    //TODO HACER ESTA FUNCIONALIDAD
+    public void cuentaExpirada(){
+        Toast.makeText(this.getContext(),"Su cuenta ha expirado",Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void onClick(DialogInterface dialogInterface, int i) {
+        Utilidades u = new Utilidades(this.main.getContext());
+        hayconexion = u.hasActiveInternetConnection();
+        if(!hayconexion) {
+            dialog = new AlertDialog.Builder(main.getContext())
+                    .setTitle("Conexion fallida")
+                    .setMessage("Por favor, revisa tu conexion.")
+                    .setPositiveButton("Reintentar", this)
+                    .create();
+            dialog.show();
+        }
+        else{
+            this.getCuenta(this.nummesa);
+        }
+    }
+
 }
 
-
-//Esto ya no es necesario, PERO POR SI ACASO
-/*
-        //Droga dura que entiendo yo
-        //Ordenamos el list
-        for (int i=0;i<productos.size();i++){
-            boolean encontrado = false;
-            int uds=0;
-            //Comprobamos que el producto a insertar no este insertado ya.
-            for(int j=0;j< productosordenados.size()&& !encontrado;j++) {
-                if(productosordenados.get(j).getIdproducto()==productos.get(i).getIdproducto()) {
-                    encontrado = true;
-                }
-            }
-
-            //Si no esta lo insertamos en el listOrdenado
-            if(!encontrado){
-                productosordenados.add(productos.get(i));
-
-
-
-            //Ahora contamos las uds de cada producto
-            for (int j=0;j<productos.size();j++){
-                if(productos.get(i).getIdproducto()==productos.get(j).getIdproducto()){
-                    uds++;
-                }
-
-            }
-
-
-            cantidades.add(uds);
-            }
-        }
-*/

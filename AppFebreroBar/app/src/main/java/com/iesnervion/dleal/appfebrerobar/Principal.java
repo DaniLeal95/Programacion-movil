@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,23 +17,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.Toast;
 
-import com.iesnervion.dleal.appfebrerobar.Callbacks.CuentaCallback;
-import com.iesnervion.dleal.appfebrerobar.Callbacks.ObtenerCuentaCallback;
-import com.iesnervion.dleal.appfebrerobar.Callbacks.PrincipalCallBack;
 import com.iesnervion.dleal.appfebrerobar.Fragments.BebidasFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.CuentaFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.TapasCalientesFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.TapasFriasFragment;
-import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
-import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
-import com.journeyapps.barcodescanner.Util;
-
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Principal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, BebidasFragment.OnFragmentInteractionListener, TapasCalientesFragment.OnFragmentInteractionListener,TapasFriasFragment.OnFragmentInteractionListener, CuentaFragment.OnFragmentInteractionListener{

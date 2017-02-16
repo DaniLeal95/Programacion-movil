@@ -1,31 +1,78 @@
 package com.iesnervion.dleal.appfebrerobar;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.widget.Toast;
 
 import com.iesnervion.dleal.appfebrerobar.Callbacks.ProductosCallback;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
+import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity implements DialogInterface.OnClickListener{
 
     private SplashActivity main = this;
+    private AlertDialog dialog;
+    private boolean hayconexion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        boolean permisosactivados=false;
+        Utilidades u = new Utilidades(main);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.INTERNET,Manifest.permission.ACCESS_NETWORK_STATE}, 1);
+
+            }
+        }
+
+
+        hayconexion= u.hasActiveInternetConnection();
         //Llamada a la api
-        getProductos();
+
+        if(hayconexion)getProductos();
+        else {
+            dialog = new AlertDialog.Builder(this)
+                  .setTitle("Conexion fallida")
+                  .setMessage("Por favor, revisa tu conexion.")
+                  .setPositiveButton("Reintentar", this)
+                  .create();
+                dialog.show();
 
 
-
-
+        }
         //setContentView(R.layout.activity_splash);
+    }
+
+    @Override
+    public void onClick(DialogInterface dialogInterface, int i) {
+        Utilidades u = new Utilidades(main);
+        hayconexion = u.hasActiveInternetConnection();
+        if(!hayconexion) {
+            dialog = new AlertDialog.Builder(this)
+                    .setTitle("Conexion fallida")
+                    .setMessage("Por favor, revisa tu conexion.")
+                    .setPositiveButton("Reintentar", this)
+                    .create();
+            dialog.show();
+        }
+        else{
+            getProductos();
+        }
     }
 
     public String codifica64() {
@@ -54,13 +101,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void esperaProductos(){
-//        final Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//            }
-//        }, 5000);
+
 
         Intent i = new Intent(main,Inicial.class);
         startActivity(i);

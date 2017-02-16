@@ -1,16 +1,9 @@
 package com.iesnervion.dleal.appfebrerobar;
 
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -21,27 +14,20 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.csmpl.androidlib.edittextmod.EditTextMod;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.zxing.Result;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.iesnervion.dleal.appfebrerobar.Callbacks.CuentaCallback;
+
 import com.iesnervion.dleal.appfebrerobar.Callbacks.MesasCallback;
-import com.iesnervion.dleal.appfebrerobar.Callbacks.ObtenerCuentaCallback;
+import com.iesnervion.dleal.appfebrerobar.Callbacks.ObtenerCuentaLoginCallback;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.PostCuentaCallback;
-import com.iesnervion.dleal.appfebrerobar.Callbacks.ProductosCallback;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
-import com.iesnervion.dleal.appfebrerobar.Utilidades.BarTrackerDatabaseHelper;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
-import com.iesnervion.dleal.appfebrerobar.datos.Listados;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
 import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
 import com.iesnervion.dleal.appfebrerobar.model.Mesa;
 
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -215,7 +201,7 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
         this.mesas=mesas;
     }
 
-    public void PostCuenta(int nummesa){
+    public void PostCuenta(){
         Retrofit retrofit;
 
         PostCuentaCallback cuentaCallback = new PostCuentaCallback(this.activity);
@@ -228,7 +214,7 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
                 .build();
 
         List<Cuenta> lista = new ArrayList<>();
-        Cuenta c = new Cuenta(0,nummesa,new ArrayList<DetallesCuenta>(), "",0.0,0);
+        Cuenta c = new Cuenta(0,this.m.getNummesa(),new ArrayList<DetallesCuenta>(), "",0.0,0);
         lista.add(c);
 
         IBar adminInter = retrofit.create(IBar.class);
@@ -237,9 +223,6 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
     }
 
 
-    public void obtieneIDnuevo(int idcuenta){
-        this.idgenerado=idcuenta;
-    }
 
 
 
@@ -248,7 +231,7 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
     public void getCuenta(int nummesa){
         Retrofit retrofit;
 
-        //ObtenerCuentaCallback adminCallback = new ObtenerCuentaCallback(main);
+        ObtenerCuentaLoginCallback adminCallback = new ObtenerCuentaLoginCallback(activity);
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://dleal.ciclo.iesnervion.es/")
@@ -257,7 +240,7 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
         IBar adminInter = retrofit.create(IBar.class);
         String base64 = codifica64();
-       // adminInter.getCuentaxmesa(nummesa,base64).enqueue(adminCallback);
+        adminInter.getCuentaxmesa(nummesa,base64).enqueue(adminCallback);
     }
 
     public void esperaCuenta() {

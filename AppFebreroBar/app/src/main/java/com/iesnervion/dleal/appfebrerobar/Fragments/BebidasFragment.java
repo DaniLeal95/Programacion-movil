@@ -42,8 +42,6 @@ public class BebidasFragment extends ListFragment {
 
     public BebidasFragment() {
 
-        //TODO: Esto hay que cambiarlo por la api
-
 
 
     }

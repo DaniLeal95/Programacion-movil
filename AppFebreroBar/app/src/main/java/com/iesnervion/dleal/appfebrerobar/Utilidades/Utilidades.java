@@ -5,12 +5,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorJoiner;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
 import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Barsqlbbdd.*;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +27,9 @@ import java.util.List;
 
 public class Utilidades {
     private SQLiteDatabase db;
+    private Context context;
     public Utilidades(Context context) {
+        this.context=context;
         BarTrackerDatabaseHelper bbdd = new BarTrackerDatabaseHelper(context);
         db = bbdd.getReadableDatabase();
     }
@@ -184,24 +192,31 @@ public class Utilidades {
 
     //Lo borra TO DO de la tabla Cuenta
     public void borrarCuenta(){
-
-
-
         db.delete(DetallesCuentas.DETALLES_CUENTA_TABLE_NAME,null,null);
         db.delete(Cuentas.CUENTA_TABLE_NAME,null,null);
-
-
     }
-
-
-
-
 
     public void BorrarComandaPedido(){
-
         db.delete(DetallesCuentasNuevaComanda.DETALLES_CUENTA_TABLE_NAME,null,null);
-
     }
 
+
+    //COMPRUEBA CONEXION
+    public boolean hasActiveInternetConnection() {
+
+        boolean hayconexion = false;
+
+        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            NetworkInfo info = connectivity.getActiveNetworkInfo();
+            if (info != null){
+
+                if (info.getState() == NetworkInfo.State.CONNECTED) {
+                    hayconexion = true;
+                }
+            }
+        }
+        return hayconexion;
+    }
 }
 

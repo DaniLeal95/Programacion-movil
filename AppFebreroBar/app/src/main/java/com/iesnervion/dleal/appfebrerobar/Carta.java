@@ -1,37 +1,34 @@
 package com.iesnervion.dleal.appfebrerobar;
 
-import android.app.Application;
-import android.content.Context;
+
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.ActionBar;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
+
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 
 import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.CustomExpandableListAdapter;
-import com.iesnervion.dleal.appfebrerobar.Utilidades.BarTrackerDatabaseHelper;
+
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
-import com.iesnervion.dleal.appfebrerobar.datos.Listados;
-import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
+
+
 import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
-import com.iesnervion.dleal.appfebrerobar.model.ListadoProductos;
+
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+
 
 
 

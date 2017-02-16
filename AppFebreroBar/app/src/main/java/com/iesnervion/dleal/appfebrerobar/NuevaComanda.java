@@ -1,59 +1,38 @@
 package com.iesnervion.dleal.appfebrerobar;
 
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.CustomExpandableListAdapter;
 import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapterCuenta;
-import com.iesnervion.dleal.appfebrerobar.Callbacks.PostCuentaCallback;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.PostNuevaComandaCallback;
-import com.iesnervion.dleal.appfebrerobar.Callbacks.PrincipalCallBack;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 import com.iesnervion.dleal.appfebrerobar.customfont.Customfont;
-import com.iesnervion.dleal.appfebrerobar.datos.Listados;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
 import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
-import com.iesnervion.dleal.appfebrerobar.model.ListadoProductos;
-import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NuevaComanda extends ListActivity implements View.OnClickListener {
+public class NuevaComanda extends ListActivity implements View.OnClickListener{
 
     private Cuenta c = null;
     private Customfont lblprecio;
     private Button realizarPedido,seguirComprando;
     private NuevaComanda main = this;
     private int nummesa;
+    private boolean hayconexion;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,11 +72,27 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener {
     }
 
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnrealizarPedido:
-                dialogConfirmarPedido();
+
+                Utilidades u = new Utilidades(main);
+                hayconexion= u.hasActiveInternetConnection();
+                //Llamada a la api
+
+                if(hayconexion)dialogConfirmarPedido();
+                else {
+                    dialog = new AlertDialog.Builder(main)
+                            .setTitle("Conexion fallida")
+                            .setMessage("Por favor, revisa tu conexion.")
+                            .setNeutralButton("Ok",null)
+                            .create();
+
+                    dialog.show();
+                }
+
                 break;
 
             case R.id.btnseguircomprando:

@@ -124,9 +124,7 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener {
                 Utilidades u = new Utilidades(dialogView.getContext());
                 main.PostCuenta(u.obtenerIDCuenta());
                 u.BorrarComandaPedido();
-                Intent i  =new Intent(dialogView.getContext(),Principal.class);
-                i.putExtra("nummesa",nummesa);
-                startActivity(i);
+
             }
         });
 
@@ -209,5 +207,11 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener {
         return auth;
     }
 
+
+    public void CambiaIntent(){
+        Intent i  =new Intent(this,Principal.class);
+        i.putExtra("nummesa",nummesa);
+        startActivity(i);
+    }
 
 }

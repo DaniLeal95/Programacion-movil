@@ -42,6 +42,8 @@ public class Principal extends AppCompatActivity
 
     private FloatingActionButton fab;
     private Principal main = this;
+    private Object o = new Object();
+    private boolean getRecibido=false;
 
     private int nummesa;
     private Cuenta cuenta;
@@ -56,9 +58,6 @@ public class Principal extends AppCompatActivity
         Intent i= getIntent();
 
         Bundle bundle=i.getExtras();
-
-        this.nummesa= bundle.getInt("nummesa");
-        this.getCuenta(nummesa);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +81,10 @@ public class Principal extends AppCompatActivity
 
 
         setTitle("Tu cuenta");
+        this.nummesa= bundle.getInt("nummesa");
+        this.getCuenta(nummesa);
+
+
 
     }
 
@@ -213,16 +216,33 @@ public class Principal extends AppCompatActivity
         return auth;
     }
 
-    public void rellenaLista(Cuenta c){
-        Utilidades u = new Utilidades(main);
-
-        u.borrarCuenta();
-        u.insertCuenta(c);
-
+    public void rellenaLista(){
 
         Fragment f = new CuentaFragment();
-        this.getSupportFragmentManager().beginTransaction().replace(R.id.content_principal,f).commit();
+        this.getSupportFragmentManager().beginTransaction().replace(R.id.content_principal, f).commit();
+
     }
+
+    public void leelista(){
+
+        synchronized (this) {
+
+            try {
+                while(!getRecibido) {
+                    this.wait();
+                }
+
+
+
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+
 }
 
 

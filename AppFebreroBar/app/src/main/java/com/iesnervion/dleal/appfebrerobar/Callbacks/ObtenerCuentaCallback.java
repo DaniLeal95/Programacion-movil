@@ -25,9 +25,18 @@ public class ObtenerCuentaCallback implements Callback<List<Cuenta>>{
     @Override
     public void onResponse(Call<List<Cuenta>> call, Response<List<Cuenta>> response) {
 
-        Cuenta c = (Cuenta) response.body().get(0);
+        Cuenta c = response.body().get(0);
 
-        main.rellenaLista(c);
+        Utilidades u = new Utilidades(main);
+
+
+        u.borrarCuenta();
+        u.insertCuenta(c);
+
+
+        main.rellenaLista();
+
+
        // main.getActivity().rellenaLista
     }
 

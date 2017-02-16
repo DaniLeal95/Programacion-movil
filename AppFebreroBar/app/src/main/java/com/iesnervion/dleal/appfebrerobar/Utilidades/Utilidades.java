@@ -82,27 +82,28 @@ public class Utilidades {
 
         //Producto p = new Producto(result.getInt(0), result.getString(2), result.getDouble(3), result.getInt(1));
         result.close();
+        if(c!=null) {
+            select = "SELECT P." + Productos._ID + "," + Productos.PRODUCTO_NOMBRE + "," + Productos.PRODUCTO_PRECIO + "," + Productos.PRODUCTO_IDCATEGORIA + "," + DetallesCuentas.DETALLES_CUENTA_CANTIDAD
+                    + " FROM " + DetallesCuentas.DETALLES_CUENTA_TABLE_NAME + " as C" +
+                    " INNER JOIN " + Productos.PRODUCTOS_TABLE_NAME + " as P" +
+                    " ON C." + DetallesCuentas.DETALLES_CUENTA_IDPRODUCTO + "= P." + Productos._ID;
 
-        select = "SELECT P."+Productos._ID+","+Productos.PRODUCTO_NOMBRE+","+Productos.PRODUCTO_PRECIO+","+Productos.PRODUCTO_IDCATEGORIA+","+ DetallesCuentas.DETALLES_CUENTA_CANTIDAD
-                +" FROM "+DetallesCuentas.DETALLES_CUENTA_TABLE_NAME+" as C"+
-                " INNER JOIN "+Productos.PRODUCTOS_TABLE_NAME+" as P" +
-                " ON C."+DetallesCuentas.DETALLES_CUENTA_IDPRODUCTO+"= P."+Productos._ID;
 
+            List<DetallesCuenta> detalles = new ArrayList<>();
+            result = db.rawQuery(select, null);
 
-        List<DetallesCuenta> detalles=new ArrayList<>();
-        result= db.rawQuery(select,null);
+            if (result.moveToFirst()) {
+                do {
+                    Producto p = new Producto(result.getInt(0), result.getString(1), result.getDouble(2), result.getInt(3));
+                    DetallesCuenta dc = new DetallesCuenta(p, result.getInt(4));
+                    detalles.add(dc);
+                } while (result.moveToNext());
+            }
 
-        if(result.moveToFirst()){
-            do {
-                Producto p = new Producto(result.getInt(0), result.getString(1), result.getDouble(2), result.getInt(3));
-                DetallesCuenta dc = new DetallesCuenta(p, result.getInt(4));
-                detalles.add(dc);
-            }while(result.moveToNext());
+            c.setDetallesCuentas(detalles);
+
+            result.close();
         }
-
-        c.setDetallesCuentas(detalles);
-
-        result.close();
         return c;
     }
 

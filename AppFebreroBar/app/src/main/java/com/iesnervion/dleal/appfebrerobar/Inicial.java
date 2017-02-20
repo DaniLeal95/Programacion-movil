@@ -39,13 +39,6 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
         inicial = this;
 
 
-
-
-
-
-
-
-
         setContentView(R.layout.activity_inicial);
 
         pedirmesa = (Button) findViewById(R.id.btnpedirmesa);

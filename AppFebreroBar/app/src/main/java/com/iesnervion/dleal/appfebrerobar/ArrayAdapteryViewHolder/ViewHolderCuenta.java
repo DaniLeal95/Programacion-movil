@@ -1,5 +1,7 @@
 package com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder;
 
+import android.widget.RelativeLayout;
+
 import com.iesnervion.dleal.appfebrerobar.customfont.Customfont;
 
 /**
@@ -9,11 +11,16 @@ import com.iesnervion.dleal.appfebrerobar.customfont.Customfont;
 public class ViewHolderCuenta {
     private Customfont uds,descripcion,pvp,importe;
 
+
+
+
+
     public ViewHolderCuenta(Customfont uds, Customfont descripcion, Customfont pvp, Customfont importe) {
         this.uds = uds;
         this.descripcion = descripcion;
         this.pvp = pvp;
         this.importe = importe;
+
     }
 
     public Customfont getUds() {
@@ -31,4 +38,7 @@ public class ViewHolderCuenta {
     public Customfont getImporte() {
         return importe;
     }
+
+
+
 }

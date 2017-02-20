@@ -32,16 +32,24 @@ public class ObtenerCuentaLoginCallback implements Callback<List<Cuenta>>{
         if(response.body()!=null){
 
             Cuenta c = response.body().get(0);
-            if(c.getDetallesCuentas()==null){
-                c.setDetallesCuentas(new ArrayList<DetallesCuenta>());
+
+            if(c.getFinalizada()==0) {
+                if (c.getDetallesCuentas() == null) {
+                    c.setDetallesCuentas(new ArrayList<DetallesCuenta>());
+                }
+
+
+                Utilidades u = new Utilidades(main);
+                u.borrarCuenta();
+                u.insertCuenta(c);
+
+                main.esperaCuenta();
+
             }
-
-
-            Utilidades u = new Utilidades(main);
-            u.borrarCuenta();
-            u.insertCuenta(c);
-
-            main.esperaCuenta();
+            //Si la cuenta más reciente de esa mesa está finalizada, debemos generar otra
+            else{
+                main.PostCuenta();
+            }
         }
         else{
             main.PostCuenta();

@@ -1,8 +1,11 @@
 package com.iesnervion.dleal.appfebrerobar;
 
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -91,10 +94,12 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
                 Utilidades u = new Utilidades(v.getContext());
                 TextView lblid = (TextView) v.findViewById(R.id.idProductoCarta);
                 int id = Integer.parseInt((String) lblid.getText());
-
+                int cantidad = 1;
                 Producto p = u.getProductoxid(id);
 
-                DetallesCuenta dc = new DetallesCuenta(p,1);
+
+
+                DetallesCuenta dc = new DetallesCuenta(p,cantidad);
                 u.InsertarnuevoPedidoenComanda(dc);
 
                 Intent i = new Intent(v.getContext(),NuevaComanda.class);

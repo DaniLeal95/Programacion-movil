@@ -1,13 +1,20 @@
 package com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder;
 
 import android.content.Context;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Toast;
 
 import com.iesnervion.dleal.appfebrerobar.R;
+import com.iesnervion.dleal.appfebrerobar.Utilidades.OnSwipeTouchListener;
 import com.iesnervion.dleal.appfebrerobar.customfont.Customfont;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
 import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
@@ -21,6 +28,8 @@ import java.util.List;
  */
 
 public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
+
+    private GestureDetector mGestureDetector;
 
     public MiarrayAdapterCuenta(Context context, int resource, List<DetallesCuenta> productos) {
         super(context, resource, productos);
@@ -36,6 +45,8 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
         if (row==null){
 
             row = inflater.inflate(R.layout.cuenta,parent,false);
+
+            //TODO aqui me quedo
 
             Customfont lbluds = (Customfont) row.findViewById(R.id.lblcuentaunidades);
             Customfont lbldescripcion  = (Customfont) row.findViewById(R.id.lblcuentadescripcion);
@@ -58,6 +69,7 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
 
         importe= Math.floor(importe*100)/100;
 
+
         Customfont lbluds = viewHolder.getUds();
         Customfont lbldescripcion  = viewHolder.getDescripcion();
         Customfont lblpvp  = viewHolder.getPvp();
@@ -67,6 +79,9 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
         lbldescripcion.setText(dc.getProducto().getNombre());
         lblpvp.setText(dc.getProducto().getPrecio()+"€");
         lblimporte.setText(String.valueOf(importe)+"€");
+
+
+
 
         return row;
     }
@@ -83,5 +98,6 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
     public int getViewTypeCount(){
         return 2;
     }
+
 
 }

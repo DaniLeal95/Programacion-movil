@@ -34,7 +34,7 @@
         android:text="Descripcion"
         android:layout_toRightOf="@id/lblunidades"
         android:textAlignment="textStart"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="45dp"
         />
 
     <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
@@ -58,11 +58,33 @@
         android:textAlignment="textStart"
         android:layout_marginLeft="5dp"
         />
+
+
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+        android:id="@+id/lblTotalCuenta"
+        android:text="Total Cuenta"
+        android:textAlignment="center"
+        android:textSize="25dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/blanco"
+        android:layout_above="@id/lblTotalCuenta"
+        android:layout_alignParentStart="true"
+        android:id="@+id/view2" />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/activity_main_swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lblunidades">
+        android:layout_below="@id/lblunidades"
+        android:layout_above="@id/view2"
+        android:layout_marginBottom="25dp">
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,14 +92,6 @@
             android:id="@android:id/list"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/lblTotalCuenta"
-        android:text="Total Cuenta"
-        android:textAlignment="center"
-        android:textSize="30dp"/>
 
     <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
         android:layout_width="wrap_content"
@@ -88,7 +102,7 @@
         android:id="@+id/lblprecio"
         android:text="999€"
         android:textAlignment="center"
-        android:textSize="30dp"/>
+        android:textSize="25dp"/>
 </RelativeLayout>
 
 </FrameLayout>

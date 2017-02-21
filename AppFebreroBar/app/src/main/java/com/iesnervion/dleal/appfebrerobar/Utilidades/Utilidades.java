@@ -66,6 +66,20 @@ public class Utilidades {
         return p;
     }
 
+    public int getcantidadxid(int idproducto){
+        int cantidad=-1;
+
+        Cursor result= db.rawQuery("SELECT "+ DetallesCuentasNuevaComanda.DETALLES_CUENTA_CANTIDAD+" FROM "+DetallesCuentasNuevaComanda.DETALLES_CUENTA_TABLE_NAME+" WHERE "+DetallesCuentasNuevaComanda.DETALLES_CUENTA_IDPRODUCTO+" = "+idproducto,null);
+        if(result.moveToFirst()){
+            do {
+                cantidad = result.getInt(0);
+            }while(result.moveToNext());
+        }
+
+        result.close();
+
+        return cantidad;
+    }
 
 
     /*
@@ -115,6 +129,16 @@ public class Utilidades {
         return c;
     }
 
+    public void modificacantidadNuevoPedido(int cantidad,int idproducto){
+
+        int cant=this.getcantidadxid(idproducto);
+
+        ContentValues valores = new ContentValues();
+        valores.put(DetallesCuentasNuevaComanda.DETALLES_CUENTA_CANTIDAD,cantidad+cant);
+        String where = DetallesCuentasNuevaComanda.DETALLES_CUENTA_IDPRODUCTO+"="+idproducto;
+        db.update(DetallesCuentasNuevaComanda.DETALLES_CUENTA_TABLE_NAME,valores,where,null);
+
+    }
 
     public void insertCuenta(Cuenta cuenta){
         ContentValues valores=new ContentValues();

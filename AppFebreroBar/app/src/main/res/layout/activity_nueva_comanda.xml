@@ -80,6 +80,7 @@
         android:id="@+id/rllista"
         android:layout_above="@id/lblTotalCuentaprecionewComanda"
         android:layout_marginBottom="20dp"
+           android:layout_alignParentTop="true"
         >
 
         <com.iesnervion.dleal.appfebrerobar.customfont.Customfont

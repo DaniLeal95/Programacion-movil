@@ -2,6 +2,7 @@ package com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder;
 
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.iesnervion.dleal.appfebrerobar.customfont.Customfont;
 
@@ -10,8 +11,14 @@ import com.iesnervion.dleal.appfebrerobar.customfont.Customfont;
  */
 
 public class ViewHolderCuenta {
-    private Customfont uds,descripcion,pvp,importe;
-    private ImageButton sumacantidad,restacantidad;
+    private Customfont uds, descripcion, pvp, importe;
+    private ImageButton sumacantidad, restacantidad;
+
+    public TextView getIdproducto() {
+        return idproducto;
+    }
+
+    private TextView idproducto;
 
     public ImageButton getSumacantidad() {
         return sumacantidad;
@@ -21,13 +28,23 @@ public class ViewHolderCuenta {
         return restacantidad;
     }
 
-    public ViewHolderCuenta(Customfont uds, Customfont descripcion, Customfont pvp, Customfont importe,ImageButton sumacantidad,ImageButton restacantidad) {
+    public ViewHolderCuenta(Customfont uds, Customfont descripcion, Customfont pvp, Customfont importe, ImageButton sumacantidad, ImageButton restacantidad, TextView idproducto) {
         this.uds = uds;
         this.descripcion = descripcion;
         this.pvp = pvp;
         this.importe = importe;
-        this.sumacantidad=sumacantidad;
-        this.restacantidad=restacantidad;
+        this.idproducto = idproducto;
+        this.sumacantidad = sumacantidad;
+        this.restacantidad = restacantidad;
+    }
+
+    public ViewHolderCuenta(Customfont uds, Customfont descripcion, Customfont pvp, Customfont importe,  TextView idproducto) {
+        this.uds = uds;
+        this.descripcion = descripcion;
+        this.pvp = pvp;
+        this.importe = importe;
+        this.idproducto = idproducto;
+
     }
 
     public Customfont getUds() {

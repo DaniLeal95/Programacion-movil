@@ -97,8 +97,6 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
                 int cantidad = 1;
                 Producto p = u.getProductoxid(id);
 
-
-
                 DetallesCuenta dc = new DetallesCuenta(p,cantidad);
                 u.InsertarnuevoPedidoenComanda(dc);
 

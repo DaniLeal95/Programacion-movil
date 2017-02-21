@@ -1,6 +1,7 @@
 package com.iesnervion.dleal.appfebrerobar;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -11,9 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapterCuenta;
+import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.ViewHolderCuenta;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.PostNuevaComandaCallback;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.OnSwipeTouchListener;
@@ -38,14 +42,16 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener{
     private int nummesa;
     private boolean hayconexion;
     private AlertDialog dialog;
-
+    private MiarrayAdapterCuenta miarrayAdapterCuenta;
+    private List<DetallesCuenta> detalles;
+    private Utilidades utilidades;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_comanda);
 
-
+    utilidades=  new Utilidades(this);
         lblprecio =(Customfont) findViewById(R.id.lblprecionewComanda);
 
         realizarPedido = (Button) findViewById(R.id.btnrealizarPedido);
@@ -61,8 +67,8 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener{
 
 
 
-        Utilidades u = new Utilidades(this);
-        List<DetallesCuenta> detalles=u.getDetallesNuevaComanda();
+        final Utilidades u = new Utilidades(this);
+        detalles=u.getDetallesNuevaComanda();
 
         double preciofinal=0.0;
 
@@ -72,9 +78,39 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener{
 
         preciofinal= Math.floor(preciofinal*100)/100;
         lblprecio.setText(""+preciofinal+"€");
-        setListAdapter(new MiarrayAdapterCuenta(this,R.layout.cuenta,detalles));
 
 
+        miarrayAdapterCuenta = new MiarrayAdapterCuenta(this,R.layout.cuenta,detalles, new View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View v) {
+                //SUMAR UNA CANTIDAD
+               RelativeLayout rl =(RelativeLayout) v.getParent();
+
+                TextView lblid = (TextView) rl.findViewById(R.id.idNewCuenta);
+                int id = Integer.parseInt((String) lblid.getText());
+                utilidades.modificacantidadNuevoPedido(1,id);
+                detalles=utilidades.getDetallesNuevaComanda();
+                actualizavista();
+            }
+        },new View.OnClickListener(){
+            @Override
+            public void onClick(android.view.View v) {
+                //RESTAR UNA CANTIDAD
+                RelativeLayout rl =(RelativeLayout) v.getParent();
+
+                TextView lblid = (TextView) rl.findViewById(R.id.idNewCuenta);
+                int id = Integer.parseInt((String) lblid.getText());
+                utilidades.modificacantidadNuevoPedido(-1,id);
+                detalles=utilidades.getDetallesNuevaComanda();
+
+
+                actualizavista();
+                }
+            }
+        );
+
+
+        setListAdapter(miarrayAdapterCuenta);
 
         realizarPedido.setOnClickListener(this);
         seguirComprando.setOnClickListener(this);
@@ -82,7 +118,25 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener{
     }
 
 
+    public void actualizavista(){
 
+        miarrayAdapterCuenta.clear();
+
+        miarrayAdapterCuenta.addAll(detalles);
+        miarrayAdapterCuenta.notifyDataSetChanged();
+
+        double preciofinal=0.0;
+
+        for(int i =0 ;i<detalles.size();i++){
+            preciofinal+=(detalles.get(i).getProducto().getPrecio()*detalles.get(i).getCantidad());
+        }
+
+        preciofinal= Math.floor(preciofinal*100)/100;
+        lblprecio.setText(""+preciofinal+"€");
+
+
+
+    }
 
 
 

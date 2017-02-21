@@ -12,10 +12,12 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iesnervion.dleal.appfebrerobar.R;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.OnSwipeTouchListener;
+import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 import com.iesnervion.dleal.appfebrerobar.customfont.Customfont;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
 import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
@@ -30,10 +32,21 @@ import java.util.List;
 
 public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
 
-    private GestureDetector mGestureDetector;
+    private Utilidades utilidades;
+    private DetallesCuenta dc;
+    private View.OnClickListener listenermas;
+    private View.OnClickListener listenermenos;
+    private boolean cantidadmodificadora=false;
 
+    public MiarrayAdapterCuenta(Context context, int resource, List<DetallesCuenta> productos,View.OnClickListener listenermas,View.OnClickListener listenermenos) {
+        super(context, resource, productos);
+        cantidadmodificadora = true;
+        this.listenermas =listenermas;
+        this.listenermenos = listenermenos;
+    }
     public MiarrayAdapterCuenta(Context context, int resource, List<DetallesCuenta> productos) {
         super(context, resource, productos);
+        cantidadmodificadora = false;
     }
 
     @Override
@@ -41,22 +54,33 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
                         ViewGroup parent){
         View row = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        ViewHolderCuenta viewHolder;
+        final ViewHolderCuenta viewHolder;
+
 
         if (row==null){
 
             row = inflater.inflate(R.layout.cuenta,parent,false);
 
-            //TODO aqui me quedo
+
 
             Customfont lbluds = (Customfont) row.findViewById(R.id.lblcuentaunidades);
             Customfont lbldescripcion  = (Customfont) row.findViewById(R.id.lblcuentadescripcion);
             Customfont lblpvp  = (Customfont) row.findViewById(R.id.lblcuentapvp);
             Customfont importe = (Customfont) row.findViewById(R.id.lblcuentapreciototal);
-            ImageButton sumacantidad = (ImageButton) row.findViewById(R.id.sumacantidad);
-            ImageButton restacantidad = (ImageButton) row.findViewById(R.id.restacantidad);
+            TextView idinvisible = (TextView) row.findViewById(R.id.idNewCuenta);
+            if(cantidadmodificadora) {
+                ImageButton sumacantidad = (ImageButton) row.findViewById(R.id.sumacantidad);
+                ImageButton restacantidad = (ImageButton) row.findViewById(R.id.restacantidad);
+                viewHolder = new ViewHolderCuenta(lbluds,lbldescripcion,lblpvp,importe,sumacantidad,restacantidad,idinvisible);
+            }
+            else{
+                ImageButton sumacantidad = null;
+                ImageButton restacantidad = null;
+                viewHolder = new ViewHolderCuenta(lbluds,lbldescripcion,lblpvp,importe,idinvisible);
+            }
 
-            viewHolder = new ViewHolderCuenta(lbluds,lbldescripcion,lblpvp,importe,sumacantidad,restacantidad);
+
+
             row.setTag(viewHolder);
 
 
@@ -66,8 +90,8 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
         }
 
 
-
-        DetallesCuenta dc = getItem(position);
+        utilidades = new Utilidades(row.getContext());
+        dc = getItem(position);
         double importe = dc.getProducto().getPrecio()*dc.getCantidad();
 
         importe= Math.floor(importe*100)/100;
@@ -75,30 +99,29 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
 
         ImageButton sumacantidad = viewHolder.getSumacantidad();
         ImageButton restacantidad = viewHolder.getRestacantidad();
+
+
+
         Customfont lbluds = viewHolder.getUds();
         Customfont lbldescripcion  = viewHolder.getDescripcion();
         Customfont lblpvp  = viewHolder.getPvp();
         Customfont lblimporte = viewHolder.getImporte();
+        TextView idinvisible = viewHolder.getIdproducto();
 
+        idinvisible.setText(String.valueOf(dc.getProducto().getIdproducto()));
         lbluds.setText(String.valueOf(dc.getCantidad()));
         lbldescripcion.setText(dc.getProducto().getNombre());
         lblpvp.setText(dc.getProducto().getPrecio()+"€");
         lblimporte.setText(String.valueOf(importe)+"€");
 
 
-        sumacantidad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(),String.valueOf(getItem(position).getCantidad()),Toast.LENGTH_SHORT).show();
-            }
-        });
-        restacantidad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(),String.valueOf(getItem(position).getCantidad()),Toast.LENGTH_SHORT).show();
-            }
-        });
+        if(cantidadmodificadora) {
+            sumacantidad.setVisibility(View.VISIBLE);
+            restacantidad.setVisibility(View.VISIBLE);
 
+            sumacantidad.setOnClickListener(listenermas);
+            restacantidad.setOnClickListener(listenermenos);
+        }
 
         return row;
     }

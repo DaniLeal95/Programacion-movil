@@ -29,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.R.id.list;
 
-public class NuevaComanda extends ListActivity implements View.OnClickListener, OnSwipeTouchListener.SwipeListener{
+public class NuevaComanda extends ListActivity implements View.OnClickListener{
 
     private Cuenta c = null;
     private Customfont lblprecio;
@@ -38,14 +38,13 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener, 
     private int nummesa;
     private boolean hayconexion;
     private AlertDialog dialog;
-    private ListView listView;
-    private OnSwipeTouchListener.SwipeListener mSwipeListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_comanda);
-        listView =(ListView) findViewById(list);
+
 
         lblprecio =(Customfont) findViewById(R.id.lblprecionewComanda);
 
@@ -76,23 +75,12 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener, 
         setListAdapter(new MiarrayAdapterCuenta(this,R.layout.cuenta,detalles));
 
 
-        //TODO AQUI ME QUEDO
-        // Set the touch listener
-        final OnSwipeTouchListener swipeDetector = new OnSwipeTouchListener(this);
-        swipeDetector.setSwipeListener(mSwipeListener);
-        listView.setOnTouchListener(swipeDetector);
 
         realizarPedido.setOnClickListener(this);
         seguirComprando.setOnClickListener(this);
 
-
     }
 
-    @Override
-    public void onSwipe(int event, OnSwipeTouchListener.Action action, float x) {
-
-        Toast.makeText(this,action.toString() , Toast.LENGTH_SHORT).show();
-    }
 
 
 

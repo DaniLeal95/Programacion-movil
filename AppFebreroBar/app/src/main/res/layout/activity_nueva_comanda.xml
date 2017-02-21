@@ -13,37 +13,72 @@
     tools:context="com.iesnervion.dleal.appfebrerobar.NuevaComanda">
 
 
-    <com.shaishavgandhi.loginbuttons.FacebookButton
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnrealizarPedido"
-        android:text="Realizar Pedido"
+        android:id="@+id/seccionbotones"
         android:layout_alignParentBottom="true"
-        app:roundedCorner="true"
-        app:transparentBackground="true"
-        app:roundedCornerRadius="75dp"
-        app:iconSize="0dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="5dp"
+        >
 
-        />
+        <com.shaishavgandhi.loginbuttons.FacebookButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:foregroundGravity="left"
+            android:id="@+id/btnseguircomprando"
+            android:text="Seguir Comprando"
+            app:roundedCorner="true"
+            app:transparentBackground="true"
+            app:roundedCornerRadius="30dp"
+            app:iconSize="0dp"
+            android:layout_marginRight="5dp"
+            />
 
-    <com.shaishavgandhi.loginbuttons.FacebookButton
-        android:layout_width="match_parent"
+        <com.shaishavgandhi.loginbuttons.FacebookButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:foregroundGravity="center_horizontal"
+            android:id="@+id/btnrealizarPedido"
+            android:text="Realizar Pedido"
+            app:roundedCorner="true"
+            app:transparentBackground="true"
+            app:roundedCornerRadius="75dp"
+            app:iconSize="0dp"
+
+            />
+        </LinearLayout>
+
+
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btnrealizarPedido"
-        android:layout_marginBottom="20dp"
-        android:id="@+id/btnseguircomprando"
-        android:text="Seguir Comprando"
-        app:roundedCorner="true"
-        app:transparentBackground="true"
-        app:roundedCornerRadius="75dp"
-        app:iconSize="0dp"
+        android:layout_above="@id/seccionbotones"
+        android:id="@+id/lblTotalCuentaprecionewComanda"
+        android:text="Total Pedido"
+        android:textAlignment="center"
+        android:textSize="30dp"/>
 
-        />
-    <RelativeLayout
+    <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/seccionbotones"
+        android:layout_toRightOf="@id/lblTotalCuentaprecionewComanda"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/lblprecionewComanda"
+        android:text="999€"
+        android:textAlignment="center"
+        android:textSize="30dp"/>
+
+       <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rllista"
-        android:layout_above="@id/btnseguircomprando"
+        android:layout_above="@id/lblTotalCuentaprecionewComanda"
         android:layout_marginBottom="20dp"
         >
 
@@ -53,11 +88,25 @@
             android:id="@+id/lblnumMesanewComanda"
             android:text="Nueva Cuenta"
             android:textAlignment="center"
-            android:textSize="30dp"/>
+            android:textSize="30dp"
+            android:layout_marginBottom="3dp"
+            />
 
-        <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:layout_marginBottom="5dp"
+               android:background="@color/blanco"
+               android:layout_above="@+id/lblunidadesnewComanda"
+               android:layout_alignParentStart="true"
+               android:id="@+id/view" />
+
+           <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/lblunidadesnewComanda"
             android:layout_below="@id/lblnumMesanewComanda"
             android:text="Uds"
@@ -67,17 +116,19 @@
         <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:id="@+id/lbldescripcionnewComanda"
             android:layout_below="@id/lblnumMesanewComanda"
             android:text="Descripcion"
             android:layout_toRightOf="@id/lblunidadesnewComanda"
             android:textAlignment="textStart"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="45dp"
             />
 
         <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:id="@+id/lblimportenewComanda"
             android:layout_below="@id/lblnumMesanewComanda"
             android:text="Importe"
@@ -89,6 +140,7 @@
         <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:id="@+id/lblpvpnewComanda"
             android:layout_below="@id/lblnumMesanewComanda"
             android:text="PVP"
@@ -103,26 +155,8 @@
             android:layout_below="@id/lblunidadesnewComanda"
             android:id="@android:id/list"/>
 
-        <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/lblTotalCuentaprecionewComanda"
-            android:text="Total Pedido"
-            android:textAlignment="center"
-            android:textSize="30dp"/>
 
-        <com.iesnervion.dleal.appfebrerobar.customfont.Customfont
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/lblTotalCuentaprecionewComanda"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/lblprecionewComanda"
-            android:text="999€"
-            android:textAlignment="center"
-            android:textSize="30dp"/>
-    </RelativeLayout>
+       </RelativeLayout>
 
 
 

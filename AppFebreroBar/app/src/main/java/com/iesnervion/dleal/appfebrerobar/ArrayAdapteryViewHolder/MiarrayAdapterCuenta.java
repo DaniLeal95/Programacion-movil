@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -36,7 +37,7 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
     }
 
     @Override
-    public View getView(int position, View convertView,
+    public View getView(final int position, View convertView,
                         ViewGroup parent){
         View row = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -52,8 +53,10 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
             Customfont lbldescripcion  = (Customfont) row.findViewById(R.id.lblcuentadescripcion);
             Customfont lblpvp  = (Customfont) row.findViewById(R.id.lblcuentapvp);
             Customfont importe = (Customfont) row.findViewById(R.id.lblcuentapreciototal);
+            ImageButton sumacantidad = (ImageButton) row.findViewById(R.id.sumacantidad);
+            ImageButton restacantidad = (ImageButton) row.findViewById(R.id.restacantidad);
 
-            viewHolder = new ViewHolderCuenta(lbluds,lbldescripcion,lblpvp,importe);
+            viewHolder = new ViewHolderCuenta(lbluds,lbldescripcion,lblpvp,importe,sumacantidad,restacantidad);
             row.setTag(viewHolder);
 
 
@@ -70,6 +73,8 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
         importe= Math.floor(importe*100)/100;
 
 
+        ImageButton sumacantidad = viewHolder.getSumacantidad();
+        ImageButton restacantidad = viewHolder.getRestacantidad();
         Customfont lbluds = viewHolder.getUds();
         Customfont lbldescripcion  = viewHolder.getDescripcion();
         Customfont lblpvp  = viewHolder.getPvp();
@@ -81,6 +86,18 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
         lblimporte.setText(String.valueOf(importe)+"€");
 
 
+        sumacantidad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),String.valueOf(getItem(position).getCantidad()),Toast.LENGTH_SHORT).show();
+            }
+        });
+        restacantidad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),String.valueOf(getItem(position).getCantidad()),Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         return row;

@@ -1,0 +1,67 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.iesnervion.dleal.examensegundaevaluacion.Fragments.DetailEditPersona">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtnombrefragment"
+            android:hint="Nombre..."
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtEdadfragment"
+            android:hint="Edad..."
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txttelefonofragment"
+            android:hint="Telefono..."
+            />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Sexo"
+            android:layout_marginTop="20dp"
+            />
+
+
+
+        <RadioButton
+            android:text="Hombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/rbhombre"
+
+            />
+
+        <RadioButton
+            android:text="Mujer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rbmujer"
+
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:id="@+id/btnAceptar"
+            android:text="ACEPTAR"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+
+</FrameLayout>

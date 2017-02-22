@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ExamenSegundaEvaluacion</string>
+    <string name="title_opcion_detail">Opcion Detail</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

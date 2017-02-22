@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:baselineAligned="false"
+    android:divider="?android:attr/dividerHorizontal"
+    android:orientation="horizontal"
+    android:showDividers="middle"
+    tools:context="com.iesnervion.dleal.examensegundaevaluacion.OpcionListActivity">
+
+    <!--
+    This layout is a two-pane layout for the Opciones
+    master/detail flow.
+    
+    -->
+
+    <ListView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/opcion_list"
+        android:name="com.iesnervion.dleal.examensegundaevaluacion.OpcionListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="70"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        />
+
+
+    <FrameLayout
+        android:id="@+id/opcion_detail_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="30" />
+
+</LinearLayout>

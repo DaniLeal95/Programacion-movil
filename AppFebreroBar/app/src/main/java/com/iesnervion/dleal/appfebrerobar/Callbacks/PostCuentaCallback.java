@@ -7,6 +7,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializer;
 import com.iesnervion.dleal.appfebrerobar.LoginMesa;
+import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +30,11 @@ public class PostCuentaCallback implements Callback<Object> {
 
     @Override
     public void onResponse(Call<Object> call, Response<Object> response) {
-        main.esperaCuenta();
+
+
+
+        main.getCuentadespuesdepost();
+
     }
 
     @Override

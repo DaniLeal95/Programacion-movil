@@ -46,6 +46,8 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener{
     private List<DetallesCuenta> detalles;
     private Utilidades utilidades;
 
+    private int idProductoSeleccionado;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,15 +98,38 @@ public class NuevaComanda extends ListActivity implements View.OnClickListener{
             @Override
             public void onClick(android.view.View v) {
                 //RESTAR UNA CANTIDAD
+
                 RelativeLayout rl =(RelativeLayout) v.getParent();
 
                 TextView lblid = (TextView) rl.findViewById(R.id.idNewCuenta);
-                int id = Integer.parseInt((String) lblid.getText());
-                utilidades.modificacantidadNuevoPedido(-1,id);
-                detalles=utilidades.getDetallesNuevaComanda();
+                idProductoSeleccionado = Integer.parseInt((String) lblid.getText());
+                if(utilidades.getcantidadxid(idProductoSeleccionado)>1) {
+
+                    utilidades.modificacantidadNuevoPedido(-1, idProductoSeleccionado);
+                    detalles = utilidades.getDetallesNuevaComanda();
+                    actualizavista();
+                }
+
+                else{
+                    dialog = new AlertDialog.Builder(main)
+                            .setTitle("Eliminar Prodructo")
+                            .setMessage("De verdad desea eliminar el producto de tu pedido?")
+                            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    utilidades.eliminaproductoNuevaComandaxid(idProductoSeleccionado);
+                                    detalles = utilidades.getDetallesNuevaComanda();
+                                    actualizavista();
+                                }
+                            })
+                            .setNegativeButton("No",null)
+                            .create();
+
+                    dialog.show();
+                }
 
 
-                actualizavista();
+
                 }
             }
         );

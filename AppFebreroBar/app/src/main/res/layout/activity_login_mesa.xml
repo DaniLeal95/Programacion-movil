@@ -21,17 +21,8 @@
         android:layout_centerHorizontal="true"/>
 
 
-    <com.shaishavgandhi.loginbuttons.FacebookButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnLoginMesa"
-        android:text="Asignar Mesa"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        app:roundedCorner="true"
-        app:transparentBackground="true"
-        app:roundedCornerRadius="75dp"
-        app:iconSize="0dp"/>
+
+
 
 
 
@@ -61,10 +52,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnscan"
-        android:text="Scannea el codigo qr"
+        android:text="Scannea el codigo"
         android:layout_alignParentStart="true"
-        android:layout_above="@id/btnLoginMesa"
         android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
         app:roundedCorner="true"
         app:transparentBackground="true"
         app:roundedCornerRadius="75dp"

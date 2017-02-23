@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,12 +18,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.iesnervion.dleal.appfebrerobar.Callbacks.ObtenerCuentaFragmentCallback;
 import com.iesnervion.dleal.appfebrerobar.Fragments.BebidasFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.CuentaFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.TapasCalientesFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.TapasFriasFragment;
+import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Principal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, BebidasFragment.OnFragmentInteractionListener, TapasCalientesFragment.OnFragmentInteractionListener,TapasFriasFragment.OnFragmentInteractionListener, CuentaFragment.OnFragmentInteractionListener{
@@ -70,10 +77,9 @@ public class Principal extends AppCompatActivity
         setTitle("Tu cuenta");
         this.nummesa= bundle.getInt("nummesa");
 
+
         Fragment f = new CuentaFragment();
         this.getSupportFragmentManager().beginTransaction().replace(R.id.content_principal, f).commit();
-
-
     }
 
     @Override
@@ -177,15 +183,6 @@ public class Principal extends AppCompatActivity
         alert.show();
 
     }
-
-
-
-
-
-
-
-
-
 
 
 

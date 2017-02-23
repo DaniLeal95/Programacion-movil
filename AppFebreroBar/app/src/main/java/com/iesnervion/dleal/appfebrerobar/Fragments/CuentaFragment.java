@@ -20,6 +20,7 @@ import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapter
 import com.iesnervion.dleal.appfebrerobar.Callbacks.ObtenerCuentaFragmentCallback;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.ObtenerCuentaLoginCallback;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
+import com.iesnervion.dleal.appfebrerobar.LoginMesa;
 import com.iesnervion.dleal.appfebrerobar.R;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 import com.iesnervion.dleal.appfebrerobar.customfont.Customfont;
@@ -227,9 +228,14 @@ public class CuentaFragment extends ListFragment implements DialogInterface.OnCl
     }
 
 
+
+
     //TODO HACER ESTA FUNCIONALIDAD
     public void cuentaExpirada(){
         Toast.makeText(this.getContext(),"Su cuenta ha expirado",Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this.getContext(),LoginMesa.class);
+        startActivity(i);
+
     }
 
 
@@ -249,6 +255,5 @@ public class CuentaFragment extends ListFragment implements DialogInterface.OnCl
             this.getCuenta(this.nummesa);
         }
     }
-
 }
 

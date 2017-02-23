@@ -140,6 +140,11 @@ public class Utilidades {
 
     }
 
+
+    public void eliminaproductoNuevaComandaxid(int idproducto){
+        db.delete(DetallesCuentasNuevaComanda.DETALLES_CUENTA_TABLE_NAME,DetallesCuentasNuevaComanda.DETALLES_CUENTA_IDPRODUCTO+"="+idproducto,null);
+    }
+
     public void insertCuenta(Cuenta cuenta){
         ContentValues valores=new ContentValues();
         valores.put(Cuentas._ID,cuenta.getIdcuenta());

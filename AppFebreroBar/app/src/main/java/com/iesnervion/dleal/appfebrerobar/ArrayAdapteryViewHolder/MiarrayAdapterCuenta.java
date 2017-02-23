@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -77,6 +78,7 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
                 ImageButton sumacantidad = null;
                 ImageButton restacantidad = null;
                 viewHolder = new ViewHolderCuenta(lbluds,lbldescripcion,lblpvp,importe,idinvisible);
+                row.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,140));
             }
 
 
@@ -121,6 +123,7 @@ public class MiarrayAdapterCuenta extends ArrayAdapter<DetallesCuenta> {
 
             sumacantidad.setOnClickListener(listenermas);
             restacantidad.setOnClickListener(listenermenos);
+
         }
 
         return row;

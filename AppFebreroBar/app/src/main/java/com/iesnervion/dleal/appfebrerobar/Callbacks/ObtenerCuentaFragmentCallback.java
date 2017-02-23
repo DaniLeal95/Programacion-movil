@@ -2,6 +2,7 @@ package com.iesnervion.dleal.appfebrerobar.Callbacks;
 
 import com.iesnervion.dleal.appfebrerobar.Fragments.CuentaFragment;
 import com.iesnervion.dleal.appfebrerobar.LoginMesa;
+import com.iesnervion.dleal.appfebrerobar.Principal;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
 import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
@@ -35,10 +36,6 @@ public class ObtenerCuentaFragmentCallback  implements Callback<List<Cuenta>> {
                 c.setDetallesCuentas(new ArrayList<DetallesCuenta>());
             }
 
-
-
-
-            //Si la cuenta en la que estaba antes es la misma
             if(u.getCuenta()==null ) {
 
                 u.borrarCuenta();
@@ -46,6 +43,7 @@ public class ObtenerCuentaFragmentCallback  implements Callback<List<Cuenta>> {
 
                 main.esperaCuenta(c);
             }
+            //Si la cuenta en la que estaba antes es la misma
             else if(u.getCuenta().getIdcuenta()==c.getIdcuenta()){
                     u.borrarCuenta();
                     u.insertCuenta(c);

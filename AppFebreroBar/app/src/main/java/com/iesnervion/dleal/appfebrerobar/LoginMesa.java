@@ -37,7 +37,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginMesa extends AppCompatActivity implements View.OnClickListener {
 
 
-    private Button btnasignarmesa;
+
     private Button btnscan;
     private EditTextMod nombre;
 
@@ -63,8 +63,6 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
         getMesas();
 
 
-        btnasignarmesa = (Button) findViewById(R.id.btnLoginMesa);
-        btnasignarmesa.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
 
         btnscan = (Button) findViewById(R.id.btnscan);
         btnscan.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
@@ -72,7 +70,7 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
         nombre = (EditTextMod) findViewById(R.id.txtnombre);
         nombre.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/EraserDust.ttf"));
-        btnasignarmesa.setOnClickListener(this);
+
         btnscan.setOnClickListener(this);
 
 
@@ -84,38 +82,6 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
         Utilidades utilidades = new Utilidades(v.getContext());
 
         switch (v.getId()) {
-
-            case R.id.btnLoginMesa:
-                if (!this.codigomesa.equals("")) {
-
-
-
-
-                if (valido) {
-
-                    //Si la clave de la mesa es correcta
-
-
-
-                    //this.cuenta=utilidades.getCuenta();
-
-                    //Aqui falta hacer la llamada a la api para coger la ultima cuenta
-
-
-
-                    getCuenta(this.m.getNummesa());
-
-
-
-
-                } else {
-                    Toast.makeText(this, "Este codigo no corresponde a ninguna mesa", Toast.LENGTH_SHORT).show();
-                }
-
-                } else {
-                 Toast.makeText(this, "Por favor, inserta el codigo para poder registrarte en la mesa", Toast.LENGTH_SHORT).show();
-                }
-                break;
 
 
             case R.id.btnscan:
@@ -159,6 +125,16 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
 
                 if(valido) {
                     Toast.makeText(this, "Codigo Escaneado", Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
+                        getCuenta(this.m.getNummesa());
+
+
+
                 }
                 else{
                     Toast.makeText(this, "Codigo ERRONEO", Toast.LENGTH_SHORT).show();
@@ -251,6 +227,11 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
             i.putExtra("nombreCuenta", nombre.getText().toString());
         }
         startActivity(i);
+    }
+
+    public void getCuentadespuesdepost(){
+
+        this.getCuenta(this.m.getNummesa());
     }
 
 

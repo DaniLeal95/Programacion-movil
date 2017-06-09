@@ -31,8 +31,6 @@ public class PostCuentaCallback implements Callback<Object> {
     @Override
     public void onResponse(Call<Object> call, Response<Object> response) {
 
-
-
         main.getCuentadespuesdepost();
 
     }

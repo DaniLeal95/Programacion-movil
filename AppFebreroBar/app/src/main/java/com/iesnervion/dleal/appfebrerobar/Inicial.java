@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -38,6 +40,20 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         inicial = this;
 
+        Intent i= getIntent();
+
+        Bundle bundle= i.getExtras();
+
+        if(bundle != null) {
+            if (bundle.getBoolean("cerrar")) {
+
+                //  super.onDestroy();
+
+                // moveTaskToBack(true);
+                android.os.Process.killProcess(android.os.Process.myPid());
+                //System.exit(1);
+            }
+        }
 
         setContentView(R.layout.activity_inicial);
 
@@ -57,9 +73,8 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btnpedirmesa:
                 i = new Intent(this, LoginMesa.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i);
-                finish();
+
+
                 break;
             case R.id.btnverCarta:
                 i = new Intent(this, Carta.class);
@@ -69,8 +84,10 @@ public class Inicial extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-
-
+    @Override
+    public void onBackPressed() {
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
 
 
 

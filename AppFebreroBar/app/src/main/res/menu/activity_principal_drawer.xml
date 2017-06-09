@@ -5,24 +5,14 @@
         android:id="@+id/tucuenta"
         android:icon="@drawable/invoice"
     />
-    <item android:title="Carta">
+    <item android:title="Info">
         <menu>
+
         <item
-            android:id="@+id/itembebidas"
-            android:icon="@drawable/beer"
-            android:title="Bebidas" />
-        <item
-            android:id="@+id/itemtapasfrias"
-            android:icon="@drawable/shrimp"
-            android:title="Tapas frias" />
-        <item
-            android:id="@+id/itemtapascalientes"
-            android:icon="@drawable/friedchicken"
-            android:title="Tapas Calientes" />
-        <item
-            android:id="@+id/itemfueradecarta"
-            android:icon="@drawable/openmenu"
-            android:title="Fuera de carta" />
+            android:id="@+id/iteminformation"
+            android:icon="@drawable/information"
+            android:title="Información" />
+
         </menu>
     </item>
 

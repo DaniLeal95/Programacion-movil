@@ -1,6 +1,5 @@
 package com.iesnervion.dleal.appfebrerobar.Callbacks;
 
-import com.iesnervion.dleal.appfebrerobar.Fragments.CuentaFragment;
 import com.iesnervion.dleal.appfebrerobar.LoginMesa;
 import com.iesnervion.dleal.appfebrerobar.Principal;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
@@ -15,13 +14,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by Dani on 15/02/2017.
+ * Created by danie on 08/06/2017.
  */
 
-public class ObtenerCuentaLoginCallback implements Callback<List<Cuenta>>{
-    private LoginMesa main;
+public class ObtenerCuentaPrincipalCallback implements Callback<List<Cuenta>> {
+    private Principal main;
 
-    public ObtenerCuentaLoginCallback(LoginMesa main) {
+    public ObtenerCuentaPrincipalCallback(Principal main) {
         this.main = main;
     }
 
@@ -43,16 +42,13 @@ public class ObtenerCuentaLoginCallback implements Callback<List<Cuenta>>{
                 u.borrarCuenta();
                 u.insertCuenta(c);
 
-                main.esperaCuenta();
+                main.cuentaActiva();
 
             }
             //Si la cuenta más reciente de esa mesa está finalizada, debemos generar otra
             else{
-                main.PostCuenta();
+               main.cuentaFinalizada();
             }
-        }
-        else{
-            main.PostCuenta();
         }
 
 
@@ -60,6 +56,6 @@ public class ObtenerCuentaLoginCallback implements Callback<List<Cuenta>>{
 
     @Override
     public void onFailure(Call<List<Cuenta>> call, Throwable t) {
-        main.PostCuenta();
+        //main.PostCuenta();
     }
 }

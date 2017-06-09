@@ -42,18 +42,16 @@ public class ProductosCallback implements Callback<List<Producto>> {
 
 
         BarTrackerDatabaseHelper bbdd = new BarTrackerDatabaseHelper(main);
-        bbdd.insertCarta(response.body());
+        bbdd.insertProductos(response.body());
         main.esperaProductos();
     }
+
+
 
     @Override
     public void onFailure(Call<List<Producto>> call, Throwable t) {
 
-
-
-            Toast.makeText(main,t.toString(),Toast.LENGTH_SHORT).show();
-
-
+        main.errorProductos();
     }
 
 }

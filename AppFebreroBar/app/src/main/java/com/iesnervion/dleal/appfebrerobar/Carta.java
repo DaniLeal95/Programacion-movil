@@ -1,11 +1,8 @@
 package com.iesnervion.dleal.appfebrerobar;
 
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +21,7 @@ import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.CustomExpandab
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 
 
+import com.iesnervion.dleal.appfebrerobar.model.Categoria;
 import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
 
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
@@ -39,11 +37,12 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
 
     ExpandableListView explistview;
 
-    private List<String> tipos;
+    private List<String> categorias;
     private List<Producto> fueradecarta;
     private List<Producto> bebidas;
     private List<Producto> tapasfrias;
     private List<Producto> tapascalientes;
+    private List<Producto> productos;
     private HashMap <String,List<Producto>> hashMap;
     private ImageView anadiralacesta;
     private int nummesa;
@@ -87,7 +86,7 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
 
         getData();
 
-        explistAdapter= new CustomExpandableListAdapter(this,tipos,hashMap,new View.OnClickListener() {
+        explistAdapter= new CustomExpandableListAdapter(this, categorias,hashMap,new View.OnClickListener() {
 
             @Override
             public void onClick(android.view.View v) {
@@ -120,38 +119,21 @@ public class Carta extends AppCompatActivity implements View.OnClickListener {
     public void getData(){
 
         Utilidades u = new Utilidades(this);
-        tipos = new ArrayList<>();
-        tipos.add("Bebidas");
-        tipos.add("Tapas Frias");
-        tipos.add("Tapas Calientes");
-        tipos.add("Fuera de Carta");
+        List<Categoria> categoriasmodel = u.getCategorias();
+        categorias = new ArrayList<>();
 
-
-        bebidas = u.getProductosxCategoria(1);
-        tapasfrias = u.getProductosxCategoria(2);
-        tapascalientes = u.getProductosxCategoria(3);
-        fueradecarta = u.getProductosxCategoria(0);
 
         hashMap = new HashMap<>();
+        productos = new ArrayList<>() ;
 
-        for(int i = 0; i<tipos.size();i++){
-            switch (i) {
-                case 0:
-                    hashMap.put(tipos.get(i),bebidas);
-                    break;
-                case 1:
-                    hashMap.put(tipos.get(i),tapasfrias);
-                    break;
-                case 2:
-                    hashMap.put(tipos.get(i),tapascalientes);
-                    break;
-                case 3:
-                    hashMap.put(tipos.get(i),fueradecarta);
-                    break;
-            }
+        for(int i = 0; i< categoriasmodel.size(); i++){
+            categorias.add(categoriasmodel.get(i).getNombre());
+            productos = u.getProductosxCategoria(categoriasmodel.get(i).getIdcategoria());
+            hashMap.put((categorias.get(i)),productos);
         }
 
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem)

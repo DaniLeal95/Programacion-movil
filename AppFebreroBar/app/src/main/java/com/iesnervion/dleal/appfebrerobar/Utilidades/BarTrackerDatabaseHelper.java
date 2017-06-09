@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Barsqlbbdd.*;
+import com.iesnervion.dleal.appfebrerobar.model.Categoria;
 import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
@@ -39,16 +40,18 @@ public class BarTrackerDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE " + Categoria.CATEGORIA_TABLE_NAME+" ("
-                + Categoria._ID + " INTEGER PRIMARY KEY,"
-                + Categoria.CATEGORIA_NOMBRE + " TEXT"
+        db.execSQL("CREATE TABLE " + Categorias.CATEGORIA_TABLE_NAME+" ("
+                + Categorias._ID + " INTEGER PRIMARY KEY,"
+                + Categorias.CATEGORIA_NOMBRE + " TEXT,"
+                + Categorias.CATEGORIA_OPERATIVO + " INTEGER"
                 + ");");
         db.execSQL("CREATE TABLE " + Productos.PRODUCTOS_TABLE_NAME + " ("
                 + Productos._ID + " INTEGER PRIMARY KEY ,"
                 + Productos.PRODUCTO_NOMBRE + " TEXT,"
                 + Productos.PRODUCTO_PRECIO + " DOUBLE,"
-                + Productos.PRODUCTO_IDCATEGORIA + " INTEGER"
-                + " , FOREIGN KEY ("+Productos.PRODUCTO_IDCATEGORIA+") REFERENCES "+Categoria.CATEGORIA_TABLE_NAME+"("+Categoria._ID+")"
+                + Productos.PRODUCTO_IDCATEGORIA + " INTEGER,"
+                + Productos.PRODUCTO_OPERATIVO + " INTEGER,"
+                + " FOREIGN KEY ("+Productos.PRODUCTO_IDCATEGORIA+") REFERENCES "+Categorias.CATEGORIA_TABLE_NAME+"("+Categorias._ID+")"
                 + ");");
 
         db.execSQL("CREATE TABLE " + Cuentas.CUENTA_TABLE_NAME + " ("
@@ -83,7 +86,7 @@ public class BarTrackerDatabaseHelper extends SQLiteOpenHelper {
         android.util.Log.w("Constants", "Upgrading database, which will destroy allold data");
         db.execSQL("DROP TABLE IF EXISTS " + Cuentas.CUENTA_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + Productos.PRODUCTOS_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + Categoria.CATEGORIA_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + Categorias.CATEGORIA_TABLE_NAME);
         onCreate(db);
     }
 
@@ -93,46 +96,37 @@ public class BarTrackerDatabaseHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public void insertCarta(List<Producto> productos){
-        ContentValues valores = new ContentValues();
+    public void insertProductos(List<Producto> productos){
+        ContentValues valores ;
         SQLiteDatabase db = getWritableDatabase();
-
-
-        //Insertamos las Categorias
-        valores.put(Categoria._ID,1);
-        valores.put(Categoria.CATEGORIA_NOMBRE,"Bebidas");
-
-        db.insert(Categoria.CATEGORIA_TABLE_NAME,null,valores);
-
-        valores.put(Categoria._ID,2);
-        valores.put(Categoria.CATEGORIA_NOMBRE,"Tapas Frias");
-
-        db.insert(Categoria.CATEGORIA_TABLE_NAME,null,valores);
-
-        valores.put(Categoria._ID,3);
-        valores.put(Categoria.CATEGORIA_NOMBRE,"Tapas Calientes");
-
-        db.insert(Categoria.CATEGORIA_TABLE_NAME,null,valores);
-
-
         //Insertamos los productos
-
-
         for(int i=0;i<productos.size();i++){
             valores=new ContentValues();
             Producto p = productos.get(i);
-            valores.put(Productos._ID,p.getIdproducto());
-            valores.put(Productos.PRODUCTO_NOMBRE,p.getNombre());
-            valores.put(Productos.PRODUCTO_PRECIO,p.getPrecio());
-            valores.put(Productos.PRODUCTO_IDCATEGORIA,p.getIdcategoria());
-            db.insert(Productos.PRODUCTOS_TABLE_NAME,null,valores);
-
+            if(p.getOperativo()==1) {
+                valores.put(Productos._ID, p.getIdproducto());
+                valores.put(Productos.PRODUCTO_NOMBRE, p.getNombre());
+                valores.put(Productos.PRODUCTO_PRECIO, p.getPrecio());
+                valores.put(Productos.PRODUCTO_IDCATEGORIA, p.getIdcategoria());
+                valores.put(Productos.PRODUCTO_OPERATIVO, p.getOperativo());
+                db.insert(Productos.PRODUCTOS_TABLE_NAME, null, valores);
+            }
         }
-
-
-
-
-
-
     }
+    public void insertCategorias(List<Categoria> categorias){
+        ContentValues valores ;
+        SQLiteDatabase db = getWritableDatabase();
+        //Insertamos los productos
+        for(int i=0;i<categorias.size();i++){
+            if(categorias.get(i).getOperativo()==1) {
+                valores = new ContentValues();
+                Categoria p = categorias.get(i);
+                valores.put(Categorias._ID, p.getIdcategoria());
+                valores.put(Categorias.CATEGORIA_NOMBRE, p.getNombre());
+                valores.put(Categorias.CATEGORIA_OPERATIVO, p.getOperativo());
+                db.insert(Categorias.CATEGORIA_TABLE_NAME, null, valores);
+            }
+        }
+    }
+
 }

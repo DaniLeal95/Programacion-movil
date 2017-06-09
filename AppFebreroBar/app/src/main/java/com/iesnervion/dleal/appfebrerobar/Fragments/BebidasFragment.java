@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.iesnervion.dleal.appfebrerobar.R;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
-import com.iesnervion.dleal.appfebrerobar.model.ListadoProductos;
 import com.iesnervion.dleal.appfebrerobar.ArrayAdapteryViewHolder.MiarrayAdapterMenu;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
 
@@ -25,7 +24,7 @@ import java.util.List;
  * Use the {@link BebidasFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BebidasFragment extends ListFragment {
+public class BebidasFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,14 +77,11 @@ public class BebidasFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        Utilidades u = new Utilidades(container.getContext());
 
-        productos = u.getProductosxCategoria(1);
 
-        setListAdapter(new MiarrayAdapterMenu(this.getContext(),R.layout.filamenu,productos));
 
-        return inflater.inflate(R.layout.fragment_bebidas, container, false);
+
+        return inflater.inflate(R.layout.fragment_info, container, false);
 
 
     }

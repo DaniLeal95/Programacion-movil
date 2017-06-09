@@ -24,15 +24,19 @@ public class Producto implements Parcelable {
     @SerializedName("idcategoria")
     @Expose
     private Integer idcategoria;
+    @SerializedName("operativo")
+    @Expose
+    private Integer operativo;
 
     public Producto() {
     }
 
-    public Producto(int idproducto, String nombre, double precio, int idcategoria) {
+    public Producto(int idproducto, String nombre, double precio, int idcategoria,int operativo) {
         this.idproducto = idproducto;
         this.idcategoria = idcategoria;
         this.nombre = nombre;
         this.precio = precio;
+        this.operativo = operativo;
     }
 
     public int getIdproducto() {
@@ -67,13 +71,24 @@ public class Producto implements Parcelable {
         this.precio = precio;
     }
 
+    public int getOperativo() {
+        return operativo;
+    }
+
+    public void setOperativo(int operativo) {
+        this.operativo = operativo;
+    }
+
+
+
     @Override
     public String toString() {
         return "Producto{" +
                 "idproducto=" + idproducto +
                 ", idcategoria=" + idcategoria +
                 ", nombre='" + nombre + '\'' +
-                ", precio=" + precio +
+                ", precio=" + precio + '\'' +
+                ", operativo=" + operativo +
                 '}';
     }
 
@@ -88,6 +103,7 @@ public class Producto implements Parcelable {
         dest.writeString(nombre);
         dest.writeDouble(precio);
         dest.writeInt(idcategoria);
+        dest.writeInt(operativo);
     }
 
     protected Producto(Parcel in) {
@@ -95,6 +111,7 @@ public class Producto implements Parcelable {
         nombre = in.readString();
         precio = in.readDouble();
         idcategoria = in.readInt();
+        operativo = in.readInt();
     }
 
     public static final Creator<Producto> CREATOR = new Creator<Producto>() {

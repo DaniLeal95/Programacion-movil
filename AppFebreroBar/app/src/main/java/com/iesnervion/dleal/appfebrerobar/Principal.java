@@ -21,11 +21,13 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.iesnervion.dleal.appfebrerobar.Callbacks.ObtenerCuentaFragmentCallback;
+import com.iesnervion.dleal.appfebrerobar.Callbacks.ObtenerCuentaPrincipalCallback;
 import com.iesnervion.dleal.appfebrerobar.Fragments.BebidasFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.CuentaFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.TapasCalientesFragment;
 import com.iesnervion.dleal.appfebrerobar.Fragments.TapasFriasFragment;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
+import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
 
 import retrofit2.Retrofit;
@@ -57,10 +59,9 @@ public class Principal extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(),Carta.class);
-                i.putExtra("cartaSeleccionable",true);
-                i.putExtra("nummesa",nummesa);
-                startActivity(i);
+                Utilidades u = new Utilidades(main);
+
+                main.getCuenta(u.getCuenta().getNummesa());
             }
         });
 
@@ -112,7 +113,7 @@ public class Principal extends AppCompatActivity
         Fragment f=null;
         boolean fragmentoseleccionado = false;
 
-
+/*
         if (id == R.id.itembebidas) {
             f = new BebidasFragment();
             fragmentoseleccionado = true;
@@ -127,8 +128,9 @@ public class Principal extends AppCompatActivity
             f= new TapasCalientesFragment();
             fragmentoseleccionado=true;
 
-        } else if (id == R.id.itemfueradecarta) {
-
+        }*/ if (id == R.id.iteminformation) {
+            f= new BebidasFragment();
+            fragmentoseleccionado=true;
         }
         else if(id == R.id.tucuenta){
             f= new CuentaFragment();
@@ -164,11 +166,17 @@ public class Principal extends AppCompatActivity
         alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                Principal.super.onDestroy();
+                //Principal.super.onDestroy();
 
-                moveTaskToBack(true);
+                Intent i;
+                i = new Intent(main, Inicial.class);
+                i.putExtra("cerrar",true);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                main.startActivity(i);
+                /*moveTaskToBack(true);
                 android.os.Process.killProcess(android.os.Process.myPid());
-                System.exit(1);
+                main.finish();*/
             }
         });
 
@@ -183,6 +191,48 @@ public class Principal extends AppCompatActivity
         alert.show();
 
     }
+
+    public String codifica64() {
+
+        String credentials = "user:user";
+        String auth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+        //String auth ="Basic dXNlcjp1c2Vy";
+        return auth;
+    }
+
+    public void getCuenta(int nummesa){
+        Retrofit retrofit;
+
+        ObtenerCuentaPrincipalCallback adminCallback = new ObtenerCuentaPrincipalCallback(main);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://dleal.ciclo.iesnervion.es/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IBar adminInter = retrofit.create(IBar.class);
+        String base64 = codifica64();
+        adminInter.getCuentaxmesa(nummesa,base64).enqueue(adminCallback);
+    }
+
+    public void cuentaActiva() {
+        Intent i = new Intent(main,Carta.class);
+        i.putExtra("cartaSeleccionable",true);
+        i.putExtra("nummesa",nummesa);
+        startActivity(i);
+    }
+
+    public void cuentaFinalizada() {
+        Toast.makeText(this,"Cuenta finalizada",Toast.LENGTH_SHORT).show();
+
+        Intent i;
+        i = new Intent(main, Inicial.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        main.startActivity(i);
+    }
+
+
 
 
 

@@ -17,12 +17,14 @@ public final class Barsqlbbdd {
         public static final String PRODUCTO_NOMBRE="producto_nombre";
         public static final String PRODUCTO_PRECIO="producto_precio";
         public static final String PRODUCTO_IDCATEGORIA="producto_IdCategoria";
+        public static final String PRODUCTO_OPERATIVO="producto_operativo";
     }
 
-    public static final class Categoria implements BaseColumns {
-        private Categoria() {}
+    public static final class Categorias implements BaseColumns {
+        private Categorias() {}
         public static final String CATEGORIA_TABLE_NAME="table_categoria";
         public static final String CATEGORIA_NOMBRE="categoria_nombre";
+        public static final String CATEGORIA_OPERATIVO="categoria_operativo";
     }
 
     public static final class DetallesCuentas implements BaseColumns{

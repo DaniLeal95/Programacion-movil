@@ -71,6 +71,8 @@ public class ObtenerCuentaFragmentCallback  implements Callback<List<Cuenta>> {
 
     @Override
     public void onFailure(Call<List<Cuenta>> call, Throwable t) {
-
+        Utilidades u = new Utilidades(main.getContext());
+        u.borrarCuenta();
+        main.cuentaExpirada();
     }
 }

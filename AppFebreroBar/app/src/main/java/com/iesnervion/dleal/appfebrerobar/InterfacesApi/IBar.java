@@ -2,6 +2,8 @@ package com.iesnervion.dleal.appfebrerobar.InterfacesApi;
 
 import android.util.JsonReader;
 
+import com.iesnervion.dleal.appfebrerobar.Utilidades.Barsqlbbdd;
+import com.iesnervion.dleal.appfebrerobar.model.Categoria;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
 import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
 import com.iesnervion.dleal.appfebrerobar.model.Mesa;
@@ -35,11 +37,16 @@ public interface IBar {
     @GET("Producto")
     Call<List<Producto>> getProductos(@Header("Authorization") String  base64);
 
+    @GET("Categoria")
+    Call<List<Categoria>> getCategoria(@Header("Authorization") String  base64);
+
+
     @GET("Mesa")
     Call<List<Mesa>> getMesas(@Header("Authorization")String base64);
 
     @GET("Cuenta/{id}/")
     Call<List<Cuenta>> getCuenta(@Path("id") Integer id, @Header("Authorization")String base64);
+
 
     @GET("Cuenta/mesa/{nummesa}")
     Call<List<Cuenta>> getCuentaxmesa(@Path("nummesa") Integer nummesa, @Header("Authorization")String base64);
@@ -47,7 +54,7 @@ public interface IBar {
 
     @Headers("Content-Type: application/json")
     @POST("Cuenta")
-    Call<Object> postCuenta(@Header("Authorization")String base64, @Body List<Cuenta> cuenta);
+    Call<Object> postCuenta(@Header("Authorization")String base64, @Body Cuenta cuenta);
 
 
 

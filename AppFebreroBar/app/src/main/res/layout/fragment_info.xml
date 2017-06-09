@@ -1,0 +1,87 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.iesnervion.dleal.appfebrerobar.Fragments.BebidasFragment">
+
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="Información"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/titleInfo"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            />
+
+        <TextView
+            android:text="Puedes encontrarnos en:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtmapa"
+            android:layout_below="@id/titleInfo"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="15dp"
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_below="@id/txtmapa"
+            android:id="@+id/mapa"
+            android:src="@drawable/mapa"/>
+
+        <TextView
+            android:text="C/Navarra Nº16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtdireccion"
+            android:layout_below="@id/mapa"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="15dp"
+            />
+
+        <TextView
+            android:text="954765432"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtnumerolocal"
+            android:layout_below="@id/txtdireccion"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="15dp"
+            />
+
+
+
+        <TextView
+            android:text="Autor: Daniel Leal Reyes"
+            android:id="@+id/txtname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_alignParentBottom="true"
+            android:textSize="15dp"
+            />
+
+        <TextView
+            android:text="Proyecto Fin de ciclo 2016/17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_above="@id/txtname"
+            android:layout_marginBottom="30dp"
+            android:textSize="15dp"
+            />
+    </RelativeLayout>
+</FrameLayout>

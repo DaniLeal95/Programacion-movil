@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.iesnervion.dleal.appfebrerobar.model.Categoria;
 import com.iesnervion.dleal.appfebrerobar.model.Cuenta;
 import com.iesnervion.dleal.appfebrerobar.model.DetallesCuenta;
 import com.iesnervion.dleal.appfebrerobar.model.Producto;
@@ -37,16 +38,31 @@ public class Utilidades {
     public List<Producto> getProductosxCategoria(int idcategoria){
         List<Producto> productos = new ArrayList<>();
         Producto p= null;
-        Cursor result = db.rawQuery("SELECT "+ Productos._ID+","+ Productos.PRODUCTO_NOMBRE+","+Productos.PRODUCTO_PRECIO+","+Productos.PRODUCTO_IDCATEGORIA+" FROM "+Productos.PRODUCTOS_TABLE_NAME+" WHERE "+Productos.PRODUCTO_IDCATEGORIA+" = "+idcategoria,null);
+        Cursor result = db.rawQuery("SELECT "+ Productos._ID+","+ Productos.PRODUCTO_NOMBRE+","+Productos.PRODUCTO_PRECIO+","+Productos.PRODUCTO_IDCATEGORIA+","+Productos.PRODUCTO_OPERATIVO+" FROM "+Productos.PRODUCTOS_TABLE_NAME+" WHERE "+Productos.PRODUCTO_IDCATEGORIA+" = "+idcategoria,null);
 
         if(result.moveToFirst()){
 
             do {
-                p = new Producto(result.getInt(0), result.getString(1), result.getDouble(2), result.getInt(3));
+                p = new Producto(result.getInt(0), result.getString(1), result.getDouble(2), result.getInt(3),result.getInt(4));
                 productos.add(p);
             }while(result.moveToNext());
         }
         return productos;
+    }
+
+    public List<Categoria> getCategorias(){
+        List<Categoria> categorias = new ArrayList<>();
+        Categoria c= null;
+        Cursor result = db.rawQuery("SELECT "+ Categorias._ID+","+ Categorias.CATEGORIA_NOMBRE+","+Categorias.CATEGORIA_OPERATIVO+" FROM "+Categorias.CATEGORIA_TABLE_NAME,null);
+
+        if(result.moveToFirst()){
+
+            do {
+                c = new Categoria(result.getInt(0), result.getString(1), result.getInt(2));
+                categorias.add(c);
+            }while(result.moveToNext());
+        }
+        return categorias;
     }
 
 
@@ -54,10 +70,10 @@ public class Utilidades {
 
         Producto p = null;
 
-        Cursor result= db.rawQuery("SELECT "+ Productos._ID+","+ Productos.PRODUCTO_NOMBRE+","+Productos.PRODUCTO_PRECIO+","+Productos.PRODUCTO_IDCATEGORIA+" FROM "+Productos.PRODUCTOS_TABLE_NAME+" WHERE "+Productos._ID+" = "+id,null);
+        Cursor result= db.rawQuery("SELECT "+ Productos._ID+","+ Productos.PRODUCTO_NOMBRE+","+Productos.PRODUCTO_PRECIO+","+Productos.PRODUCTO_IDCATEGORIA+","+Productos.PRODUCTO_OPERATIVO+" FROM "+Productos.PRODUCTOS_TABLE_NAME+" WHERE "+Productos._ID+" = "+id,null);
         if(result.moveToFirst()){
             do {
-                p = new Producto(result.getInt(0),  result.getString(1), result.getDouble(2),result.getInt(3));
+                p = new Producto(result.getInt(0),  result.getString(1), result.getDouble(2),result.getInt(3),result.getInt(4));
             }while(result.moveToNext());
         }
 
@@ -116,7 +132,7 @@ public class Utilidades {
 
             if (result.moveToFirst()) {
                 do {
-                    Producto p = new Producto(result.getInt(0), result.getString(1), result.getDouble(2), result.getInt(3));
+                    Producto p = new Producto(result.getInt(0), result.getString(1), result.getDouble(2), result.getInt(3),result.getInt(4));
                     DetallesCuenta dc = new DetallesCuenta(p, result.getInt(4));
                     detalles.add(dc);
                 } while (result.moveToNext());
@@ -194,7 +210,7 @@ public class Utilidades {
 
         if(result.moveToFirst()){
             do {
-                Producto p = new Producto(result.getInt(0), result.getString(1), result.getDouble(2), result.getInt(3));
+                Producto p = new Producto(result.getInt(0), result.getString(1), result.getDouble(2), result.getInt(3),result.getInt(4));
                 DetallesCuenta dc = new DetallesCuenta(p, result.getInt(4));
                 detalles.add(dc);
             }while(result.moveToNext());
@@ -217,6 +233,11 @@ public class Utilidades {
 
         return idCuenta;
 
+    }
+
+    public void borrarProductos(){
+        db.delete(Productos.PRODUCTOS_TABLE_NAME,null,null);
+        db.delete(Categorias.CATEGORIA_TABLE_NAME,null,null);
     }
 
     //Lo borra TO DO de la tabla Cuenta

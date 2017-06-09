@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.widget.Toast;
 
+import com.iesnervion.dleal.appfebrerobar.Callbacks.CategoriasCallback;
 import com.iesnervion.dleal.appfebrerobar.Callbacks.ProductosCallback;
 import com.iesnervion.dleal.appfebrerobar.InterfacesApi.IBar;
 import com.iesnervion.dleal.appfebrerobar.Utilidades.Utilidades;
@@ -28,8 +29,15 @@ public class SplashActivity extends AppCompatActivity implements DialogInterface
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+
+
         boolean permisosactivados=false;
         Utilidades u = new Utilidades(main);
+        u.borrarProductos();
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.CAMERA)
@@ -44,7 +52,10 @@ public class SplashActivity extends AppCompatActivity implements DialogInterface
         hayconexion= u.hasActiveInternetConnection();
         //Llamada a la api
 
-        if(hayconexion)getProductos();
+        if(hayconexion){
+            getCategorias();
+
+        }
         else {
             dialog = new AlertDialog.Builder(this)
                   .setTitle("Conexion fallida")
@@ -100,6 +111,40 @@ public class SplashActivity extends AppCompatActivity implements DialogInterface
         adminInter.getProductos(base64).enqueue(adminCallback);
     }
 
+    public void getCategorias(){
+        Retrofit retrofit;
+
+        CategoriasCallback adminCallback = new CategoriasCallback(main);
+
+
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://dleal.ciclo.iesnervion.es/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IBar adminInter = retrofit.create(IBar.class);
+        String base64 = codifica64();
+        adminInter.getCategoria(base64).enqueue(adminCallback);
+    }
+
+    //metodo que será llamado desde el Productoscallback si algo falla
+    public void errorProductos(){
+        dialog = new AlertDialog.Builder(this)
+                .setTitle("Conexion fallida")
+                .setMessage("Por favor, revisa tu conexion.")
+                .setPositiveButton("Reintentar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        main.getProductos();
+                    }
+                })
+                .create();
+        dialog.show();
+
+    }
+
+    //metodo que será llamado desde el Productoscallback si t0do va bien
     public void esperaProductos(){
 
 

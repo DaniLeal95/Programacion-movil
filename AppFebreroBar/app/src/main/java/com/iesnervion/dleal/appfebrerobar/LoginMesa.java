@@ -189,13 +189,13 @@ public class LoginMesa extends AppCompatActivity implements View.OnClickListener
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        List<Cuenta> lista = new ArrayList<>();
+
         Cuenta c = new Cuenta(0,this.m.getNummesa(),new ArrayList<DetallesCuenta>(), "",0.0,0);
-        lista.add(c);
+
 
         IBar adminInter = retrofit.create(IBar.class);
         String base64 = codifica64();
-        adminInter.postCuenta(base64,lista).enqueue(cuentaCallback);
+        adminInter.postCuenta(base64,c).enqueue(cuentaCallback);
     }
 
 
